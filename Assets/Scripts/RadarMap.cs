@@ -18,22 +18,22 @@ public class RadarMap : MonoBehaviour
 
     public static void RegisterMapObject(GameObject o, Image i)
     {
-        Image imagae = Instantiate(i);
-        mapObject.Add(new MapObject() { owner = o, icon = i });
+        Image image = Instantiate(i);
+        mapObject.Add(new MapObject() { owner = o, icon = image });
     }
 
     public static void RemoveMapObject(GameObject o)
     {
         List<MapObject> newList = new List<MapObject>();
-        foreach(MapObject m in mapObject)
+        for(int i = 0; i< mapObject.Count;i++)
         {
-            if (m.owner == o)
+            if (mapObject[i].owner == o)
             {
-                Destroy(m.icon);
+                Destroy(mapObject[i].icon.gameObject);
                 continue;
             }
             else
-                newList.Add(m);
+                newList.Add(mapObject[i]);
         }
         mapObject.RemoveRange(0, mapObject.Count);
         mapObject.AddRange(newList);
@@ -43,21 +43,22 @@ public class RadarMap : MonoBehaviour
     {
         foreach(MapObject m in mapObject)
         {
+            Debug.Log(m);
             Vector3 mapPos = (m.owner.transform.position - playerPos.position);
             float dist2Object = Vector3.Distance(playerPos.position, m.owner.transform.position) * mapScale;
             float deltay = Mathf.Atan2(mapPos.x, mapPos.z) * Mathf.Rad2Deg - 270 - playerPos.eulerAngles.y;
+            mapPos.x = dist2Object * Mathf.Cos(deltay * Mathf.Deg2Rad) * -1;
+            mapPos.z = dist2Object * Mathf.Sin(deltay * Mathf.Deg2Rad);
+
+            m.icon.transform.SetParent(this.transform);
+            m.icon.transform.position = new Vector3(mapPos.x, mapPos.z, 0) + this.transform.position;
         }
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
     {
-        
+        DrawMapDots();
     }
 }
