@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6361632616137076202}
   m_Layer: 0
   m_Name: Sphere
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -106,4 +106,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 749d07700578c8e45aaf2f945da58268, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  image: {fileID: 7458491755327139961, guid: 4a3f0944d87455547b69e34ea9547f0e, type: 3}

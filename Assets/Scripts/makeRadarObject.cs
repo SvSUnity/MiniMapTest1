@@ -4,16 +4,15 @@ using UnityEngine;
 using UnityEngine.UI;
 public class makeRadarObject : MonoBehaviour
 {
-    public Image image;
     // Start is called before the first frame update
     void Start()
     {
-        RadarMap.RegisterMapObject(this.gameObject, image);
+        RadarMap.RegisterMapObject(this.gameObject);
     }
-
-
-    void OnDestroy()
+    void OnDisable()
     {
         RadarMap.RemoveMapObject(this.gameObject);
     }
+
+
 }
