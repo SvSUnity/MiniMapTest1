@@ -5,8 +5,32 @@ using UnityEngine.UI;
 
 public class MapObject
 {
-    public Image icon { get; set; }
-    public GameObject owner { get; set; }
+    Image _icon ;
+    GameObject _owner;
+    public Image icon 
+    { 
+        get
+        {
+            return _icon;
+        }
+        
+      
+        set
+        {
+            _icon = value;
+        }
+    }
+    public GameObject owner 
+    { 
+        get
+        {
+            return _owner;
+        }
+        set
+        {
+            _owner = value;
+        }
+    }
 
 }
 
@@ -30,6 +54,7 @@ public class RadarMap : MonoBehaviour
 
     public static void RemoveMapObject(GameObject o)
     {
+        Debug.Log(1);
         //List<MapObject> newList = new List<MapObject>();
         for(int i = 0; i< mapObject.Count;i++)
         {
@@ -64,10 +89,10 @@ public class RadarMap : MonoBehaviour
             Vector3 mapPos = (m.owner.transform.position - playerPos.position);
 
             //실제 오브젝트 사이의 거리 * 맵스케일
-            float dist2Object = Vector3.Distance(playerPos.position, m.owner.transform.position) * mapScale; 
+            float dist2Object = Vector3.Distance(playerPos.position, m.owner.transform.position) * mapScale;
 
             //대상오브젝트의 절대각도
-            float deltay = Mathf.Atan2(mapPos.z, mapPos.x) * Mathf.Rad2Deg + playerPos.eulerAngles.y;
+            float deltay = Mathf.Atan2(mapPos.z, mapPos.x) * Mathf.Rad2Deg+45; //+ playerPos.eulerAngles.y;
 
           
             //미니맵 아이콘x좌표
@@ -77,6 +102,7 @@ public class RadarMap : MonoBehaviour
 
             m.icon.transform.SetParent(this.transform);
             m.icon.transform.position = new Vector3(mapPos.x, mapPos.z, 0) + this.transform.position;
+            m.icon.transform.localScale = new Vector3(1, 1, 1);
         }
     }
 

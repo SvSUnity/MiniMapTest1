@@ -37,14 +37,14 @@ public class PlayerMoveCtrl : MonoBehaviour
             float amtRot = rotSpeed * Time.deltaTime;
 
             //키보드 값을 얻어온다.
-            float ver = Input.GetAxis("Vertical");
-            float ang = Input.GetAxis("Horizontal");
+            float ver = Input.GetAxis("Vertical") + UltimateJoystick.GetVerticalAxis("Test");
+            float hor = Input.GetAxis("Horizontal") + UltimateJoystick.GetHorizontalAxis("Test");
 
             //오브젝트를 회전
-            transform.Rotate(Vector3.up * ang * amtRot);
+            //transform.Rotate(Vector3.up * ang * amtRot);
 
             //방향 벡터를 생성 (현재는 z축만...)
-            moveDirection = new Vector3(0, 0, ver * movSpeed);
+            moveDirection = new Vector3(hor*movSpeed, 0, ver * movSpeed);
 
             // transform.TransformDirection 함수는 인자로 전달된 벡터를 
             // 월드좌표계 기준으로 변환하여 변환된 벡터를 반환해 준다.
