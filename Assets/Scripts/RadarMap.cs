@@ -37,6 +37,7 @@ public class MapObject
 public class RadarMap : MonoBehaviour
 {
     public Transform playerPos;
+    RectTransform Rect;
     public float mapScale = 2f;
 
     public static List<MapObject> mapObject = new List<MapObject>();
@@ -102,10 +103,17 @@ public class RadarMap : MonoBehaviour
 
             m.icon.transform.SetParent(this.transform);
             m.icon.transform.position = new Vector3(mapPos.x, mapPos.z, 0) + this.transform.position;
-            m.icon.transform.localScale = new Vector3(1, 1, 1);
+            m.icon.transform.localScale = new Vector3(Rect.rect.width*0.01f, Rect.rect.width * 0.01f, Rect.rect.width * 0.01f);
+            if(m.icon.tag == "PlayerIcon")
+            {
+
+            }
         }
     }
-
+    void Awake()
+    {
+        Rect = GetComponent<RectTransform>();
+    }
 
     // Update is called once per frame
     void Update()

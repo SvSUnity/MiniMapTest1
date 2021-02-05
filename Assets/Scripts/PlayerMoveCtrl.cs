@@ -2,6 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//미니맵 각도계산에 참조하기위한 플레이어의 x,z
+public class PlayerVector
+{
+
+    Vector3 _playerVector;
+
+    public Vector3 plyaerVector
+    {
+        get
+        {
+            return _playerVector;
+        }
+        set
+        {
+            _playerVector = value;
+        }
+    }
+
+}
 // 테스트는 NavMeshAgent 비활성
 public class PlayerMoveCtrl : MonoBehaviour
 {
@@ -20,7 +39,7 @@ public class PlayerMoveCtrl : MonoBehaviour
 
     // 케릭터 이동 방향
     Vector3 moveDirection;
-
+    public static PlayerVector pVector;
     void Start()
     {
         // 레퍼런스 연결
@@ -39,18 +58,20 @@ public class PlayerMoveCtrl : MonoBehaviour
             //키보드 값을 얻어온다.
             float ver = Input.GetAxis("Vertical") + UltimateJoystick.GetVerticalAxis("Test");
             float hor = Input.GetAxis("Horizontal") + UltimateJoystick.GetHorizontalAxis("Test");
+            Quaternion rot = Quaternion.Euler(0, 45f, 0f);//실제 맵은 쿼터뷰로 45도각도로 기울어져있으므로 벡터를 45도돌려서계산
 
             //오브젝트를 회전
             //transform.Rotate(Vector3.up * ang * amtRot);
 
             //방향 벡터를 생성 (현재는 z축만...)
-            moveDirection = new Vector3(hor*movSpeed, 0, ver * movSpeed);
+            moveDirection = rot * new Vector3(hor*movSpeed, 0, ver * movSpeed);
+            
 
             // transform.TransformDirection 함수는 인자로 전달된 벡터를 
             // 월드좌표계 기준으로 변환하여 변환된 벡터를 반환해 준다.
             //즉, 로컬좌표계 기준의 방향벡터를 > 월드좌표계 기준의 방향벡터로 변환
 
-            moveDirection = transform.TransformDirection(moveDirection);
+            //moveDirection = transform.TransformDirection(moveDirection);
 
             //키보드가 점프 입력일 경우
             if (Input.GetButton("Jump"))

@@ -7,6 +7,7 @@ TagManager:
   - Minimap
   - Enemy
   - MinimapManager
+  - PlayerIcon
   layers:
   - Default
   - TransparentFX
