@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //미니맵 각도계산에 참조하기위한 플레이어의 x,z
-public class PlayerVector
+public class PlayerInfo
 {
 
     Vector3 _playerVector;
@@ -39,7 +39,7 @@ public class PlayerMoveCtrl : MonoBehaviour
 
     // 케릭터 이동 방향
     Vector3 moveDirection;
-    public static PlayerVector pVector;
+    public PlayerInfo playerInfo = new PlayerInfo();
     void Start()
     {
         // 레퍼런스 연결
@@ -58,14 +58,17 @@ public class PlayerMoveCtrl : MonoBehaviour
             //키보드 값을 얻어온다.
             float ver = Input.GetAxis("Vertical") + UltimateJoystick.GetVerticalAxis("Test");
             float hor = Input.GetAxis("Horizontal") + UltimateJoystick.GetHorizontalAxis("Test");
-            Quaternion rot = Quaternion.Euler(0, 45f, 0f);//실제 맵은 쿼터뷰로 45도각도로 기울어져있으므로 벡터를 45도돌려서계산
+            
 
             //오브젝트를 회전
             //transform.Rotate(Vector3.up * ang * amtRot);
 
             //방향 벡터를 생성 (현재는 z축만...)
-            moveDirection = rot * new Vector3(hor*movSpeed, 0, ver * movSpeed);
-            
+            moveDirection = new Vector3(hor*movSpeed, 0, ver * movSpeed);
+
+            playerInfo.plyaerVector = moveDirection.normalized;
+            //Vector3 test = moveDirection.normalized;
+            //Debug.Log(Mathf.Atan2(test.z, test.x) * Mathf.Rad2Deg );
 
             // transform.TransformDirection 함수는 인자로 전달된 벡터를 
             // 월드좌표계 기준으로 변환하여 변환된 벡터를 반환해 준다.
@@ -80,11 +83,11 @@ public class PlayerMoveCtrl : MonoBehaviour
                 moveDirection.y = jumpSpeed;
             }
         }
-
+        Quaternion rot = Quaternion.Euler(0, 45f, 0f);//실제 맵은 쿼터뷰로 45도각도로 기울어져있으므로 방향을 45도돌려서계산
         // 디바이스마다 일정 속도로 케릭에 중력 적용
         moveDirection.y -= gravity * Time.deltaTime;
         // CharacterController의 Move 함수에 방향과 크기의 벡터값을 적용(디바이스마다 일정)
-        controller.Move(moveDirection * Time.deltaTime);
+        controller.Move(rot * moveDirection * Time.deltaTime);
     }
 }
 

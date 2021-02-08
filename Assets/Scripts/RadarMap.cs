@@ -7,6 +7,7 @@ public class MapObject
 {
     Image _icon ;
     GameObject _owner;
+
     public Image icon 
     { 
         get
@@ -37,9 +38,9 @@ public class MapObject
 public class RadarMap : MonoBehaviour
 {
     public Transform playerPos;
-    RectTransform Rect;
+    RectTransform rect;
     public float mapScale = 2f;
-
+    PlayerMoveCtrl player;
     public static List<MapObject> mapObject = new List<MapObject>();
 
     public static void RegisterMapObject(GameObject o)
@@ -93,26 +94,30 @@ public class RadarMap : MonoBehaviour
             float dist2Object = Vector3.Distance(playerPos.position, m.owner.transform.position) * mapScale;
 
             //대상오브젝트의 절대각도
-            float deltay = Mathf.Atan2(mapPos.z, mapPos.x) * Mathf.Rad2Deg+45; //+ playerPos.eulerAngles.y;
+            float deltay = Mathf.Atan2(mapPos.z, mapPos.x) * Mathf.Rad2Deg+45; //+ playerPos.eulerAngles.y; 이거주석안하면 미니맵이 회전함
 
           
-            //미니맵 아이콘x좌표
+            //미니맵 아이콘x,y
             mapPos.x = dist2Object * Mathf.Cos(deltay * Mathf.Deg2Rad);
-            //미니맵 아이콘y좌표
             mapPos.z = dist2Object * Mathf.Sin(deltay * Mathf.Deg2Rad);
 
             m.icon.transform.SetParent(this.transform);
             m.icon.transform.position = new Vector3(mapPos.x, mapPos.z, 0) + this.transform.position;
-            m.icon.transform.localScale = new Vector3(Rect.rect.width*0.01f, Rect.rect.width * 0.01f, Rect.rect.width * 0.01f);
-            if(m.icon.tag == "PlayerIcon")
+            m.icon.transform.localScale = new Vector3(rect.rect.width*0.01f, rect.rect.width * 0.01f, rect.rect.width * 0.01f);
+            if (m.icon.tag == "PlayerIcon")
             {
 
+                float ang = Mathf.Atan2(player.playerInfo.plyaerVector.z, player.playerInfo.plyaerVector.x) * Mathf.Rad2Deg;
+
+                m.icon.transform.rotation = Quaternion.Euler(0, 0, ang);
             }
         }
     }
     void Awake()
     {
-        Rect = GetComponent<RectTransform>();
+        rect = GetComponent<RectTransform>();
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMoveCtrl>();
+
     }
 
     // Update is called once per frame
