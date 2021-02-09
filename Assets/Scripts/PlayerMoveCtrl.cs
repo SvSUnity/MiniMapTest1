@@ -37,34 +37,39 @@ public class PlayerMoveCtrl : MonoBehaviour
     //케릭터 점프 속도
     public float jumpSpeed = 10.0f;
 
+    PhotonView pv;
+
     // 케릭터 이동 방향
     Vector3 moveDirection;
     public PlayerInfo playerInfo = new PlayerInfo();
-    void Start()
+    void Awake()
     {
         // 레퍼런스 연결
         controller = GetComponent<CharacterController>();
+        pv = GetComponent<PhotonView>();
+        if (!pv.isMine)
+            this.tag = "TeamPlayer";
 
     }
 
     void Update()
     {
-        // 만약 콜라이더가 땅에 있을 경우 
-        if (controller.isGrounded)
+        //사용자 자신이 조작할때만 움직임, 다른유저의 조작에 간섭X
+        if(pv.isMine)
         {
+            // 만약 콜라이더가 땅에 있을 경우 
             //디바이스마다 일정한 회전 속도
             float amtRot = rotSpeed * Time.deltaTime;
 
-            //키보드 값을 얻어온다.
-            float ver = Input.GetAxis("Vertical") + UltimateJoystick.GetVerticalAxis("Test");
-            float hor = Input.GetAxis("Horizontal") + UltimateJoystick.GetHorizontalAxis("Test");
-            
+            //인풋입력 키보드+조이스틱
+            float v = Input.GetAxis("Vertical") + UltimateJoystick.GetVerticalAxis("Test");
+            float h = Input.GetAxis("Horizontal") + UltimateJoystick.GetHorizontalAxis("Test");
+
 
             //오브젝트를 회전
             //transform.Rotate(Vector3.up * ang * amtRot);
 
-            //방향 벡터를 생성 (현재는 z축만...)
-            moveDirection = new Vector3(hor*movSpeed, 0, ver * movSpeed);
+            moveDirection = new Vector3(h * movSpeed, 0, v * movSpeed);
 
             playerInfo.plyaerVector = moveDirection.normalized;
             //Vector3 test = moveDirection.normalized;
@@ -74,20 +79,15 @@ public class PlayerMoveCtrl : MonoBehaviour
             // 월드좌표계 기준으로 변환하여 변환된 벡터를 반환해 준다.
             //즉, 로컬좌표계 기준의 방향벡터를 > 월드좌표계 기준의 방향벡터로 변환
 
-            //moveDirection = transform.TransformDirection(moveDirection);
+            moveDirection = transform.TransformDirection(moveDirection);
 
-            //키보드가 점프 입력일 경우
-            if (Input.GetButton("Jump"))
-            {
-                // jumpSpeed 만큼 케릭을 이동
-                moveDirection.y = jumpSpeed;
-            }
+            Quaternion rot = Quaternion.Euler(0, 45f, 0f);//실제 맵은 쿼터뷰로 45도각도로 기울어져있으므로 방향을 45도돌려서계산
+                                                          // 디바이스마다 일정 속도로 케릭에 중력 적용
+            moveDirection.y -= gravity * Time.deltaTime;
+            // CharacterController의 Move 함수에 방향과 크기의 벡터값을 적용(디바이스마다 일정)
+            controller.Move(rot * moveDirection * Time.deltaTime);
         }
-        Quaternion rot = Quaternion.Euler(0, 45f, 0f);//실제 맵은 쿼터뷰로 45도각도로 기울어져있으므로 방향을 45도돌려서계산
-        // 디바이스마다 일정 속도로 케릭에 중력 적용
-        moveDirection.y -= gravity * Time.deltaTime;
-        // CharacterController의 Move 함수에 방향과 크기의 벡터값을 적용(디바이스마다 일정)
-        controller.Move(rot * moveDirection * Time.deltaTime);
+        
     }
 }
 

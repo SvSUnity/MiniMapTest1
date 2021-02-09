@@ -8,6 +8,10 @@ TagManager:
   - Enemy
   - MinimapManager
   - PlayerIcon
+  - Beam
+  - EnemyIcon
+  - TeamIcon
+  - TeamPlayer
   layers:
   - Default
   - TransparentFX

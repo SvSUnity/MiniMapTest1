@@ -7,7 +7,7 @@ public class smoothFollowCam : MonoBehaviour
     // Start is called before the first frame update
 
     //따라다닐 대상
-    public Transform target;
+    Transform target;
     public float distance = 10.0f;
 
     public float height = 5.0f;
@@ -21,8 +21,10 @@ public class smoothFollowCam : MonoBehaviour
     // 주로 카메라의 이동이나 Update와 따로 실행되야 할 로직에 사용
     void LateUpdate()
     {
+
         if (!target)
             return;
+
 
         float wantedRotationAngle = target.eulerAngles.y;
         float wantedHeight = target.position.y + height;
@@ -45,5 +47,10 @@ public class smoothFollowCam : MonoBehaviour
 
         transform.LookAt(target);
 
+    }
+
+    public void SetTarget(Transform tr)
+    {
+        target = tr;
     }
 }

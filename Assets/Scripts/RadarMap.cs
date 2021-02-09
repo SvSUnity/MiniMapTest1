@@ -37,9 +37,9 @@ public class MapObject
 
 public class RadarMap : MonoBehaviour
 {
-    public Transform playerPos;
+    Transform playerPos;
     RectTransform rect;
-    public float mapScale = 2f;
+    public float mapScale = 5f;
     PlayerMoveCtrl player;
     public static List<MapObject> mapObject = new List<MapObject>();
 
@@ -106,18 +106,18 @@ public class RadarMap : MonoBehaviour
             m.icon.transform.localScale = new Vector3(rect.rect.width*0.01f, rect.rect.width * 0.01f, rect.rect.width * 0.01f);
             if (m.icon.tag == "PlayerIcon")
             {
+                if ((Mathf.Abs(player.playerInfo.plyaerVector.x) + Mathf.Abs(player.playerInfo.plyaerVector.z)) > 0)
+                {
+                    float ang = Mathf.Atan2(player.playerInfo.plyaerVector.z, player.playerInfo.plyaerVector.x) * Mathf.Rad2Deg;
+                    m.icon.transform.rotation = Quaternion.Euler(0, 0, ang);
+                }
 
-                float ang = Mathf.Atan2(player.playerInfo.plyaerVector.z, player.playerInfo.plyaerVector.x) * Mathf.Rad2Deg;
-
-                m.icon.transform.rotation = Quaternion.Euler(0, 0, ang);
             }
         }
     }
     void Awake()
     {
         rect = GetComponent<RectTransform>();
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMoveCtrl>();
-
     }
 
     // Update is called once per frame
@@ -134,5 +134,13 @@ public class RadarMap : MonoBehaviour
         {
             Debug.Log(m.owner);
         }
+    }
+
+
+    public void SetPlayerPos(GameObject go)
+    {
+        //포톤서버에서 캐릭터 생성시 포지션가져옴
+        playerPos = go.transform;
+        player = go.GetComponent<PlayerMoveCtrl>();
     }
 }
