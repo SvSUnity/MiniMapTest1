@@ -7,7 +7,10 @@ public class makeRadarObject : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        RadarMap.RegisterMapObject(this.gameObject);
+        if(GetComponent<PhotonView>() != null)
+            RadarMap.RegisterMapObject(this.gameObject,GetComponent<PhotonView>().ownerId);
+        else
+            RadarMap.RegisterMapObject(this.gameObject, 0);
     }
     void OnDisable()
     {

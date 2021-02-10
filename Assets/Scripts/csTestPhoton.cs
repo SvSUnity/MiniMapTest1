@@ -78,7 +78,6 @@ public class csTestPhoton : MonoBehaviour {
     {
         GameObject go = PhotonNetwork.Instantiate("Player", playerPos.position, playerPos.rotation, 0);
         radamap.SetPlayerPos(go);
-        cam.SetTarget(go.transform);
     }
 
 }

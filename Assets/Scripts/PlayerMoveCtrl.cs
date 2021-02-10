@@ -26,7 +26,7 @@ public class PlayerMoveCtrl : MonoBehaviour
 {
     // CharacterController 컴포넌트를 위한 레퍼런스
     CharacterController controller;
-
+    Transform myTr;
     // 중력 
     public float gravity = 20.0f;
 
@@ -38,40 +38,54 @@ public class PlayerMoveCtrl : MonoBehaviour
     public float jumpSpeed = 10.0f;
 
     PhotonView pv;
+    //위치 정보를 송수신할 때 사용할 변수 선언 및 초기값 설정 
+    Vector3 currPos = Vector3.zero;
+    Quaternion currRot = Quaternion.identity;
+
 
     // 케릭터 이동 방향
-    Vector3 moveDirection;
+    public Vector3 moveDirection;
     public PlayerInfo playerInfo = new PlayerInfo();
     void Awake()
     {
         // 레퍼런스 연결
+        myTr = GetComponent<Transform>();
         controller = GetComponent<CharacterController>();
         pv = GetComponent<PhotonView>();
+        pv.ObservedComponents[0] = this;
+        pv.synchronization = ViewSynchronization.UnreliableOnChange;
+        currPos = myTr.position;
         if (!pv.isMine)
+        {
             this.tag = "TeamPlayer";
+
+        }
+        else
+            Camera.main.GetComponent<smoothFollowCam>().target = this.transform;
 
     }
 
     void Update()
     {
+        float v = Input.GetAxis("Vertical") + UltimateJoystick.GetVerticalAxis("Test");
+        float h = Input.GetAxis("Horizontal") + UltimateJoystick.GetHorizontalAxis("Test");
+
+        moveDirection = new Vector3(h * movSpeed, 0, v * movSpeed);
+        playerInfo.plyaerVector = moveDirection.normalized;
+
+
         //사용자 자신이 조작할때만 움직임, 다른유저의 조작에 간섭X
-        if(pv.isMine)
+        if (pv.isMine)
         {
             // 만약 콜라이더가 땅에 있을 경우 
             //디바이스마다 일정한 회전 속도
             float amtRot = rotSpeed * Time.deltaTime;
-
             //인풋입력 키보드+조이스틱
-            float v = Input.GetAxis("Vertical") + UltimateJoystick.GetVerticalAxis("Test");
-            float h = Input.GetAxis("Horizontal") + UltimateJoystick.GetHorizontalAxis("Test");
 
 
             //오브젝트를 회전
             //transform.Rotate(Vector3.up * ang * amtRot);
 
-            moveDirection = new Vector3(h * movSpeed, 0, v * movSpeed);
-
-            playerInfo.plyaerVector = moveDirection.normalized;
             //Vector3 test = moveDirection.normalized;
             //Debug.Log(Mathf.Atan2(test.z, test.x) * Mathf.Rad2Deg );
 
@@ -87,7 +101,39 @@ public class PlayerMoveCtrl : MonoBehaviour
             // CharacterController의 Move 함수에 방향과 크기의 벡터값을 적용(디바이스마다 일정)
             controller.Move(rot * moveDirection * Time.deltaTime);
         }
-        
+        //원격플레이어일때 수행
+        else
+        {
+            myTr.position = Vector3.Lerp(myTr.position, currPos, Time.deltaTime * 3.0f);
+        }
+
+
+
+    }
+    void onPhotonInstantiate(PhotonMessageInfo info)
+    {
+        object[] data = pv.instantiationData;
+        Debug.Log((int)data[0]);
+    }
+    void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        //로컬 플레이어의 위치 정보를 송신
+        if (stream.isWriting)
+        {
+            //박싱
+            stream.SendNext(myTr.position);
+            stream.SendNext(myTr.rotation);
+            stream.SendNext(moveDirection);
+        }
+        //원격 플레이어의 위치 정보를 수신
+        else
+        {
+            //언박싱
+            currPos = (Vector3)stream.ReceiveNext();
+            currRot = (Quaternion)stream.ReceiveNext();
+            moveDirection = (Vector3)stream.ReceiveNext();
+        }
+
     }
 }
 

@@ -7,7 +7,7 @@ public class MapObject
 {
     Image _icon ;
     GameObject _owner;
-
+    int _id;
     public Image icon 
     { 
         get
@@ -32,6 +32,17 @@ public class MapObject
             _owner = value;
         }
     }
+    public int id
+    {
+        get
+        {
+            return _id;
+        }
+        set
+        {
+            _id = value;
+        }
+    }
 
 }
 
@@ -43,7 +54,7 @@ public class RadarMap : MonoBehaviour
     PlayerMoveCtrl player;
     public static List<MapObject> mapObject = new List<MapObject>();
 
-    public static void RegisterMapObject(GameObject o)
+    public static void RegisterMapObject(GameObject o,int playerId)
     {
         //Image image = Instantiate(i);
         Image image = null;
@@ -51,7 +62,7 @@ public class RadarMap : MonoBehaviour
 
         image = MinimapIconManager.instance.GetMinimapIcon(o.tag);
            
-        mapObject.Add(new MapObject() { owner = o, icon = image });
+        mapObject.Add(new MapObject() { owner = o, icon = image , id = playerId});
     }
 
     public static void RemoveMapObject(GameObject o)
@@ -104,8 +115,9 @@ public class RadarMap : MonoBehaviour
             m.icon.transform.SetParent(this.transform);
             m.icon.transform.position = new Vector3(mapPos.x, mapPos.z, 0) + this.transform.position;
             m.icon.transform.localScale = new Vector3(rect.rect.width*0.01f, rect.rect.width * 0.01f, rect.rect.width * 0.01f);
-            if (m.icon.tag == "PlayerIcon")
+            if (m.owner.tag == "Player")
             {
+                player = m.owner.GetComponent<PlayerMoveCtrl>();//내캐릭터의 플레이어스크립트가져옴
                 if ((Mathf.Abs(player.playerInfo.plyaerVector.x) + Mathf.Abs(player.playerInfo.plyaerVector.z)) > 0)
                 {
                     float ang = Mathf.Atan2(player.playerInfo.plyaerVector.z, player.playerInfo.plyaerVector.x) * Mathf.Rad2Deg;
@@ -113,6 +125,16 @@ public class RadarMap : MonoBehaviour
                 }
 
             }
+            else if(m.owner.tag == "TeamPlayer")
+            {
+                player = m.owner.GetComponent<PlayerMoveCtrl>();//아군캐릭터의 플레이어 스크립트 가져옴
+                if ((Mathf.Abs(player.playerInfo.plyaerVector.x) + Mathf.Abs(player.playerInfo.plyaerVector.z)) > 0)
+                {
+                    float ang = Mathf.Atan2(player.playerInfo.plyaerVector.z, player.playerInfo.plyaerVector.x) * Mathf.Rad2Deg;
+                    m.icon.transform.rotation = Quaternion.Euler(0, 0, ang);
+                }
+            }
+               
         }
     }
     void Awake()
@@ -141,6 +163,5 @@ public class RadarMap : MonoBehaviour
     {
         //포톤서버에서 캐릭터 생성시 포지션가져옴
         playerPos = go.transform;
-        player = go.GetComponent<PlayerMoveCtrl>();
     }
 }

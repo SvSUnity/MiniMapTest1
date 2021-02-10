@@ -7,7 +7,7 @@ public class smoothFollowCam : MonoBehaviour
     // Start is called before the first frame update
 
     //따라다닐 대상
-    Transform target;
+    public Transform target;
     public float distance = 10.0f;
 
     public float height = 5.0f;
@@ -49,8 +49,4 @@ public class smoothFollowCam : MonoBehaviour
 
     }
 
-    public void SetTarget(Transform tr)
-    {
-        target = tr;
-    }
 }
