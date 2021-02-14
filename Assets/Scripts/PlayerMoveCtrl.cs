@@ -67,37 +67,47 @@ public class PlayerMoveCtrl : MonoBehaviour
 
     void Update()
     {
-        float v = Input.GetAxis("Vertical") + UltimateJoystick.GetVerticalAxis("Test");
-        float h = Input.GetAxis("Horizontal") + UltimateJoystick.GetHorizontalAxis("Test");
-
-        moveDirection = new Vector3(h * movSpeed, 0, v * movSpeed);
-        playerInfo.plyaerVector = moveDirection.normalized;
-
 
         //사용자 자신이 조작할때만 움직임, 다른유저의 조작에 간섭X
         if (pv.isMine)
         {
-            // 만약 콜라이더가 땅에 있을 경우 
-            //디바이스마다 일정한 회전 속도
-            float amtRot = rotSpeed * Time.deltaTime;
-            //인풋입력 키보드+조이스틱
+            float v = Input.GetAxis("Vertical") + UltimateJoystick.GetVerticalAxis("Test");
+            float h = Input.GetAxis("Horizontal") + UltimateJoystick.GetHorizontalAxis("Test");
+
+            SetMoveDriection(h, v);
+            pv.RPC("SetMoveDriection", PhotonTargets.Others, h, v);
+
+            if (controller.isGrounded)
+            {
+
+                // 만약 콜라이더가 땅에 있을 경우 
+                //디바이스마다 일정한 회전 속도
+                float amtRot = rotSpeed * Time.deltaTime;
+                //인풋입력 키보드+조이스틱
 
 
-            //오브젝트를 회전
-            //transform.Rotate(Vector3.up * ang * amtRot);
+                //오브젝트를 회전
+                //transform.Rotate(Vector3.up * ang * amtRot);
 
-            //Vector3 test = moveDirection.normalized;
-            //Debug.Log(Mathf.Atan2(test.z, test.x) * Mathf.Rad2Deg );
+                //Vector3 test = moveDirection.normalized;
+                //Debug.Log(Mathf.Atan2(test.z, test.x) * Mathf.Rad2Deg );
 
-            // transform.TransformDirection 함수는 인자로 전달된 벡터를 
-            // 월드좌표계 기준으로 변환하여 변환된 벡터를 반환해 준다.
-            //즉, 로컬좌표계 기준의 방향벡터를 > 월드좌표계 기준의 방향벡터로 변환
+                // transform.TransformDirection 함수는 인자로 전달된 벡터를 
+                // 월드좌표계 기준으로 변환하여 변환된 벡터를 반환해 준다.
+                //즉, 로컬좌표계 기준의 방향벡터를 > 월드좌표계 기준의 방향벡터로 변환
 
-            moveDirection = transform.TransformDirection(moveDirection);
+                moveDirection = transform.TransformDirection(moveDirection);
 
+                ////키보드가 점프 입력일 경우
+                //if (Input.GetButton("Jump"))
+                //{
+                //    // jumpSpeed 만큼 케릭을 이동
+                //    moveDirection.y = jumpSpeed;
+                //}
+            }
             Quaternion rot = Quaternion.Euler(0, 45f, 0f);//실제 맵은 쿼터뷰로 45도각도로 기울어져있으므로 방향을 45도돌려서계산
-                                                          // 디바이스마다 일정 속도로 케릭에 중력 적용
-            moveDirection.y -= gravity * Time.deltaTime;
+
+            moveDirection.y -= gravity * Time.deltaTime;// 디바이스마다 일정 속도로 케릭에 중력 적용
             // CharacterController의 Move 함수에 방향과 크기의 벡터값을 적용(디바이스마다 일정)
             controller.Move(rot * moveDirection * Time.deltaTime);
         }
@@ -107,7 +117,7 @@ public class PlayerMoveCtrl : MonoBehaviour
             myTr.position = Vector3.Lerp(myTr.position, currPos, Time.deltaTime * 3.0f);
         }
 
-
+ 
 
     }
     void onPhotonInstantiate(PhotonMessageInfo info)
@@ -123,7 +133,6 @@ public class PlayerMoveCtrl : MonoBehaviour
             //박싱
             stream.SendNext(myTr.position);
             stream.SendNext(myTr.rotation);
-            stream.SendNext(moveDirection);
         }
         //원격 플레이어의 위치 정보를 수신
         else
@@ -131,11 +140,18 @@ public class PlayerMoveCtrl : MonoBehaviour
             //언박싱
             currPos = (Vector3)stream.ReceiveNext();
             currRot = (Quaternion)stream.ReceiveNext();
-            moveDirection = (Vector3)stream.ReceiveNext();
         }
 
     }
+
+    [PunRPC]
+    void SetMoveDriection(float h, float v)
+    {
+        moveDirection = new Vector3(h * movSpeed, 0, v * movSpeed);
+        playerInfo.plyaerVector = moveDirection.normalized;
+    }
 }
+
 
 /* 만약 CharacterController를 안쓴다면...
 

@@ -76,7 +76,7 @@ public class csTestPhoton : MonoBehaviour {
     //플레이어를 생성하는 함수
     void CreatePlayer()
     {
-        GameObject go = PhotonNetwork.Instantiate("Player", playerPos.position, playerPos.rotation, 0);
+        GameObject go = PhotonNetwork.Instantiate("MainPlayer", playerPos.position, playerPos.rotation, 0);
         radamap.SetPlayerPos(go);
     }
 
