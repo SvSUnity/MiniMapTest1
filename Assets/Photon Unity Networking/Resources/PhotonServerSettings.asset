@@ -44,4 +44,5 @@ MonoBehaviour:
   - RequestForPickupTimes
   - SetMoveDriection
   - TaggedPlayer
+  - ShotStart
   DisableAutoOpenWizard: 1

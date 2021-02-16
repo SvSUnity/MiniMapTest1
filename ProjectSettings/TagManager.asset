@@ -12,6 +12,8 @@ TagManager:
   - EnemyIcon
   - TeamIcon
   - TeamPlayer
+  - Item
+  - Inventory
   layers:
   - Default
   - TransparentFX
