@@ -115,33 +115,7 @@ public class PlayerMoveCtrl : MonoBehaviour
             moveDirection.y -= gravity * Time.deltaTime;// 디바이스마다 일정 속도로 케릭에 중력 적용
             // CharacterController의 Move 함수에 방향과 크기의 벡터값을 적용(디바이스마다 일정)
             controller.Move(rot * moveDirection * Time.deltaTime);
-#if UNITY_EDITOR
-            ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            Debug.DrawRay(ray.origin, ray.direction * 100.0f, Color.blue);
-            if (Input.GetMouseButtonDown(0))
-            {
-                if (Physics.Raycast(ray, out hitInfo, 150.0f))
-                {
-                    if(hitInfo.collider.tag == "Item")
-                    {
-                        Destroy(hitInfo.collider.gameObject);
-                    }
-                }
-            }
-#endif
-#if UNITY_ANDROID
-            if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
-            {
-                ray = Camera.main.ScreenPointToRay(Input.touches[0].position);
-                if (Physics.Raycast(ray, out hitInfo, 150.0f))
-                {
-                    if (hitInfo.collider.tag == "Item")
-                    {
-                        Destroy(hitInfo.collider.gameObject);
-                    }
-                }
-            }
-#endif
+
         }
         //원격플레이어일때 수행
         else
@@ -186,7 +160,7 @@ public class PlayerMoveCtrl : MonoBehaviour
     void OnTriggerEnter(Collider col)
     {
         //아이템 획득 테스트용
-        if(col.tag =="Item")
+        if(col.tag =="Item" && pv.isMine)
         {
             Item item = col.GetComponent<ItemInfo>().item;
             inven.AcquireItem(item);
