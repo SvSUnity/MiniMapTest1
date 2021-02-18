@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 //미니맵 각도계산에 참조하기위한 플레이어의 x,z
 public class PlayerInfo
 {
@@ -25,6 +26,9 @@ public class PlayerInfo
 // 테스트는 NavMeshAgent 비활성
 public class PlayerMoveCtrl : MonoBehaviour
 {
+    GameObject actionBtn;
+    Text btnText;
+
     // CharacterController 컴포넌트를 위한 레퍼런스
     CharacterController controller;
     Transform myTr;
@@ -59,6 +63,11 @@ public class PlayerMoveCtrl : MonoBehaviour
         pv.ObservedComponents[0] = this;
         pv.synchronization = ViewSynchronization.UnreliableOnChange;
         currPos = myTr.position;
+        //액션버튼
+        actionBtn = GameObject.FindGameObjectWithTag("actionBtn");
+        //테스트용 버튼텍스트
+        btnText = actionBtn.transform.Find("Text").GetComponent<Text>();
+
         inven = GameObject.FindGameObjectWithTag("Inventory").GetComponent<Inventory>();
         if (!pv.isMine)
         {
@@ -156,17 +165,55 @@ public class PlayerMoveCtrl : MonoBehaviour
         moveDirection = new Vector3(h * movSpeed, 0, v * movSpeed);
         playerInfo.plyaerVector = moveDirection.normalized;
     }
-
-    void OnTriggerEnter(Collider col)
+    public void btnSet(GameObject go)
     {
-        //아이템 획득 테스트용
-        if(col.tag =="Item" && pv.isMine)
+        Button btn = actionBtn.GetComponent<Button>();
+
+        btn.onClick.RemoveAllListeners();
+        btn.onClick.AddListener(delegate { OnClickButton(go); });
+
+        
+        if (go.tag == "Item")
         {
-            Item item = col.GetComponent<ItemInfo>().item;
-            inven.AcquireItem(item);
-            Destroy(col.gameObject);
+            ItemInfo itemInfo = go.GetComponent<ItemInfo>();
+            switch (itemInfo.item.name)
+            {
+                case "Rock":
+                    btnText.text = "바위선택";
+                    break;
+            }
+        }
+        else
+        {
+            btnText.text = "땅누름";
         }
     }
+    void OnClickButton(GameObject go)
+    {
+        Button btn = actionBtn.GetComponent<Button>();
+
+        if (go.tag == "Item")
+        {
+            Item item = go.GetComponent<ItemInfo>().item;
+            inven.AcquireItem(item);
+            Destroy(go.gameObject);
+            btn.onClick.RemoveAllListeners();
+            SelectObjectRay so = GameObject.FindGameObjectWithTag("selectObject").GetComponent<SelectObjectRay>();
+            so.SelectObjectDestroy();//오브젝트가 파괴됬음을 알림
+        }
+    }
+    //void OnTriggerEnter(Collider col)
+    //{
+    //    //아이템 획득 테스트용
+    //    if(col.tag =="Item" && pv.isMine)
+    //    {
+    //        Item item = col.GetComponent<ItemInfo>().item;
+    //        inven.AcquireItem(item);
+    //        Destroy(col.gameObject);
+    //    }
+    //}
+
+
 }
 
 

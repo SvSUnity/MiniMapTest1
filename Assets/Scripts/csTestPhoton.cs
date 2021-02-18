@@ -14,6 +14,7 @@ public class csTestPhoton : MonoBehaviour {
     public Transform playerPos;
 
     RadarMap radamap;
+    SelectObjectRay selectObject;
     smoothFollowCam cam;
 
 
@@ -30,6 +31,7 @@ public class csTestPhoton : MonoBehaviour {
             PhotonNetwork.playerName = "GUEST " + Random.Range(1, 9999);
 
             radamap = GameObject.FindGameObjectWithTag("Minimap").GetComponent<RadarMap>();
+            selectObject = GameObject.FindGameObjectWithTag("selectObject").GetComponent<SelectObjectRay>();
             cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<smoothFollowCam>();
         }
 
@@ -78,6 +80,7 @@ public class csTestPhoton : MonoBehaviour {
     {
         GameObject go = PhotonNetwork.Instantiate("MainPlayer", playerPos.position, playerPos.rotation, 0);
         radamap.SetPlayerPos(go);
+        selectObject.SetPlayerMoveCtrl(go);
     }
 
 }

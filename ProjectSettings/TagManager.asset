@@ -16,6 +16,8 @@ TagManager:
   - Inventory
   - Ground
   - UI
+  - actionBtn
+  - selectObject
   layers:
   - Default
   - TransparentFX
