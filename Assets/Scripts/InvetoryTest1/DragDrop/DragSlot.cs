@@ -1,18 +1,35 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DragSlot : MonoBehaviour
 {
-    // Start is called before the first frame update
+
+    static public DragSlot instance;
+
+    public Slot dragSlot;
+
+    // 아이템 이미지.
+    [SerializeField]
+    private Image imageItem;
+
     void Start()
     {
-        
+        instance = this;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void DragSetImage(Image _itemImage)
     {
-        
+        imageItem.sprite = _itemImage.sprite;
+        SetColor(1);
+    }
+
+
+    public void SetColor(float _alpha)
+    {
+        Color color = imageItem.color;
+        color.a = _alpha;
+        imageItem.color = color;
     }
 }

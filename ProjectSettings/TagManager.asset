@@ -18,6 +18,7 @@ TagManager:
   - UI
   - actionBtn
   - selectObject
+  - Photon
   layers:
   - Default
   - TransparentFX

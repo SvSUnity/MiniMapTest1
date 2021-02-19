@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class MapObject
 {
@@ -165,4 +166,5 @@ public class RadarMap : MonoBehaviour
         //포톤서버에서 캐릭터 생성시 포지션가져옴
         playerPos = go.transform;
     }
+
 }

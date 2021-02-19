@@ -28,10 +28,10 @@ public class SelectObjectRay : MonoBehaviour
 #if UNITY_EDITOR
         ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         Debug.DrawRay(ray.origin, ray.direction * 100.0f, Color.blue);
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0)&& !Inventory.inventoryActivated)
         {
             Vector2 pos = Input.mousePosition;
-            if (!dontTouchArea[0].Contains(pos) && !dontTouchArea[1].Contains(pos))
+            if (!dontTouchArea[0].Contains(pos) && !dontTouchArea[1].Contains(pos) )
             {
                 if (Physics.Raycast(ray, out hitInfo, 150.0f))
                 {
@@ -46,6 +46,8 @@ public class SelectObjectRay : MonoBehaviour
                         player.btnSet(hitInfo.collider.gameObject);
                         selectEffect.SetActive(false);
                     }
+                    else if (hitInfo.collider == null)
+                        return;
                         
                 }
             }
@@ -54,7 +56,7 @@ public class SelectObjectRay : MonoBehaviour
 #if UNITY_ANDROID
 
 
-        if (Input.touchCount > 0 )
+        if (Input.touchCount > 0 && !Inventory.inventoryActivated)
         {
             for(int i = 0; i<Input.touchCount;i++)
             {
@@ -78,6 +80,8 @@ public class SelectObjectRay : MonoBehaviour
                                 player.btnSet(hitInfo.collider.gameObject);
                                 selectEffect.SetActive(false);
                             }
+                            else if (hitInfo.collider == null)
+                                return;
                         }
                     }
                 }

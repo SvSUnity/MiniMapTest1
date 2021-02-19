@@ -190,6 +190,9 @@ public class PlayerMoveCtrl : MonoBehaviour
     }
     void OnClickButton(GameObject go)
     {
+        if (Inventory.inventoryActivated)
+            return;
+
         Button btn = actionBtn.GetComponent<Button>();
 
         if (go.tag == "Item")
