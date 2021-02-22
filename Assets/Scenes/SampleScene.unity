@@ -328,7 +328,6 @@ MonoBehaviour:
   item: {fileID: 0}
   itemCount: 0
   itemImage: {fileID: 1465975241}
-  onDropMessage: 0
   text_Count: {fileID: 1812641127}
   go_CountImage: {fileID: 1494485674}
 --- !u!114 &104107986
@@ -762,7 +761,6 @@ MonoBehaviour:
   item: {fileID: 0}
   itemCount: 0
   itemImage: {fileID: 1232285156}
-  onDropMessage: 0
   text_Count: {fileID: 2062840744}
   go_CountImage: {fileID: 565531404}
 --- !u!114 &309239784
@@ -1179,7 +1177,6 @@ MonoBehaviour:
   item: {fileID: 0}
   itemCount: 0
   itemImage: {fileID: 790615248}
-  onDropMessage: 0
   text_Count: {fileID: 738590411}
   go_CountImage: {fileID: 57912921}
 --- !u!1 &499359125
@@ -1304,7 +1301,6 @@ MonoBehaviour:
   item: {fileID: 0}
   itemCount: 0
   itemImage: {fileID: 1088275913}
-  onDropMessage: 0
   text_Count: {fileID: 1245784534}
   go_CountImage: {fileID: 1907638607}
 --- !u!114 &525361816
@@ -1426,6 +1422,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -4323526475964096530, guid: 8bc6a5d0a7164594b8dcc14c153c83ae,
+        type: 3}
+      propertyPath: viewIdField
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -4323526475964096530, guid: 8bc6a5d0a7164594b8dcc14c153c83ae,
+        type: 3}
+      propertyPath: instantiationId
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -4323526475964096530, guid: 8bc6a5d0a7164594b8dcc14c153c83ae,
+        type: 3}
+      propertyPath: ObservedComponents.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1483691576045252322, guid: 8bc6a5d0a7164594b8dcc14c153c83ae,
         type: 3}
       propertyPath: m_RootOrder
@@ -2960,6 +2971,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -4323526475964096530, guid: 8bc6a5d0a7164594b8dcc14c153c83ae,
+        type: 3}
+      propertyPath: viewIdField
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -4323526475964096530, guid: 8bc6a5d0a7164594b8dcc14c153c83ae,
+        type: 3}
+      propertyPath: instantiationId
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -4323526475964096530, guid: 8bc6a5d0a7164594b8dcc14c153c83ae,
+        type: 3}
+      propertyPath: ObservedComponents.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1483691576045252322, guid: 8bc6a5d0a7164594b8dcc14c153c83ae,
         type: 3}
       propertyPath: m_RootOrder
@@ -3134,6 +3160,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -4323526475964096530, guid: 8bc6a5d0a7164594b8dcc14c153c83ae,
+        type: 3}
+      propertyPath: viewIdField
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -4323526475964096530, guid: 8bc6a5d0a7164594b8dcc14c153c83ae,
+        type: 3}
+      propertyPath: instantiationId
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -4323526475964096530, guid: 8bc6a5d0a7164594b8dcc14c153c83ae,
+        type: 3}
+      propertyPath: ObservedComponents.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1483691576045252322, guid: 8bc6a5d0a7164594b8dcc14c153c83ae,
         type: 3}
       propertyPath: m_RootOrder
@@ -3708,7 +3749,6 @@ MonoBehaviour:
   item: {fileID: 0}
   itemCount: 0
   itemImage: {fileID: 1736631971}
-  onDropMessage: 0
   text_Count: {fileID: 1942433621}
   go_CountImage: {fileID: 828075550}
 --- !u!114 &1880813661
@@ -4193,7 +4233,6 @@ MonoBehaviour:
   item: {fileID: 0}
   itemCount: 0
   itemImage: {fileID: 792743827}
-  onDropMessage: 0
   text_Count: {fileID: 40186522}
   go_CountImage: {fileID: 1702212536}
 --- !u!114 &1965316949
@@ -4565,7 +4604,6 @@ MonoBehaviour:
   item: {fileID: 0}
   itemCount: 0
   itemImage: {fileID: 445079812}
-  onDropMessage: 0
   text_Count: {fileID: 2128446364}
   go_CountImage: {fileID: 1199310078}
 --- !u!114 &2105834601
@@ -4659,7 +4697,6 @@ MonoBehaviour:
   item: {fileID: 0}
   itemCount: 0
   itemImage: {fileID: 1625287634}
-  onDropMessage: 0
   text_Count: {fileID: 245026615}
   go_CountImage: {fileID: 1108691822}
 --- !u!114 &2127667951

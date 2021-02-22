@@ -45,4 +45,6 @@ MonoBehaviour:
   - SetMoveDriection
   - TaggedPlayer
   - ShotStart
+  - RPCSetDropItemInfo
+  - DestroyObj
   DisableAutoOpenWizard: 1

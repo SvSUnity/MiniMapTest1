@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using ExitGames.Client.Photon;
 
 [CreateAssetMenu(fileName = "New Item", menuName = "New Item/item")]
 public class Item : ScriptableObject
@@ -18,5 +19,4 @@ public class Item : ScriptableObject
         Ingredient,//재료
         ETC//기타
     }
-
 }

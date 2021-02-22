@@ -37,6 +37,11 @@ public class csTestPhoton : MonoBehaviour {
 
     }
 
+    void Start()
+    {
+        
+    }
+
     void OnJoinedLobby()
     {
         Debug.Log("Joined Lobby !!!");

@@ -63,6 +63,7 @@ public class PlayerMoveCtrl : MonoBehaviour
         pv.ObservedComponents[0] = this;
         pv.synchronization = ViewSynchronization.UnreliableOnChange;
         currPos = myTr.position;
+        Debug.Log(currPos);
         //액션버튼
         actionBtn = GameObject.FindGameObjectWithTag("actionBtn");
         //테스트용 버튼텍스트
@@ -81,10 +82,10 @@ public class PlayerMoveCtrl : MonoBehaviour
 
     void Update()
     {
-
         //사용자 자신이 조작할때만 움직임, 다른유저의 조작에 간섭X
         if (pv.isMine)
         {
+
             float v = Input.GetAxis("Vertical") + UltimateJoystick.GetVerticalAxis("Test");
             float h = Input.GetAxis("Horizontal") + UltimateJoystick.GetHorizontalAxis("Test");
 
@@ -138,7 +139,6 @@ public class PlayerMoveCtrl : MonoBehaviour
     void onPhotonInstantiate(PhotonMessageInfo info)
     {
         object[] data = pv.instantiationData;
-        Debug.Log((int)data[0]);
     }
     void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
@@ -199,7 +199,9 @@ public class PlayerMoveCtrl : MonoBehaviour
         {
             Item item = go.GetComponent<ItemInfo>().item;
             inven.AcquireItem(item);
-            Destroy(go.gameObject);
+            //소유권을 가져온후 오브젝트 삭제
+            go.GetComponent<PhotonView>().TransferOwnership(PhotonNetwork.player.ID);
+            PhotonNetwork.Destroy(go);
             btn.onClick.RemoveAllListeners();
             SelectObjectRay so = GameObject.FindGameObjectWithTag("selectObject").GetComponent<SelectObjectRay>();
             so.SelectObjectDestroy();//오브젝트가 파괴됬음을 알림

@@ -4,14 +4,16 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
+
 public class Slot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
 {
 
     public Item item; // 획득한 아이템.
     public int itemCount; // 획득한 아이템의 개수.
     public Image itemImage; // 아이템의 이미지.
-
-    public bool onDropMessage = false;
+    
+    //드롭이벤트 발생유무 구분
+    bool onDropMessage = false;
 
 
     // 필요한 컴포넌트.
@@ -95,13 +97,16 @@ public class Slot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        if (DragSlot.instance.dragSlot == null)
+            return;
         //드롭이벤트가 발생하지않은경우
         if (!DragSlot.instance.dragSlot.onDropMessage)
         {
             Transform playerPos = GameObject.FindGameObjectWithTag("Player").transform;
-            DropItemInfo dropObj = PhotonNetwork.Instantiate("DropObject", playerPos.position, playerPos.rotation, 0).GetComponent<DropItemInfo>();
+            DropItemInfo dropObj = PhotonNetwork.Instantiate("DropObject", playerPos.position + Vector3.right, playerPos.rotation, 0).GetComponent<DropItemInfo>();
             dropObj.SetDropItemInfo(DragSlot.instance.dragSlot);
             ClearSlot();
+            itemImage.gameObject.SetActive(true);
         }
 
         DragSlot.instance.dragSlot.onDropMessage = false;
@@ -116,6 +121,9 @@ public class Slot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
     //현재는 다른 슬롯에 드래그드롭했을때 슬롯이 교체됨
     public void OnDrop(PointerEventData eventData)
     {
+        if (DragSlot.instance.dragSlot == null)
+            return;
+
         DragSlot.instance.dragSlot.onDropMessage = true;
         DragSlot.instance.dragSlot.itemImage.gameObject.SetActive(true);
         if (DragSlot.instance.dragSlot != null)
