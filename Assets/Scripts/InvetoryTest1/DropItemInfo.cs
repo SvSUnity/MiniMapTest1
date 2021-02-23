@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
-
+using TMPro;
 public class DropItemInfo : MonoBehaviour
 {
     //드랍한 아이템을 다시줏엇을때 슬롯에 넘기기위한 정보목록
@@ -13,17 +12,27 @@ public class DropItemInfo : MonoBehaviour
     SpriteRenderer itemSpr;
     Inventory inventory;
 
-    string currItemName;
-    int currItemCount;
-    Item currItem;
-
+    public string currItemName;
+    public int currItemCount;
+    public TextMeshPro itemCountText;
     PhotonView pv;
+
     void Awake()
     {
         itemSpr = transform.Find("DropItemImage").GetComponent<SpriteRenderer>();
         inventory = GameObject.FindGameObjectWithTag("Inventory").GetComponent<Inventory>();
         pv = GetComponent<PhotonView>();
+        pv.synchronization = ViewSynchronization.UnreliableOnChange;
         pv.ObservedComponents[0] = this;
+    }
+    void FixedUpdate()
+    {
+        //동기화를통해 값이 넘어오고 현재 item이 null인경우
+        if (currItemName != null && currItemCount != 0 && item == null)
+        {
+            RPCSetDropItemInfo(currItemName, currItemCount);
+            itemCountText.text = currItemCount.ToString();
+        }
     }
 
     public void SetDropItemInfo(Slot slotInfo)
@@ -32,6 +41,7 @@ public class DropItemInfo : MonoBehaviour
         pv.RPC("RPCSetDropItemInfo", PhotonTargets.Others, slotInfo.item.itemName, slotInfo.itemCount);
 
     }
+
 
     [PunRPC]
     void RPCSetDropItemInfo(string _itemName, int _itemCount)
@@ -43,6 +53,7 @@ public class DropItemInfo : MonoBehaviour
         }
         itemCount = _itemCount;
         itemSpr.sprite = item.itemImage;
+        itemCountText.text = itemCount.ToString();
     }
     void OnTriggerEnter(Collider col)
     {
@@ -51,13 +62,25 @@ public class DropItemInfo : MonoBehaviour
         {
             inventory.AcquireItem(item, itemCount);
             pv.TransferOwnership(PhotonNetwork.player.ID);
-            PhotonNetwork.Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
+    void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        //로컬 플레이어의 위치 정보를 송신
+        if (stream.isWriting)
+        {
+            //박싱
+            stream.SendNext(item.itemName);
+            stream.SendNext(itemCount);
+        }
+        //원격 플레이어의 위치 정보를 수신
+        else
+        {
+            //언박싱
+            currItemName = (string)stream.ReceiveNext();
+            currItemCount = (int)stream.ReceiveNext();
+        }
 
-    //void onPhotonInstantiate(PhotonMessageInfo info)
-    //{
-    //    currItem = item;
-    //    currItemCount = itemCount;
-    //}
+    }
 }

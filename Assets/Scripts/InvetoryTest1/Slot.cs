@@ -103,7 +103,8 @@ public class Slot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
         if (!DragSlot.instance.dragSlot.onDropMessage)
         {
             Transform playerPos = GameObject.FindGameObjectWithTag("Player").transform;
-            DropItemInfo dropObj = PhotonNetwork.Instantiate("DropObject", playerPos.position + Vector3.right, playerPos.rotation, 0).GetComponent<DropItemInfo>();
+            //DropItemInfo dropObj = PhotonNetwork.Instantiate("DropObject", playerPos.position + Vector3.right, Quaternion.identity, 0).GetComponent<DropItemInfo>();
+            DropItemInfo dropObj = DropObjectManager.instance.GetDropItem(playerPos.position + Vector3.right, Quaternion.identity).GetComponent<DropItemInfo>();
             dropObj.SetDropItemInfo(DragSlot.instance.dragSlot);
             ClearSlot();
             itemImage.gameObject.SetActive(true);
