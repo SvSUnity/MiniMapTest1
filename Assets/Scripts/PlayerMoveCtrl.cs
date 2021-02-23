@@ -176,12 +176,8 @@ public class PlayerMoveCtrl : MonoBehaviour
         if (go.tag == "Item")
         {
             ItemInfo itemInfo = go.GetComponent<ItemInfo>();
-            switch (itemInfo.item.name)
-            {
-                case "Rock":
-                    btnText.text = "바위선택";
-                    break;
-            }
+
+             btnText.text = itemInfo.item.name + " 선택";
         }
         else
         {
@@ -197,15 +193,21 @@ public class PlayerMoveCtrl : MonoBehaviour
 
         if (go.tag == "Item")
         {
-            Item item = go.GetComponent<ItemInfo>().item;
-            inven.AcquireItem(item);
-            //소유권을 가져온후 오브젝트 삭제
-            go.GetComponent<PhotonView>().TransferOwnership(PhotonNetwork.player.ID);
-            PhotonNetwork.Destroy(go);
-            btn.onClick.RemoveAllListeners();
-            SelectObjectRay so = GameObject.FindGameObjectWithTag("selectObject").GetComponent<SelectObjectRay>();
-            so.SelectObjectDestroy();//오브젝트가 파괴됬음을 알림
+            if (!inven.isInvenFull())
+            {
+                Item item = go.GetComponent<ItemInfo>().item;
+                inven.AcquireItem(item);
+                //소유권을 가져온후 오브젝트 삭제
+                go.GetComponent<PhotonView>().TransferOwnership(PhotonNetwork.player.ID);
+                PhotonNetwork.Destroy(go);
+                btn.onClick.RemoveAllListeners();
+                SelectObjectRay so = GameObject.FindGameObjectWithTag("selectObject").GetComponent<SelectObjectRay>();
+                so.SelectObjectDestroy();//오브젝트가 파괴됬음을 알림
+            }
+            else
+                Debug.Log("인벤토리 꽉참");
         }
+
     }
     //void OnTriggerEnter(Collider col)
     //{

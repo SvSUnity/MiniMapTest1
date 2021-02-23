@@ -78,6 +78,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemList:
   - {fileID: 11400000, guid: 4419053bf33adc14489cc12414d09ead, type: 2}
+  - {fileID: 11400000, guid: 5591323a0eb45404db4ecd22a4e9655f, type: 2}
   currItemName: 
   currItemCount: 0
   itemCountText: {fileID: 4842594017909327694}
@@ -158,7 +159,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 1de1fa66819ddbf4ea2506d412c282de, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

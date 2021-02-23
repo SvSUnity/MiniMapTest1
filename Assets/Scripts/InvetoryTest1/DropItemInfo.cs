@@ -31,7 +31,6 @@ public class DropItemInfo : MonoBehaviour
         if (currItemName != null && currItemCount != 0 && item == null)
         {
             RPCSetDropItemInfo(currItemName, currItemCount);
-            itemCountText.text = currItemCount.ToString();
         }
     }
 
@@ -53,12 +52,13 @@ public class DropItemInfo : MonoBehaviour
         }
         itemCount = _itemCount;
         itemSpr.sprite = item.itemImage;
-        itemCountText.text = itemCount.ToString();
+        if(Item.ItemType.Equipment != item.itemType)
+            itemCountText.text = itemCount.ToString();
     }
     void OnTriggerEnter(Collider col)
     {
 
-        if(col.tag == "Player")
+        if(col.tag == "Player"|| col.tag == "TeamPlayer")
         {
             inventory.AcquireItem(item, itemCount);
             pv.TransferOwnership(PhotonNetwork.player.ID);

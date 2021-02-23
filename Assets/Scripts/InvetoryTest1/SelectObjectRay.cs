@@ -10,7 +10,7 @@ public class SelectObjectRay : MonoBehaviour
     RaycastHit hitInfo;
     GameObject selectEffect;
     int Pid;
-    public List<Rect> dontTouchArea;//터치불가능영역, UI영역
+    List<Rect> dontTouchArea = new List<Rect>();//터치불가능영역, UI영역
     PlayerMoveCtrl player;
 
         
