@@ -6,6 +6,9 @@ public class DropObjectManager : MonoBehaviour
 {
     public static DropObjectManager instance;
     public List<GameObject> dropItems = new List<GameObject>();
+    PhotonView pv;
+    public GameObject newObject;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -13,6 +16,8 @@ public class DropObjectManager : MonoBehaviour
         {
             DropObjectManager.instance = this;
         }
+        pv = GetComponent<PhotonView>();
+        pv.ObservedComponents[0] = this;
     }
 
     void CreateDropItem(int cnt)
@@ -30,23 +35,45 @@ public class DropObjectManager : MonoBehaviour
     {
         GameObject reqObject = null;
 
-        foreach(GameObject go in dropItems)
+        foreach (GameObject go in dropItems)
         {
-            if(go.activeSelf == false)
+            if (go.activeSelf == false)
             {
                 reqObject = go;
                 break;
             }
         }
-        if(reqObject == null)
+        if (reqObject == null)
         {
-            GameObject newObject = PhotonNetwork.Instantiate("DropObject", pos, rot, 0);
-            newObject.transform.SetParent(transform);
-            dropItems.Add(newObject);
+
+            object[] data = new object[1];
+            data[0] = this.name;
+            Test(pos, rot, data);
+            //pv.RPC("Test", PhotonTargets., pos, rot, data);
             reqObject = newObject;
+
         }
         reqObject.SetActive(true);
         reqObject.transform.position = pos;
+
         return reqObject;
     }
+    [PunRPC]
+    void Test(Vector3 pos, Quaternion rot, object[] data)
+    {
+        newObject = PhotonNetwork.Instantiate("DropObject", pos, rot, 0, data);
+    }
+
+    //void OnPhotonInstantiate(PhotonMessageInfo info)
+    //{
+    //    newObject.transform.SetParent(transform);
+    //    dropItems.Add(newObject);
+    //}
+
+    public void  SetNewObject()
+    {
+        newObject.transform.SetParent(this.transform);
+        dropItems.Add(newObject);
+    }
+
 }

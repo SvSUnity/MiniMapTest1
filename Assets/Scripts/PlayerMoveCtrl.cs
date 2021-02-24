@@ -136,7 +136,7 @@ public class PlayerMoveCtrl : MonoBehaviour
  
 
     }
-    void onPhotonInstantiate(PhotonMessageInfo info)
+    void OnPhotonInstantiate(PhotonMessageInfo info)
     {
         object[] data = pv.instantiationData;
     }

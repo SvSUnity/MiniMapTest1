@@ -68,7 +68,6 @@ public class RadarMap : MonoBehaviour
 
     public static void RemoveMapObject(GameObject o)
     {
-        Debug.Log(1);
         //List<MapObject> newList = new List<MapObject>();
         for(int i = 0; i< mapObject.Count;i++)
         {

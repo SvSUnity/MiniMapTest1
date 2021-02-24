@@ -58,9 +58,14 @@ public class DropItemInfo : MonoBehaviour
     void OnTriggerEnter(Collider col)
     {
 
-        if(col.tag == "Player"|| col.tag == "TeamPlayer")
+        if(col.tag == "Player")
         {
             inventory.AcquireItem(item, itemCount);
+            pv.TransferOwnership(PhotonNetwork.player.ID);
+            gameObject.SetActive(false);
+        }
+        else if(col.tag == "TeamPlayer")
+        {
             pv.TransferOwnership(PhotonNetwork.player.ID);
             gameObject.SetActive(false);
         }
@@ -82,5 +87,14 @@ public class DropItemInfo : MonoBehaviour
             currItemCount = (int)stream.ReceiveNext();
         }
 
+    }
+
+    void OnPhotonInstantiate(PhotonMessageInfo info)
+    {
+        object[] data = this.gameObject.GetPhotonView().instantiationData;
+        if (data != null && data.Length == 1)
+        {
+            this.transform.SetParent(GameObject.Find((string)data[0]).transform);
+        }
     }
 }

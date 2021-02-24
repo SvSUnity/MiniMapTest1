@@ -47,4 +47,8 @@ MonoBehaviour:
   - ShotStart
   - RPCSetDropItemInfo
   - DestroyObj
+  - RPCCreateDropItem
+  - RPCGetDropItem
+  - SetNewObject
+  - Test
   DisableAutoOpenWizard: 1
