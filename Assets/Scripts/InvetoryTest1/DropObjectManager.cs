@@ -8,6 +8,7 @@ public class DropObjectManager : MonoBehaviour
     public List<GameObject> dropItems = new List<GameObject>();
     PhotonView pv;
     public GameObject newObject;
+    public GameObject reqObject;
 
     // Start is called before the first frame update
     void Awake()
@@ -33,23 +34,14 @@ public class DropObjectManager : MonoBehaviour
 
     public GameObject GetDropItem(Vector3 pos, Quaternion rot)
     {
-        GameObject reqObject = null;
+        reqObject = null;
 
-        foreach (GameObject go in dropItems)
-        {
-            if (go.activeSelf == false)
-            {
-                reqObject = go;
-                break;
-            }
-        }
+        CheckExist();
+        pv.RPC("CheckExist", PhotonTargets.OthersBuffered, null);
+
         if (reqObject == null)
         {
-
-            object[] data = new object[1];
-            data[0] = this.name;
-            Test(pos, rot, data);
-            //pv.RPC("Test", PhotonTargets., pos, rot, data);
+            PhotonNetwork.Instantiate("DropObject" , pos, rot,0);
             reqObject = newObject;
 
         }
@@ -58,22 +50,18 @@ public class DropObjectManager : MonoBehaviour
 
         return reqObject;
     }
+
+    //리스트내부에 오브젝트가 이미 있는지 체크
     [PunRPC]
-    void Test(Vector3 pos, Quaternion rot, object[] data)
+    void CheckExist()
     {
-        newObject = PhotonNetwork.Instantiate("DropObject", pos, rot, 0, data);
+        foreach (GameObject go in dropItems)
+        {
+            if (go.activeSelf == false)
+            {
+                reqObject = go;
+                break;
+            }
+        }
     }
-
-    //void OnPhotonInstantiate(PhotonMessageInfo info)
-    //{
-    //    newObject.transform.SetParent(transform);
-    //    dropItems.Add(newObject);
-    //}
-
-    public void  SetNewObject()
-    {
-        newObject.transform.SetParent(this.transform);
-        dropItems.Add(newObject);
-    }
-
 }
