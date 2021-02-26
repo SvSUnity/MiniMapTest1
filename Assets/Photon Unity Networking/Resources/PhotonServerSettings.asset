@@ -52,4 +52,5 @@ MonoBehaviour:
   - SetNewObject
   - Test
   - CheckExist
+  - SetReqObejct
   DisableAutoOpenWizard: 1

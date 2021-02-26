@@ -7,8 +7,8 @@ public class DropItemInfo : MonoBehaviour
 {
     //드랍한 아이템을 다시줏엇을때 슬롯에 넘기기위한 정보목록
     public Item[] itemList;
-    Item item;
-    int itemCount;
+    public Item item;
+    public int itemCount;
     SpriteRenderer itemSpr;
     Inventory inventory;
 
@@ -52,8 +52,11 @@ public class DropItemInfo : MonoBehaviour
         }
         itemCount = _itemCount;
         itemSpr.sprite = item.itemImage;
-        if(Item.ItemType.Equipment != item.itemType)
+        if (Item.ItemType.Equipment != item.itemType)
             itemCountText.text = itemCount.ToString();
+        else if (Item.ItemType.Equipment == item.itemType)
+            itemCountText.text = null;
+
     }
     void OnTriggerEnter(Collider col)
     {
@@ -89,10 +92,14 @@ public class DropItemInfo : MonoBehaviour
 
     void OnPhotonInstantiate(PhotonMessageInfo info)
     {
-        DropObjectManager.instance.newObject = this.gameObject;
+        //DropObjectManager.instance.newObject = this.gameObject;
+        //DropObjectManager.instance.dropItems.Add(this.gameObject);
+        //transform.SetParent(DropObjectManager.instance.transform);
+        //DropObjectManager.instance.reqObject = DropObjectManager.instance.newObject
+        DropObjectManager.instance.dropObject.newObject = this.gameObject;
         DropObjectManager.instance.dropItems.Add(this.gameObject);
         transform.SetParent(DropObjectManager.instance.transform);
-        DropObjectManager.instance.reqObject = DropObjectManager.instance.newObject;
+        DropObjectManager.instance.dropObject.reqObject = DropObjectManager.instance.dropObject.newObject;
 
     }
 }

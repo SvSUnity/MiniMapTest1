@@ -2,13 +2,44 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public class DropObject
+{
+    GameObject _reqObject;
+    GameObject _newObject;
+
+    public GameObject newObject
+    {
+        get
+        {
+            return _newObject;
+        }
+        set
+        {
+            _newObject = value;
+        }
+    }
+
+    public GameObject reqObject
+    {
+        get
+        {
+            return _reqObject;
+        }
+        set
+        {
+            _reqObject = value;
+        }
+    }
+}
+
+
 public class DropObjectManager : MonoBehaviour
 {
     public static DropObjectManager instance;
     public List<GameObject> dropItems = new List<GameObject>();
     PhotonView pv;
-    public GameObject newObject;
-    public GameObject reqObject;
+
+    public DropObject dropObject = new DropObject();
 
     // Start is called before the first frame update
     void Awake()
@@ -34,18 +65,18 @@ public class DropObjectManager : MonoBehaviour
 
     public GameObject GetDropItem(Vector3 pos, Quaternion rot)
     {
-        reqObject = null;
+        dropObject.reqObject = null;
 
         CheckExist();
         pv.RPC("CheckExist", PhotonTargets.OthersBuffered, null);
-        if (reqObject == null)
+        if (dropObject.reqObject == null)
         {
-            newObject = PhotonNetwork.Instantiate("DropObject", pos, rot, 0);
+            dropObject.newObject = PhotonNetwork.Instantiate("DropObject", pos, rot, 0);
         }
-        Test(pos);
-        pv.RPC("Test", PhotonTargets.OthersBuffered, pos);
+        SetReqObejct(pos);
+        pv.RPC("SetReqObejct", PhotonTargets.OthersBuffered, pos);
 
-        return reqObject;
+        return dropObject.reqObject;
     }
 
     //리스트내부에 오브젝트가 이미 있는지 체크
@@ -56,7 +87,7 @@ public class DropObjectManager : MonoBehaviour
         {
             if (go.activeSelf == false)
             {
-                reqObject = go;
+                dropObject.reqObject = go;
                 break;
             }
 
@@ -64,9 +95,10 @@ public class DropObjectManager : MonoBehaviour
     }
 
     [PunRPC]
-    void Test(Vector3 pos)
+    void SetReqObejct(Vector3 pos)
     {
-        reqObject.SetActive(true);
-        reqObject.transform.position = pos;
+        GameObject go = dropObject.reqObject;
+        go.SetActive(true);
+        go.transform.position = pos;
     }
 }
