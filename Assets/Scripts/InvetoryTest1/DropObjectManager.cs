@@ -38,15 +38,12 @@ public class DropObjectManager : MonoBehaviour
 
         CheckExist();
         pv.RPC("CheckExist", PhotonTargets.OthersBuffered, null);
-
         if (reqObject == null)
         {
-            PhotonNetwork.Instantiate("DropObject" , pos, rot,0);
-            reqObject = newObject;
-
+            newObject = PhotonNetwork.Instantiate("DropObject", pos, rot, 0);
         }
-        reqObject.SetActive(true);
-        reqObject.transform.position = pos;
+        Test(pos);
+        pv.RPC("Test", PhotonTargets.OthersBuffered, pos);
 
         return reqObject;
     }
@@ -62,6 +59,14 @@ public class DropObjectManager : MonoBehaviour
                 reqObject = go;
                 break;
             }
+
         }
+    }
+
+    [PunRPC]
+    void Test(Vector3 pos)
+    {
+        reqObject.SetActive(true);
+        reqObject.transform.position = pos;
     }
 }

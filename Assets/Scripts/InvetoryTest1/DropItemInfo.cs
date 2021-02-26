@@ -92,5 +92,7 @@ public class DropItemInfo : MonoBehaviour
         DropObjectManager.instance.newObject = this.gameObject;
         DropObjectManager.instance.dropItems.Add(this.gameObject);
         transform.SetParent(DropObjectManager.instance.transform);
+        DropObjectManager.instance.reqObject = DropObjectManager.instance.newObject;
+
     }
 }
