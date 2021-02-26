@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 531713916011418542}
   - component: {fileID: 3190708023969999895}
   - component: {fileID: 2959707569108924307}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: DropObject
-  m_TagString: Untagged
+  m_TagString: DropItem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -43,7 +43,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 531713916011418541}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 2, z: 1}
@@ -59,10 +59,10 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &3190708023969999895
 MonoBehaviour:
@@ -79,6 +79,8 @@ MonoBehaviour:
   itemList:
   - {fileID: 11400000, guid: 4419053bf33adc14489cc12414d09ead, type: 2}
   - {fileID: 11400000, guid: 5591323a0eb45404db4ecd22a4e9655f, type: 2}
+  item: {fileID: 0}
+  itemCount: 0
   currItemName: 
   currItemCount: 0
   itemCountText: {fileID: 4842594017909327694}

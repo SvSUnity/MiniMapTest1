@@ -11,7 +11,7 @@ public class DropItemInfo : MonoBehaviour
     public int itemCount;
     SpriteRenderer itemSpr;
     Inventory inventory;
-
+    Rigidbody rigid;
     public string currItemName;
     public int currItemCount;
     public TextMeshPro itemCountText;
@@ -24,6 +24,7 @@ public class DropItemInfo : MonoBehaviour
         pv = GetComponent<PhotonView>();
         pv.synchronization = ViewSynchronization.UnreliableOnChange;
         pv.ObservedComponents[0] = this;
+        rigid = GetComponent<Rigidbody>();
     }
     void FixedUpdate()
     {
@@ -56,6 +57,7 @@ public class DropItemInfo : MonoBehaviour
             itemCountText.text = itemCount.ToString();
         else if (Item.ItemType.Equipment == item.itemType)
             itemCountText.text = null;
+        rigid.AddForce(new Vector3(1f, 0, 1f) * 500f);
 
     }
     void OnTriggerEnter(Collider col)

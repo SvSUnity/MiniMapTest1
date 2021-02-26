@@ -73,7 +73,6 @@ public class PlayerMoveCtrl : MonoBehaviour
         if (!pv.isMine)
         {
             this.tag = "TeamPlayer";
-
         }
         else
             Camera.main.GetComponent<smoothFollowCam>().target = this.transform;
@@ -82,6 +81,8 @@ public class PlayerMoveCtrl : MonoBehaviour
 
     void Update()
     {
+        if (Inventory.inventoryActivated)
+            return;
         //사용자 자신이 조작할때만 움직임, 다른유저의 조작에 간섭X
         if (pv.isMine)
         {

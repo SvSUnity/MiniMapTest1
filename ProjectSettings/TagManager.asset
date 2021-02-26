@@ -19,6 +19,7 @@ TagManager:
   - actionBtn
   - selectObject
   - Photon
+  - DropItem
   layers:
   - Default
   - TransparentFX
@@ -28,7 +29,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - DropItem
   - 
   - 
   - 

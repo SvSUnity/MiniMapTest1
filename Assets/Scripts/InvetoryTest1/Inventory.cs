@@ -23,7 +23,6 @@ public class Inventory : MonoBehaviour
     void Awake()
     {
         slots = go_SlotsParent.GetComponentsInChildren<Slot>();
-        Debug.Log(slots.Length);
     }
 
     // Update is called once per frame
