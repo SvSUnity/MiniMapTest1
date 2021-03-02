@@ -20,6 +20,17 @@ TagManager:
   - selectObject
   - Photon
   - DropItem
+  - Room_Btn
+  - 555Pre
+  - protoItem
+  - 555
+  - TopPre
+  - Grass2
+  - PropTree
+  - Grass1
+  - Wall
+  - EnemyBody
+  - Grass3
   layers:
   - Default
   - TransparentFX
@@ -30,7 +41,7 @@ TagManager:
   - 
   - 
   - DropItem
-  - 
+  - Ground
   - 
   - 
   - 
