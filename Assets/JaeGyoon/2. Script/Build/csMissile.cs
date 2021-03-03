@@ -5,8 +5,8 @@ using UnityEngine;
 public class csMissile : MonoBehaviour
 {
 
-    public float missileSpeed = 5f; // 미사일 속도
-    public float missileRange = 400f; // 미사일 최대 사정거리 ( 넘어가면 소멸 )
+    public float missileSpeed = 20f; // 미사일 속도
+    public float missileRange = 20f; // 미사일 최대 사정거리 ( 넘어가면 소멸 )
 
     public int missileDMG = 10; // 미사일 데미지
 

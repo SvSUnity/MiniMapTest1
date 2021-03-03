@@ -156,7 +156,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colliderList: []
-  layerGround: 0
+  layerGround: 9
   greenMaterial: {fileID: 2100000, guid: 997fb222e7c082e4187c46fc0e349f0a, type: 2}
   redMaterial: {fileID: 2100000, guid: 498bf9a5f8520044bba4390e68f7cd5a, type: 2}
 --- !u!1 &6920272916968599377

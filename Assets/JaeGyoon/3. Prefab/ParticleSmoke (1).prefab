@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4146908567827231049}
   - component: {fileID: 1914246678049721146}
   - component: {fileID: 8523492678950102807}
-  - component: {fileID: 1062762164}
+  - component: {fileID: 1499139631061259372}
   m_Layer: 0
   m_Name: ParticleSmoke (1)
   m_TagString: Untagged
@@ -4754,7 +4754,7 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
---- !u!114 &1062762164
+--- !u!114 &1499139631061259372
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4763,7 +4763,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1612630007135817360}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca5f3a8d58cbfdd418d8dadb5f6f91ff, type: 3}
+  m_Script: {fileID: 11500000, guid: fdf65a9852119da428d0de801caa724e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deadTime: 5
+  deadTime: 0
