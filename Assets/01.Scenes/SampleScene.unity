@@ -2441,8 +2441,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   previewRotation: 0
-  Player: {fileID: 558321983574037081, guid: abe24d793f319c54d81e890a5829634c, type: 3}
-  cameraTrans: {fileID: 0}
   layerMask:
     serializedVersion: 2
     m_Bits: 0
@@ -3147,7 +3145,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 63fd9f78e2353e641a57d9804aac423d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

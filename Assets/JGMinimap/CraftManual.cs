@@ -38,11 +38,6 @@ public class CraftManual : MonoBehaviour
 
 
 
-    [SerializeField]
-    private Transform Player; // 플레이어의 위치
-
-    [SerializeField]
-    private Transform cameraTrans; // 카메라 위치
 
     private bool isPreviewActivated = false; // 프리뷰를 보고 있는 상태인지를 확인
 
@@ -130,7 +125,7 @@ public class CraftManual : MonoBehaviour
     public void SlotClick(int slotNum)
     {
        
-        buildPreview = Instantiate(build[slotNum].previewPrefab, Player.position + Player.forward, Quaternion.Euler(0, previewRotation, 0));
+        buildPreview = Instantiate(build[slotNum].previewPrefab, Vector3.zero, Quaternion.Euler(0, previewRotation, 0));
 
         buildPrefab = build[slotNum].realPrefab; 
 
@@ -141,7 +136,7 @@ public class CraftManual : MonoBehaviour
     public void CraftSlotClick(int slotNum)
     {
 
-        buildPreview = Instantiate(craft[slotNum].previewPrefab, Player.position + Player.forward, Quaternion.identity);
+        buildPreview = Instantiate(craft[slotNum].previewPrefab, Vector3.zero, Quaternion.identity);
 
         buildPrefab = craft[slotNum].realPrefab;
 

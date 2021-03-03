@@ -69,13 +69,16 @@ public class DropItemInfo : MonoBehaviour
         {
             inventory.AcquireItem(item, itemCount);
             gameObject.SetActive(false);
+            collider.isTrigger = false;
+            rigid.useGravity = true;
         }
         else if(col.tag == "TeamPlayer")
         {
             gameObject.SetActive(false);
+            collider.isTrigger = false;
+            rigid.useGravity = true;
         }
-        collider.isTrigger = false;
-        rigid.useGravity = true;
+
     }
 
     void OnCollisionEnter(Collision collision)
@@ -83,7 +86,6 @@ public class DropItemInfo : MonoBehaviour
         //버린 아이템이 땅에닿으면 트리거로변환
         if(collision.gameObject.tag == "Ground")
         {
-
             collider.isTrigger = true;
             rigid.velocity = Vector3.zero;
             rigid.useGravity = false;
