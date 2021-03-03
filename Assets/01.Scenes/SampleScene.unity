@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -392,6 +392,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: Tab2Click
+      objectReference: {fileID: 0}
+    - target: {fileID: 4059327193553176580, guid: 1f5d7e193b162bc4ab4b037a8bd7c2e8,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1269706158}
+    - target: {fileID: 4059327193553176580, guid: 1f5d7e193b162bc4ab4b037a8bd7c2e8,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: CraftSlotClick
       objectReference: {fileID: 0}
     - target: {fileID: 4059327193566346280, guid: 1f5d7e193b162bc4ab4b037a8bd7c2e8,
         type: 3}
@@ -929,11 +939,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 22426446, guid: 1a5154ebeae449e4994357609381b281, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 147.2
+      value: 167.6
       objectReference: {fileID: 0}
     - target: {fileID: 22426446, guid: 1a5154ebeae449e4994357609381b281, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 147.2
+      value: 167.6
       objectReference: {fileID: 0}
     - target: {fileID: 22473068, guid: 1a5154ebeae449e4994357609381b281, type: 3}
       propertyPath: m_Pivot.x
@@ -965,11 +975,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 22473068, guid: 1a5154ebeae449e4994357609381b281, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 147.2
+      value: 167.6
       objectReference: {fileID: 0}
     - target: {fileID: 22473068, guid: 1a5154ebeae449e4994357609381b281, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 147.2
+      value: 167.6
       objectReference: {fileID: 0}
     - target: {fileID: 22473068, guid: 1a5154ebeae449e4994357609381b281, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1001,11 +1011,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 22473068, guid: 1a5154ebeae449e4994357609381b281, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 97.4666
+      value: 110.937805
       objectReference: {fileID: 0}
     - target: {fileID: 22473068, guid: 1a5154ebeae449e4994357609381b281, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 99.8752
+      value: 113.7166
       objectReference: {fileID: 0}
     - target: {fileID: 22473068, guid: 1a5154ebeae449e4994357609381b281, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2436,7 +2446,12 @@ MonoBehaviour:
       type: 3}
     previewPrefab: {fileID: 3079373488308904998, guid: eec138a6f73f9b74db1ec7037b33e88f,
       type: 3}
-  craft: []
+  craft:
+  - craftName: Turret
+    realPrefab: {fileID: 3079373488308904998, guid: 574dbcceefada7f468a4c13dcc806fee,
+      type: 3}
+    previewPrefab: {fileID: 7878423440265851422, guid: 43686464eb513404bb1a027dc39d590c,
+      type: 3}
   whatIsGround:
     serializedVersion: 2
     m_Bits: 512
