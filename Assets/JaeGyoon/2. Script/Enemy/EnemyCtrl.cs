@@ -775,7 +775,7 @@ public class EnemyCtrl : MonoBehaviour
 
 
         //4.5 초후 오브젝트 삭제
-        yield return new WaitForSeconds(4.5f);
+        yield return new WaitForSeconds(0.5f);
         //Destroy(gameObject);
 
         ///// 중요 내용 /////

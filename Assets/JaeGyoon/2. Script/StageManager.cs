@@ -324,8 +324,11 @@ public class StageManager : MonoBehaviour
                 //루트 생성위치는 필요하지 않다.그래서 1 번째 인덱스부터 돌리자
                 for (int i = propTrees.Length; i < 100; i++)
                 {
-                    randomX = Random.Range(-(worldMap.transform.localScale.x / 2), (worldMap.transform.localScale.x / 2));
-                    randomZ = Random.Range(-(worldMap.transform.localScale.z / 2), (worldMap.transform.localScale.z / 2));
+                   // randomX = Random.Range(-(worldMap.transform.localScale.x / 2), (worldMap.transform.localScale.x / 2));
+                   // 큐브가 아니라 플랜으로 하면 /2가 아니라 *5 처리 하면 사이즈가 맞음.
+
+                    randomX = Random.Range(-(worldMap.transform.localScale.x *5), (worldMap.transform.localScale.x *5));
+                    randomZ = Random.Range(-(worldMap.transform.localScale.z *5), (worldMap.transform.localScale.z *5));
                     randomPoint = new Vector3(randomX, 0.5f, randomZ);
 
                     // (포톤 추가)
@@ -342,8 +345,8 @@ public class StageManager : MonoBehaviour
             {                
                 for (int i = propGrass1.Length; i < 30; i++)
                 {
-                    randomX = Random.Range(-(worldMap.transform.localScale.x / 2), (worldMap.transform.localScale.x / 2));
-                    randomZ = Random.Range(-(worldMap.transform.localScale.z / 2), (worldMap.transform.localScale.z / 2));
+                    randomX = Random.Range(-(worldMap.transform.localScale.x * 5), (worldMap.transform.localScale.x * 5));
+                    randomZ = Random.Range(-(worldMap.transform.localScale.z * 5), (worldMap.transform.localScale.z * 5));
                     randomPoint = new Vector3(randomX, 0.5f, randomZ);
                    
                     // 네트워크 플레이어를 Scene 에 귀속하여 생성
@@ -356,8 +359,8 @@ public class StageManager : MonoBehaviour
             {
                 for (int i = propGrass2.Length; i < 30; i++)
                 {
-                    randomX = Random.Range(-(worldMap.transform.localScale.x / 2), (worldMap.transform.localScale.x / 2));
-                    randomZ = Random.Range(-(worldMap.transform.localScale.z / 2), (worldMap.transform.localScale.z / 2));
+                    randomX = Random.Range(-(worldMap.transform.localScale.x * 5), (worldMap.transform.localScale.x * 5));
+                    randomZ = Random.Range(-(worldMap.transform.localScale.z * 5), (worldMap.transform.localScale.z * 5));
                     randomPoint = new Vector3(randomX, 0.5f, randomZ);
 
                     // 네트워크 플레이어를 Scene 에 귀속하여 생성
@@ -370,8 +373,8 @@ public class StageManager : MonoBehaviour
             {
                 for (int i = propGrass3.Length; i < 30; i++)
                 {
-                    randomX = Random.Range(-(worldMap.transform.localScale.x / 2), (worldMap.transform.localScale.x / 2));
-                    randomZ = Random.Range(-(worldMap.transform.localScale.z / 2), (worldMap.transform.localScale.z / 2));
+                    randomX = Random.Range(-(worldMap.transform.localScale.x * 5), (worldMap.transform.localScale.x * 5));
+                    randomZ = Random.Range(-(worldMap.transform.localScale.z * 5), (worldMap.transform.localScale.z * 5));
                     randomPoint = new Vector3(randomX, 0.5f, randomZ);
 
                     // 네트워크 플레이어를 Scene 에 귀속하여 생성
@@ -400,9 +403,12 @@ public class StageManager : MonoBehaviour
             // 스테이지 총 몬스터 객수 제한
             if (protoItems.Length < 20)
             {
-                randomX = Random.Range(-(worldMap.transform.localScale.x / 2), (worldMap.transform.localScale.x / 2));
-                randomZ = Random.Range(-(worldMap.transform.localScale.z / 2), (worldMap.transform.localScale.z / 2));
+                randomX = Random.Range(-(worldMap.transform.localScale.x * 5), (worldMap.transform.localScale.x * 5));
+                randomZ = Random.Range(-(worldMap.transform.localScale.z * 5), (worldMap.transform.localScale.z * 5));
                 randomPoint = new Vector3(randomX, 1f, randomZ);
+
+
+
 
 
                 PhotonNetwork.InstantiateSceneObject("ProtoItem", randomPoint, Quaternion.identity, 0, null);
