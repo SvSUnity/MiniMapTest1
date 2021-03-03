@@ -108,7 +108,7 @@ public class Slot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
             DropItemInfo dropObj = DropObjectManager.instance.GetDropItem(playerPos.position + new Vector3(1f,0.5f,0f), Quaternion.identity).GetComponent<DropItemInfo>();
             dropObj.SetDropItemInfo(DragSlot.instance.dragSlot);
             ClearSlot();
-            inven.decreseIvenCnt();
+            inven.DecreseIvenCnt();
             itemImage.gameObject.SetActive(true);
 
         }

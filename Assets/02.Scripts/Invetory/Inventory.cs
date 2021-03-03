@@ -17,7 +17,7 @@ public class Inventory : MonoBehaviour
     // 슬롯들.
     private Slot[] slots;
 
-    public int inventoryCnt=0;//아이템이 존재하는 인벤토리 칸수
+    int inventoryCnt=0;//아이템이 존재하는 인벤토리 칸수
 
     // Use this for initialization
     void Awake()
@@ -77,25 +77,31 @@ public class Inventory : MonoBehaviour
             if (slots[i].item == null)
             {
                 slots[i].AddItem(_item, _count);
-                increseIvenCnt();
+                IncreseIvenCnt();
                 return;
             }
         }
     }
 
-    public void increseIvenCnt ()
+    public void IncreseIvenCnt ()
     {
         inventoryCnt++;
     }
-    public void decreseIvenCnt()
+    public void DecreseIvenCnt()
     {
         inventoryCnt--;
     }
-    public bool isInvenFull()
+    public bool IsInvenFull()
     {
         if (inventoryCnt == slots.Length)
             return true;
         else
             return false;
+    }
+
+
+    public void InventoryCheck(Item _item,int _itemCount)
+    {
+
     }
 }

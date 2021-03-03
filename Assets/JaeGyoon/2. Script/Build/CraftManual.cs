@@ -9,7 +9,7 @@ public class Craft
 {
     public string craftName; // 건설될 건축물 이름
     public GameObject realPrefab; // 실제로 건설될
-    public GameObject previewPrefab; // 초록색으로 미리 보여줄 
+    public GameObject previewPrefab; // 초록색으로 미리 보여줄
 }
 
 
@@ -54,7 +54,12 @@ public class CraftManual : MonoBehaviour
     public GameObject tab1;
     public GameObject tab2;
 
+    Inventory myinven;
 
+    void Awake()
+    {
+        myinven = GameObject.FindObjectOfType<Inventory>();
+    }
 
     // Update is called once per frame
     void Update()
@@ -264,17 +269,6 @@ public class CraftManual : MonoBehaviour
 
             }
 
-
-
-
-
-
-
-
-
-
-
-
             Destroy(buildPreview);
             isActivated = false;
             isPreviewActivated = false;
@@ -284,6 +278,10 @@ public class CraftManual : MonoBehaviour
 
 
 
+        void CanBuildCheck(Requirement req)
+        {
+            myinven.InventoryCheck(req.item[0], req.itemCount[0]);
+        }
     }
 
 

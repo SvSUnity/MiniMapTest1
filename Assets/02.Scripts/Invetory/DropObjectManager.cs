@@ -51,7 +51,6 @@ public class DropObjectManager : MonoBehaviour
         pv = GetComponent<PhotonView>();
         pv.ObservedComponents[0] = this;
     }
-
     void CreateDropItem(int cnt)
     {
         for (int i = 0; i < cnt; i++)

@@ -194,7 +194,7 @@ public class PlayerMoveCtrl : MonoBehaviour
 
         if (go.tag == "Item")
         {
-            if (!inven.isInvenFull())
+            if (!inven.IsInvenFull())
             {
                 Item item = go.GetComponent<ItemInfo>().item;
                 inven.AcquireItem(item);

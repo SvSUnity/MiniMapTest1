@@ -37,10 +37,6 @@ public class csTestPhoton : MonoBehaviour {
 
     }
 
-    void Start()
-    {
-        
-    }
 
     void OnJoinedLobby()
     {
@@ -86,6 +82,24 @@ public class csTestPhoton : MonoBehaviour {
         GameObject go = PhotonNetwork.Instantiate("MainPlayer", playerPos.position, playerPos.rotation, 0);
         radamap.SetPlayerPos(go);
         selectObject.SetPlayerMoveCtrl(go);
+    }
+
+
+    // 네트워크 연결끊겼을때 호출되는 콜백 순서
+    // 처음부터 연결이 끊긴채로 켰을경우 1->2 순으로 호출
+    // 접속된후에 네트워크연결이 끊긴경우 3->2 순으로 호출
+
+    void OnFailedToConnectToPhoton(DisconnectCause cause)
+    {
+        Debug.LogError(1);
+    }
+    void OnDisconnectedFromPhoton()
+    {
+        Debug.LogError(2);
+    }
+    void OnConnectionFail(DisconnectCause cause)
+    {
+        Debug.LogError(3);
     }
 
 }
