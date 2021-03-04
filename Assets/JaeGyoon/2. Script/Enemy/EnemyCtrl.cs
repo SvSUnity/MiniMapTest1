@@ -740,7 +740,7 @@ public class EnemyCtrl : MonoBehaviour
     public void EnemyDie()
     {
         // 포톤 추가
-        if (PhotonNetwork.isMasterClient)
+        if (pv.isMine)
         {
             StartCoroutine(this.Die());
         }
@@ -789,7 +789,7 @@ public class EnemyCtrl : MonoBehaviour
 
 
 
-    private void OnDestroy() // 디스트로이 될때 동작하는 함수
+    void OnDestroy() // 디스트로이 될때 동작하는 함수
     {
         //Debug.Log("OnDestroy");
 

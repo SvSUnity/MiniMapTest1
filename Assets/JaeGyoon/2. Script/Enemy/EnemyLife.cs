@@ -91,10 +91,9 @@ public class EnemyLife : MonoBehaviour
             // 포톤 추가
             // 각 요소를 변수로 저장
             int pow = other.gameObject.GetComponent<csMissile>().missileDMG;
-            int id = other.gameObject.GetComponent<csMissile>().playerId;
 
             //(포톤 추가)모든 네트웍 유저의 몬스터에 RPC 데이타를 전송하며 RPC 함수를 호출, 로컬 플레이어는 로컬 Deamage 함수를 바로 호출 
-            pv.RPC("Deamage", PhotonTargets.AllBuffered, pow, id);
+            pv.RPC("Deamage", PhotonTargets.MasterClient, pow);
 
 
 
@@ -127,7 +126,7 @@ public class EnemyLife : MonoBehaviour
     //포톤 클라우드를 위한 어트리뷰트로 함수 선언 
     [PunRPC]
     //데미지 함수
-    void Deamage(int dam, int id)
+    void Deamage(int dam)
     {
         //맞은 총알의 파워를 가져와 Enemy의 life를 감소
         life -= dam;
