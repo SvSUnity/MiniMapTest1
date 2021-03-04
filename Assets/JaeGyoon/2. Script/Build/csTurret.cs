@@ -190,6 +190,9 @@ public class csTurret : MonoBehaviour
 
             Enemys = GameObject.FindGameObjectsWithTag("EnemyBody"); // 
 
+            if (Enemys.Length > 0)
+            {                
+
                 Transform EnemyTargets = Enemys[0].transform;
                 float dist = (EnemyTargets.position - myTr.position).sqrMagnitude;
 
@@ -203,7 +206,7 @@ public class csTurret : MonoBehaviour
                 }
 
                 EnemyTarget = EnemyTargets;
-
+            }
         }
     }
 
@@ -214,7 +217,9 @@ public class csTurret : MonoBehaviour
         {
             yield return new WaitForSeconds(0.2f);
 
-          
+            if (Enemys.Length > 0)
+            {
+
                 // dist1 = (EnemyTarget.position - myTr.position).sqrMagnitude;
                 dist2 = Vector3.Distance(myTr.position, EnemyTarget.position);
 
@@ -228,7 +233,11 @@ public class csTurret : MonoBehaviour
                 {
                     shot = false;
                 }
-           
+            }
+            else // 없으면 적이 없어도 계속 공격함.
+            {               
+                    shot = false;                
+            }
 
         }
     }
