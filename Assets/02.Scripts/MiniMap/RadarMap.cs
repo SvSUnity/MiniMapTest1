@@ -128,7 +128,7 @@ public class RadarMap : MonoBehaviour
             else if (m.owner.tag == "TeamPlayer")
             {
                 player = m.owner.GetComponent<PlayerMoveCtrl>();//아군캐릭터의 플레이어 스크립트 가져옴
-                Debug.Log(player.playerInfo.plyaerVector);
+                // Debug.Log(player.playerInfo.plyaerVector);
                 if ((Mathf.Abs(player.playerInfo.plyaerVector.x) + Mathf.Abs(player.playerInfo.plyaerVector.z)) > 0)
                 {
                       float ang = Mathf.Atan2(player.playerInfo.plyaerVector.z, player.playerInfo.plyaerVector.x) * Mathf.Rad2Deg;
