@@ -209,7 +209,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 6918408782360350134, guid: 095668dd32b37bd4aa4e01790db5d005,
+          type: 3}
         m_MethodName: BuildBtn
         m_Mode: 1
         m_Arguments:
@@ -339,8 +340,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: RotaBtn
+      - m_Target: {fileID: 6918408782360350134, guid: 095668dd32b37bd4aa4e01790db5d005,
+          type: 3}
+        m_MethodName: CancelBtn
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -718,7 +720,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 6918408782360350134, guid: 095668dd32b37bd4aa4e01790db5d005,
+          type: 3}
         m_MethodName: RotaBtn
         m_Mode: 1
         m_Arguments:

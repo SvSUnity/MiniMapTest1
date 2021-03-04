@@ -21,7 +21,7 @@ public class PreviewObject : MonoBehaviour
 
     void Awake()
     {
-        previewUI = transform.Find("Canvas").gameObject;
+
     }
 
 
@@ -30,14 +30,16 @@ public class PreviewObject : MonoBehaviour
     void Update()
     {
         ChangeColor();
-        if(Input.GetMouseButtonDown(0))
-        {
-            previewUI.SetActive(false);
-        }
-        else if(Input.GetMouseButtonUp(0))
-        {
-            previewUI.SetActive(true);
-        }
+
+
+        //if(Input.GetMouseButtonDown(0))
+        //{
+        //    previewUI.SetActive(false);
+        //}
+        //else if(Input.GetMouseButtonUp(0))
+        //{
+        //    previewUI.SetActive(true);
+        //}
     }
 
 

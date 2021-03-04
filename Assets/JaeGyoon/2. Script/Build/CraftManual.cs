@@ -64,7 +64,7 @@ public class CraftManual : MonoBehaviour
 
 
 
-
+    bool isPickedUp = false;
 
 
 
@@ -97,10 +97,10 @@ public class CraftManual : MonoBehaviour
         }
 
 
-        //if (Input.GetButtonDown("Fire1"))
-        //{
-        //    Building();
-        //}
+        if (Input.GetButtonDown("Fire1"))
+        {
+            Building();
+        }
 
 
 
@@ -114,11 +114,45 @@ public class CraftManual : MonoBehaviour
 
 #if UNITY_ANDROID
 
-        ray = Camera.main.ScreenPointToRay(Input.mousePosition); // 카메라의 시점으로 마우스 포인터를 바라보는 방향    
+        //ray = Camera.main.ScreenPointToRay(Input.mousePosition); // 카메라의 시점으로 마우스 포인터를 바라보는 방향    
 
-        if (isPreviewActivated)
+        //if (isPreviewActivated && Input.touchCount > 0)
+        //{
+        //    PreviewPositionUpdate();
+        //}
+
+
+        //if (Input.touchCount == 0)
+        //{
+        //    Building();
+        //}
+
+
+        if ( isPickedUp == true)
         {
-            PreviewPositionUpdate();
+            if (Input.touchCount > 0 )
+            {
+                buildPreview = Instantiate(build[0].previewPrefab, Vector3.zero, Quaternion.Euler(0, previewRotation, 0));
+
+                buildPrefab = build[0].realPrefab;
+
+                isPreviewActivated = true;
+                go_BaseUI.SetActive(false);
+
+                PreviewPositionUpdate();
+            }
+            else
+            {
+                Building();
+            }
+
+
+
+
+
+
+
+
         }
 
 
@@ -135,7 +169,8 @@ public class CraftManual : MonoBehaviour
         }
         else
         {
-            CloseBuildWindow();
+           CloseBuildWindow();
+           
         }
     }
 
@@ -155,7 +190,11 @@ public class CraftManual : MonoBehaviour
 
 
 
+    public void TestClick(int temp)
+    {
+        isPickedUp = true;
 
+    }
 
 
     public void SlotClick(int slotNum)
@@ -167,6 +206,9 @@ public class CraftManual : MonoBehaviour
 
         isPreviewActivated = true;
         go_BaseUI.SetActive(false);
+
+        isPickedUp = true;
+
     }
 
     public void CraftSlotClick(int slotNum)
@@ -178,6 +220,9 @@ public class CraftManual : MonoBehaviour
 
         isPreviewActivated = true;
         go_BaseUI.SetActive(false);
+
+        isPickedUp = true;
+
     }
 
 
@@ -331,15 +376,24 @@ public class CraftManual : MonoBehaviour
 
    
 
+    public void BuildBtn()
+    {
+        Building();
+    }
+
     public void RotaBtn()
     {
         previewRotation += 90f;
-    }
+    }   
 
+    public void CancelBtn()
+    {
+        Cancel();
+    }
     //private void OnMouseUp()
     //{
     //    test.text = "집 가고 싶다";
     //}
-    
+
 
 }
