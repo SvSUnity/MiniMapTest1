@@ -751,7 +751,7 @@ public class EnemyCtrl : MonoBehaviour
     IEnumerator Die()
     {
 
-        PhotonNetwork.Destroy(gameObject);
+
 
         isDie = true; // 죽었는지를 확인하는 변수를 true 처리
         //죽는 애니메이션 시작
@@ -781,10 +781,11 @@ public class EnemyCtrl : MonoBehaviour
         //4.5 초후 오브젝트 삭제
         yield return new WaitForSeconds(0.1f);
         //Destroy(gameObject);
+        PhotonNetwork.Destroy(gameObject);
 
         ///// 중요 내용 /////
         // 자신과 네트워크상의 아바타들까지 모두 소멸
-       // PhotonNetwork.Destroy(gameObject);
+        // PhotonNetwork.Destroy(gameObject);
     }
 
 
