@@ -43,6 +43,15 @@ public class Inventory : MonoBehaviour
                 CloseInventory();
         }
     }
+    public void OnBtn()
+    {
+        inventoryActivated = !inventoryActivated;
+
+        if (inventoryActivated)
+            OpenInventory();
+        else
+            CloseInventory();
+    }
 
     private void OpenInventory()
     {

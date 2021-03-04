@@ -31,6 +31,8 @@ TagManager:
   - Wall
   - EnemyBody
   - Grass3
+  - Bullet
+  - test
   layers:
   - Default
   - TransparentFX

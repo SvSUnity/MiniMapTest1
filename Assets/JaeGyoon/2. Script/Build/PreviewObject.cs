@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class PreviewObject : MonoBehaviour
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
+public class PreviewObject : MonoBehaviour 
 {
 
     public List<Collider> colliderList = new List<Collider>(); // 충돌한 콜라이더들을 담을 리스트. ( 하나라도 담긴다면 건설 불가능 하게 )
@@ -15,18 +16,28 @@ public class PreviewObject : MonoBehaviour
     private Material greenMaterial;
     [SerializeField]
     private Material redMaterial;
-    
 
-    // Start is called before the first frame update
-    void Start()
+    GameObject previewUI;
+
+    void Awake()
     {
-        
+        previewUI = transform.Find("Canvas").gameObject;
     }
+
+
 
     // Update is called once per frame
     void Update()
     {
         ChangeColor();
+        if(Input.GetMouseButtonDown(0))
+        {
+            previewUI.SetActive(false);
+        }
+        else if(Input.GetMouseButtonUp(0))
+        {
+            previewUI.SetActive(true);
+        }
     }
 
 
@@ -105,6 +116,15 @@ public class PreviewObject : MonoBehaviour
                  
         return colliderList.Count == 0 ; // 콜라이더 리스트에 아무것도 없을때만 true 값 반환 ( 건설 가능 )
     }
+
+    
+
+
+
+
+
+
+
 
 
 }

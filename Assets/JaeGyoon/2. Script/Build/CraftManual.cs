@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 
 [System.Serializable]
@@ -36,6 +37,7 @@ public class CraftManual : MonoBehaviour
 
     public float previewRotation;
 
+    public Text test;
 
 
 
@@ -56,6 +58,21 @@ public class CraftManual : MonoBehaviour
 
     Inventory myinven;
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     void Awake()
     {
         myinven = GameObject.FindObjectOfType<Inventory>();
@@ -64,13 +81,12 @@ public class CraftManual : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ray = Camera.main.ScreenPointToRay(Input.mousePosition); // 카메라의 시점으로 마우스 포인터를 바라보는 방향
-           
 
-        if ( Input.GetKeyDown(KeyCode.Tab) && !isPreviewActivated) // 프리뷰를 보고있지 않고, 탭 키를 누르면
+#if UNITY_EDITOR
 
-        // Input.GetKeyDown(KeyCode.Tab) 만 있을 경우 프리뷰를 보고 있는 상황에서 탭을 또 눌러 다시 프리뷰를 중복 생성하는 경우가 생긴다. 이래서 조건을 하나 더 추가함.
-
+        ray = Camera.main.ScreenPointToRay(Input.mousePosition); // 카메라의 시점으로 마우스 포인터를 바라보는 방향           
+            
+        if ( Input.GetKeyDown(KeyCode.Tab) && !isPreviewActivated) // 프리뷰를 보고있지 않고, 탭 키를 누르면        
         {
             BuildWindow();
         }
@@ -81,17 +97,32 @@ public class CraftManual : MonoBehaviour
         }
 
 
-        if ( Input.GetButtonDown("Fire1"))
-        {
-            Building();
-        }
-          
+        //if (Input.GetButtonDown("Fire1"))
+        //{
+        //    Building();
+        //}
 
 
-        if ( Input.GetKeyDown(KeyCode.Escape))
+
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
+
+
             Cancel();
         }
+#endif
+
+#if UNITY_ANDROID
+
+        ray = Camera.main.ScreenPointToRay(Input.mousePosition); // 카메라의 시점으로 마우스 포인터를 바라보는 방향    
+
+        if (isPreviewActivated)
+        {
+            PreviewPositionUpdate();
+        }
+
+
+#endif
 
     }
 
@@ -287,5 +318,28 @@ public class CraftManual : MonoBehaviour
 
 
 
+
+    public void BuildButtonClick()
+    {
+        if (!isPreviewActivated)
+        {
+            BuildWindow();
+        }
+    }
+
+
+
+   
+
+    public void RotaBtn()
+    {
+        previewRotation += 90f;
+    }
+
+    //private void OnMouseUp()
+    //{
+    //    test.text = "집 가고 싶다";
+    //}
+    
 
 }
