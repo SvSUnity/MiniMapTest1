@@ -92,6 +92,9 @@ public class EnemyLife : MonoBehaviour
             // 각 요소를 변수로 저장
             int pow = other.gameObject.GetComponent<csMissile>().missileDMG;
 
+
+
+
             //(포톤 추가)모든 네트웍 유저의 몬스터에 RPC 데이타를 전송하며 RPC 함수를 호출, 로컬 플레이어는 로컬 Deamage 함수를 바로 호출 
             pv.RPC("Deamage", PhotonTargets.MasterClient, pow);
 
@@ -135,7 +138,7 @@ public class EnemyLife : MonoBehaviour
 
 
         // 생명력이 바닥이면 죽이자
-        if (life <= 0)
+        if (life <= 0 && life > - dam+1)
         {
             // 포톤 추가
             //자신을 파괴시킨 적 네트워크 베이스의 스코어를 증가시키는 함수를 호출함
