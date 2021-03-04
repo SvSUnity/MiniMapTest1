@@ -13,7 +13,7 @@ public class csTurret : MonoBehaviour
     public float dist2;
 
     private GameObject[] Enemys; // 적을 찾기 위한 배열
-    private Transform EnemyTarget; //
+    Transform EnemyTarget; //
 
     private Transform myTr; // 터렛 자신의 위치를 확인하는 변수
 
@@ -190,8 +190,6 @@ public class csTurret : MonoBehaviour
 
             Enemys = GameObject.FindGameObjectsWithTag("EnemyBody"); // 
 
-            if ( Enemys.Length > 0)
-            {
                 Transform EnemyTargets = Enemys[0].transform;
                 float dist = (EnemyTargets.position - myTr.position).sqrMagnitude;
 
@@ -205,11 +203,6 @@ public class csTurret : MonoBehaviour
                 }
 
                 EnemyTarget = EnemyTargets;
-            }
-            else
-            {
-                EnemyTarget = null;
-            }
 
         }
     }
@@ -221,8 +214,7 @@ public class csTurret : MonoBehaviour
         {
             yield return new WaitForSeconds(0.2f);
 
-            if (Enemys.Length > 0)
-            {
+          
                 // dist1 = (EnemyTarget.position - myTr.position).sqrMagnitude;
                 dist2 = Vector3.Distance(myTr.position, EnemyTarget.position);
 
@@ -236,11 +228,7 @@ public class csTurret : MonoBehaviour
                 {
                     shot = false;
                 }
-            }
-            else
-            {
-                shot = false;
-            }
+           
 
         }
     }
@@ -365,7 +353,7 @@ public class csTurret : MonoBehaviour
                // 적을 봐라봄
                 if (shot)
                 {
-                    if (Time.time > enemyLookTime)
+                    if (Time.time > enemyLookTime && EnemyTarget !=null)
                     {
 
                         enemyLookRotation = Quaternion.LookRotation(-(EnemyTarget.forward)); // - 해줘야 바라봄  

@@ -740,7 +740,7 @@ public class EnemyCtrl : MonoBehaviour
     public void EnemyDie()
     {
         // 포톤 추가
-        if (pv.isMine)
+        if (PhotonNetwork.isMasterClient)
         {
             StartCoroutine(this.Die());
         }
@@ -751,40 +751,40 @@ public class EnemyCtrl : MonoBehaviour
     IEnumerator Die()
     {
 
-        PhotonNetwork.Destroy(this.gameObject);
-
-       // isDie = true; // 죽었는지를 확인하는 변수를 true 처리
-       // //죽는 애니메이션 시작
-       // childAnim.CrossFade(anim.die.name, 0.3f);
-       // // 포톤 추가
-       // // 애니메이션 동기화.
-       // net_Aim = 16;
-
-       // //Enemy의 모드를 die로 설정
-       // enemyMode = MODE_STATE.DIE;
-       // //Enemy의 태그를 Untagged로 변경하여 더이상 플레이어랑 포탑이 찾지 못함
-       // this.gameObject.tag = "Untagged";
-       // this.gameObject.transform.Find("EnemyBody").tag = "Untagged"; // Find는 위치에 관련된 함수이므로 transform. 안에 있다. [ 이름 주의 ]
-       // //네비게이션 멈추고 (추적 중지) 
-       // myTraceAgent.isStopped = true;
 
 
-       // //Enemy에 추가된 모든 Collider를 비활성화(모든 충돌체는 Collider를 상속했음 따라서 다음과 같이 추출 가능)
-       // foreach (Collider coll in gameObject.GetComponentsInChildren<Collider>()) // 더이상 다른 대상과 충돌하지 못하게
-       // {
-       //     coll.enabled = false;
-       // }
+        isDie = true; // 죽었는지를 확인하는 변수를 true 처리
+        //죽는 애니메이션 시작
+        childAnim.CrossFade(anim.die.name, 0.3f);
+        // 포톤 추가
+        // 애니메이션 동기화.
+        net_Aim = 16;
+
+        //Enemy의 모드를 die로 설정
+        enemyMode = MODE_STATE.DIE;
+        //Enemy의 태그를 Untagged로 변경하여 더이상 플레이어랑 포탑이 찾지 못함
+        this.gameObject.tag = "Untagged";
+        this.gameObject.transform.Find("EnemyBody").tag = "Untagged"; // Find는 위치에 관련된 함수이므로 transform. 안에 있다. [ 이름 주의 ]
+        //네비게이션 멈추고 (추적 중지) 
+        myTraceAgent.isStopped = true;
 
 
-        
+        //Enemy에 추가된 모든 Collider를 비활성화(모든 충돌체는 Collider를 상속했음 따라서 다음과 같이 추출 가능)
+        foreach (Collider coll in gameObject.GetComponentsInChildren<Collider>()) // 더이상 다른 대상과 충돌하지 못하게
+        {
+            coll.enabled = false;
+        }
 
-       // //4.5 초후 오브젝트 삭제
+
+
+
+        //4.5 초후 오브젝트 삭제
         yield return new WaitForSeconds(0.1f);
-       // //Destroy(gameObject);
+        //Destroy(gameObject);
 
-       // ///// 중요 내용 /////
-       // // 자신과 네트워크상의 아바타들까지 모두 소멸
-       //// PhotonNetwork.Destroy(gameObject);
+        ///// 중요 내용 /////
+        // 자신과 네트워크상의 아바타들까지 모두 소멸
+        PhotonNetwork.Destroy(gameObject);
     }
 
 
