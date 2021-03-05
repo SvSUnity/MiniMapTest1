@@ -7,6 +7,7 @@ public class Inventory : MonoBehaviour
 
     public static bool inventoryActivated = false;
 
+    public List<int> slotIndex = new List<int>();
 
     // 필요한 컴포넌트
     [SerializeField]
@@ -111,25 +112,45 @@ public class Inventory : MonoBehaviour
 
     public bool InventoryCheck(List<Item> _item,List<int> _itemCount)
     {
-        bool resert = true;
+        bool resurt = true;
+
+        int cnt = 0;
         foreach(Item item in _item)
         {
             int listIndex = -1;
-            for (int i= 0; i<slots.Length;i++)
+            for (int i = 0; i < slots.Length; ++i)
             {
-                if (_item.Contains(slots[i].item))
+                //슬롯에 요구아이템이 존재하는경우
+                if (item == slots[i].item)
                 {
-                    //슬롯에 요구아이템이 존재하는경우
                     listIndex = _item.IndexOf(item);
-                    resert = slots[listIndex].itemCount == _itemCount[listIndex] ? true : false;
+                    Debug.Log(listIndex);
+                    slotIndex.Add(i);//아이템 존재하는 슬롯의 인덱스 저장
+                    resurt = slots[i].itemCount == _itemCount[listIndex] ? true : false;
+                    if(resurt)
+                        cnt++;
                     break;
                 }
                 else
-                    return false;
+                    resurt = false;
             }
         }
 
 
-        return resert;
+
+        if (cnt == _item.Count)
+        {
+            int i = 0;
+            foreach (int index in slotIndex)
+            {
+                slots[index].SetSlotCount (-_itemCount[i++]);
+            }
+        }
+        else
+            resurt = false;
+
+
+        slotIndex.Clear();
+        return resurt;
     }
 }

@@ -356,10 +356,11 @@ void Awake()
         {
             //건설필요재료 정보
             Requirement req = buildPreview.GetComponent<Requirement>();
-            Debug.Log(reqCheck.Check(req));
+
             if (!reqCheck.Check(req))
                 return;
-           
+
+
             if (buildPreview.tag == "Wall")
             {
                 Vector3 RatioBuild = new Vector3((int)buildPreview.transform.position.x, (int)buildPreview.transform.position.y,(int)buildPreview.transform.position.z);
