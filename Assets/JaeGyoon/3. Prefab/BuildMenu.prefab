@@ -95,7 +95,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1268736524
 RectTransform:
   m_ObjectHideFlags: 0
@@ -823,6 +823,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6365416628381675022}
   - component: {fileID: 6918408782360350134}
+  - component: {fileID: 2016902832}
   m_Layer: 5
   m_Name: BuildMenu
   m_TagString: Untagged
@@ -893,6 +894,18 @@ MonoBehaviour:
   range: 10000
   tab1: {fileID: 6365416629017718081}
   tab2: {fileID: 6365416628122806183}
+--- !u!114 &2016902832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6365416628381675021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4ec1743af607864b888d819ce4fcee4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6365416629017718081
 GameObject:
   m_ObjectHideFlags: 0
