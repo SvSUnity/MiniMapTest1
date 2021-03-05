@@ -84,76 +84,50 @@ public class CraftManual : MonoBehaviour
 
 #if UNITY_EDITOR
 
-        ray = Camera.main.ScreenPointToRay(Input.mousePosition); // 카메라의 시점으로 마우스 포인터를 바라보는 방향           
-            
-        if ( Input.GetKeyDown(KeyCode.Tab) && !isPreviewActivated) // 프리뷰를 보고있지 않고, 탭 키를 누르면        
-        {
-            BuildWindow();
-        }
+        //ray = Camera.main.ScreenPointToRay(Input.mousePosition); // 카메라의 시점으로 마우스 포인터를 바라보는 방향           
 
-        if ( isPreviewActivated)
+        //if ( Input.GetKeyDown(KeyCode.Tab) && !isPreviewActivated) // 프리뷰를 보고있지 않고, 탭 키를 누르면        
+        //{
+        //    BuildWindow();
+        //}
+
+        //if ( isPreviewActivated)
+        //{
+        //    PreviewPositionUpdate();
+        //}
+
+
+        //if (Input.GetButtonDown("Fire1"))
+        //{
+        //    Building();
+        //}
+
+
+
+        //if (Input.GetKeyDown(KeyCode.Escape))
+        //{
+        //    Cancel();
+        //}
+#endif
+
+#if UNITY_ANDROID
+
+
+        ray = Camera.main.ScreenPointToRay(Input.mousePosition); // 카메라의 시점으로 마우스 포인터를 바라보는 방향    
+
+        if (isPreviewActivated && Input.touchCount > 0)
         {
             PreviewPositionUpdate();
         }
 
 
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.touchCount == 0)
         {
             Building();
         }
 
 
 
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-
-
-            Cancel();
-        }
-#endif
-
-#if UNITY_ANDROID
-
-        //ray = Camera.main.ScreenPointToRay(Input.mousePosition); // 카메라의 시점으로 마우스 포인터를 바라보는 방향    
-
-        //if (isPreviewActivated && Input.touchCount > 0)
-        //{
-        //    PreviewPositionUpdate();
-        //}
-
-
-        //if (Input.touchCount == 0)
-        //{
-        //    Building();
-        //}
-
-
-        if ( isPickedUp == true)
-        {
-            if (Input.touchCount > 0 )
-            {
-                buildPreview = Instantiate(build[0].previewPrefab, Vector3.zero, Quaternion.Euler(0, previewRotation, 0));
-
-                buildPrefab = build[0].realPrefab;
-
-                isPreviewActivated = true;
-                go_BaseUI.SetActive(false);
-
-                PreviewPositionUpdate();
-            }
-            else
-            {
-                Building();
-            }
-
-
-
-
-
-
-
-
-        }
 
 
 #endif
@@ -354,10 +328,6 @@ public class CraftManual : MonoBehaviour
 
 
 
-        void CanBuildCheck(Requirement req)
-        {
-            myinven.InventoryCheck(req.item[0], req.itemCount[0]);
-        }
     }
 
 
