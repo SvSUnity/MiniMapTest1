@@ -22,6 +22,11 @@ public class CraftManual : MonoBehaviour
     [SerializeField]
     private GameObject go_BaseUI; // 열릴 윈도우 창
 
+    public GameObject buildUI; // 모바일 버전 빌드 ui;
+
+
+
+
     [SerializeField]
     public Craft[]build; //  탭과 연결될? 쫌더 지켜봄
 
@@ -68,12 +73,17 @@ public class CraftManual : MonoBehaviour
 
 
 
+    int pointerID = 0;
 
 
 
 
 
-    void Awake()
+
+
+
+
+void Awake()
     {
         myinven = GameObject.FindObjectOfType<Inventory>();
     }
@@ -113,18 +123,69 @@ public class CraftManual : MonoBehaviour
 #if UNITY_ANDROID
 
 
-        ray = Camera.main.ScreenPointToRay(Input.mousePosition); // 카메라의 시점으로 마우스 포인터를 바라보는 방향    
+        pointerID = 0;
 
-        if (isPreviewActivated && Input.touchCount > 0)
+        
+        // 터치시
+        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
         {
-            PreviewPositionUpdate();
+            if (EventSystem.current.IsPointerOverGameObject(0) == false)
+            {
+                ray = Camera.main.ScreenPointToRay(Input.mousePosition); // 카메라의 시점으로 마우스 포인터를 바라보는 방향    
+
+                if (isPreviewActivated)
+                {
+                    PreviewPositionUpdate();
+                }
+
+
+                //if (isPreviewActivated)
+                //{
+                //    buildUI.SetActive(true);
+                //}
+                //else
+                //{
+                //    buildUI.SetActive(false);
+
+                //}
+
+
+
+
+            }
         }
 
 
-        if (Input.touchCount == 0)
+        if (isPreviewActivated)
         {
-            Building();
+            buildUI.SetActive(true);
         }
+        else
+        {
+            buildUI.SetActive(false);
+
+        }
+        //ray = Camera.main.ScreenPointToRay(Input.mousePosition); // 카메라의 시점으로 마우스 포인터를 바라보는 방향    
+
+        //if (isPreviewActivated && buildUI.activeSelf == false)
+        //{
+        //    PreviewPositionUpdate();
+        //}
+
+
+
+
+
+
+        //if (isPreviewActivated)
+        //{
+        //    buildUI.SetActive(true);
+        //}
+        //else
+        //{
+        //    buildUI.SetActive(false);
+
+        //}
 
 
 
@@ -161,14 +222,7 @@ public class CraftManual : MonoBehaviour
     }
 
 
-
-
-
-    public void TestClick(int temp)
-    {
-        isPickedUp = true;
-
-    }
+   
 
 
     public void SlotClick(int slotNum)
@@ -254,6 +308,10 @@ public class CraftManual : MonoBehaviour
 
     void PreviewPositionUpdate()
     {
+
+
+
+
         if ( Physics.Raycast(ray , out hitInfo , range,whatIsGround))
         {
            // if  (hitInfo.collider.tag != null)
@@ -265,6 +323,8 @@ public class CraftManual : MonoBehaviour
                 Vector3 PreviewPos = new Vector3((int)hitInfo.point.x, (int)hitInfo.point.y, (int)hitInfo.point.z);
 
                 buildPreview.SetActive(true);
+
+
                 buildPreview.transform.position = PreviewPos;
                                 
             //}
@@ -273,7 +333,6 @@ public class CraftManual : MonoBehaviour
             {
                 previewRotation += 90f;
             }
-
             buildPreview.transform.rotation = Quaternion.Euler(0f, previewRotation, 0f);
 
 
@@ -344,7 +403,7 @@ public class CraftManual : MonoBehaviour
 
 
 
-   
+
 
     public void BuildBtn()
     {
@@ -354,7 +413,14 @@ public class CraftManual : MonoBehaviour
     public void RotaBtn()
     {
         previewRotation += 90f;
-    }   
+        PreviewPositionUpdate();
+
+
+
+
+
+
+    }
 
     public void CancelBtn()
     {
@@ -364,6 +430,56 @@ public class CraftManual : MonoBehaviour
     //{
     //    test.text = "집 가고 싶다";
     //}
+
+
+
+    void Test()
+    {
+
+        if ( Input.touchCount == 0)
+        {
+
+        }
+
+        if (Physics.Raycast(ray, out hitInfo, range, whatIsGround))
+        {
+            // if  (hitInfo.collider.tag != null)
+            //if   (hitInfo.collider.tag == "Ground" || )
+            //  (hitInfo.collider.tag == "Ground" || hitInfo.collider.tag == "Player" || hitInfo.collider.tag == "CubeTop" || hitInfo.collider.tag == "555")
+            //{
+            // Vector3 PreviewPos = hitInfo.point;
+
+            Vector3 PreviewPos = new Vector3((int)hitInfo.point.x, (int)hitInfo.point.y, (int)hitInfo.point.z);
+
+            buildPreview.SetActive(true);
+            buildPreview.transform.position = PreviewPos;
+
+            //}
+
+            if (Input.GetButtonDown("Fire2"))
+            {
+                previewRotation += 90f;
+            }
+
+            buildPreview.transform.rotation = Quaternion.Euler(0f, previewRotation, 0f);
+            
+
+
+        }
+        else
+        {
+            buildPreview.SetActive(false);
+
+
+        }
+    }
+
+
+
+
+
+
+
 
 
 }
