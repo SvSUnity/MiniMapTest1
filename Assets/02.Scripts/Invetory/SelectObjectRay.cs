@@ -42,7 +42,7 @@ public class SelectObjectRay : MonoBehaviour
                         selectEffect.transform.position = new Vector3(hitInfo.transform.position.x, 0.1f, hitInfo.transform.position.z);
                     }
                     else if (hitInfo.collider.tag == "Ground")
-                    {
+                    {   print("Tag : Ground");
                         player.btnSet(hitInfo.collider.gameObject);
                         selectEffect.SetActive(false);
                     }
