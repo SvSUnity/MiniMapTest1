@@ -109,8 +109,27 @@ public class Inventory : MonoBehaviour
     }
 
 
-    public void InventoryCheck(Item _item,int _itemCount)
+    public bool InventoryCheck(List<Item> _item,List<int> _itemCount)
     {
+        bool resert = true;
+        foreach(Item item in _item)
+        {
+            int listIndex = -1;
+            for (int i= 0; i<slots.Length;i++)
+            {
+                if (_item.Contains(slots[i].item))
+                {
+                    //슬롯에 요구아이템이 존재하는경우
+                    listIndex = _item.IndexOf(item);
+                    resert = slots[listIndex].itemCount == _itemCount[listIndex] ? true : false;
+                    break;
+                }
+                else
+                    return false;
+            }
+        }
 
+
+        return resert;
     }
 }

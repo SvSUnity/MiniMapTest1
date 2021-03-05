@@ -1328,6 +1328,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7603209977022764093}
   - component: {fileID: 5895677709254498839}
+  - component: {fileID: 1034762880694976076}
   m_Layer: 5
   m_Name: BuildMenu
   m_TagString: Untagged
@@ -1342,7 +1343,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7603209977022764094}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2.9312978, y: 2.9312978, z: 2.9312978}
   m_Children:
@@ -1396,6 +1397,18 @@ MonoBehaviour:
   range: 10000
   tab1: {fileID: 7603209976414148466}
   tab2: {fileID: 7603209977300770196}
+--- !u!114 &1034762880694976076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7603209977022764094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4ec1743af607864b888d819ce4fcee4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7603209977300770196
 GameObject:
   m_ObjectHideFlags: 0

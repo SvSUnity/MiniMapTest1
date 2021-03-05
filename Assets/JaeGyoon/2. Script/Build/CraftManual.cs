@@ -75,6 +75,7 @@ public class CraftManual : MonoBehaviour
 
     int pointerID = 0;
 
+    RequireCheck reqCheck;
 
 
 
@@ -86,6 +87,7 @@ public class CraftManual : MonoBehaviour
 void Awake()
     {
         myinven = GameObject.FindObjectOfType<Inventory>();
+        reqCheck = GetComponent<RequireCheck>();
     }
 
     // Update is called once per frame
@@ -94,30 +96,30 @@ void Awake()
 
 #if UNITY_EDITOR
 
-        //ray = Camera.main.ScreenPointToRay(Input.mousePosition); // 카메라의 시점으로 마우스 포인터를 바라보는 방향           
+        ray = Camera.main.ScreenPointToRay(Input.mousePosition); // 카메라의 시점으로 마우스 포인터를 바라보는 방향           
 
-        //if ( Input.GetKeyDown(KeyCode.Tab) && !isPreviewActivated) // 프리뷰를 보고있지 않고, 탭 키를 누르면        
-        //{
-        //    BuildWindow();
-        //}
+        if (Input.GetKeyDown(KeyCode.Tab) && !isPreviewActivated) // 프리뷰를 보고있지 않고, 탭 키를 누르면        
+        {
+            BuildWindow();
+        }
 
-        //if ( isPreviewActivated)
-        //{
-        //    PreviewPositionUpdate();
-        //}
-
-
-        //if (Input.GetButtonDown("Fire1"))
-        //{
-        //    Building();
-        //}
+        if (isPreviewActivated)
+        {
+            PreviewPositionUpdate();
+        }
 
 
+        if (Input.GetButtonDown("Fire1"))
+        {
+            Building();
+        }
 
-        //if (Input.GetKeyDown(KeyCode.Escape))
-        //{
-        //    Cancel();
-        //}
+
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Cancel();
+        }
 #endif
 
 #if UNITY_ANDROID
@@ -352,7 +354,11 @@ void Awake()
     {
         if ( isPreviewActivated && buildPreview.GetComponent<PreviewObject>().isBuildable())
         {
-            
+            //건설필요재료 정보
+            Requirement req = buildPreview.GetComponent<Requirement>();
+            Debug.Log(reqCheck.Check(req));
+            if (!reqCheck.Check(req))
+                return;
            
             if (buildPreview.tag == "Wall")
             {
