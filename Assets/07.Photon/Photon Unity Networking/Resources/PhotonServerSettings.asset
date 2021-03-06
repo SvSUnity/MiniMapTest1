@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f3758f8f58fdef43803eb9be1df0608, type: 3}
   m_Name: PhotonServerSettings
   m_EditorClassIdentifier: 
-  AppID: 1e72c458-85f4-4118-86e1-f3b2b3e48e4f
+  AppID: 99bf1089-f3e0-4610-9ed6-0f064e8a8e77
   VoiceAppID: 
   ChatAppID: 
   HostType: 4
@@ -22,11 +22,11 @@ MonoBehaviour:
   ServerAddress: 
   ServerPort: 5055
   VoiceServerPort: 5055
-  JoinLobby: 1
+  JoinLobby: 0
   EnableLobbyStatistics: 0
   PunLogging: 0
   NetworkLogging: 1
-  RunInBackground: 0
+  RunInBackground: 1
   RpcList:
   - Chat
   - CheckExist
@@ -39,17 +39,12 @@ MonoBehaviour:
   - Marco
   - PickupItemInit
   - Polo
+  - PRC_FindOut_Player_Count
   - PunPickup
   - PunPickupSimple
   - PunRespawn
   - RequestForPickupItems
   - RequestForPickupTimes
-  - RPCSetDropItemInfo
-  - SetMoveDriection
-  - SetReqObejct
-  - ShotStart
-  - TaggedPlayer
-  - PRC_FindOut_Player_Count
   - RPC_Add_Loaded_Count
   - RPC_Add_Ready_Count
   - RPC_Button_Start_Enable_for_Master
@@ -63,4 +58,9 @@ MonoBehaviour:
   - RPC_Reset_Ready_Count
   - RPC_Sub_Ready_Count
   - RPC_Text_Player_Count
+  - RPCSetDropItemInfo
+  - SetMoveDriection
+  - SetReqObejct
+  - ShotStart
+  - TaggedPlayer
   DisableAutoOpenWizard: 1

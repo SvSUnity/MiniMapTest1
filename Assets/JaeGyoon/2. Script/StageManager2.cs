@@ -216,6 +216,14 @@ public class StageManager2 : MonoBehaviour
        // 지금은 테스트를 위하여 플레이어 스폰 포인트가 2개이다 따라서 차후 접속 인원수에 맞게 스폰 포인트와
        // 총 접속인원의 수를 제한
 
+        /**김선명 : Player 생성되는 순간이 다릅니다. , 임시 추가 시작**/
+        PhotonNetwork.isMessageQueueRunning = false;
+        yield return new WaitForSeconds(0.375f);
+        PhotonNetwork.isMessageQueueRunning = true;
+        /****/
+
+        /**김선명 : Player 생성되는 순간이 다릅니다. , 임시 추가 종료**/
+
 
        //현재 입장한 룸 정보를 받아옴(레퍼런스 연결)
        Room currRoom = PhotonNetwork.room;
