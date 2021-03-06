@@ -21,10 +21,6 @@ public class Photon_Scene_A4 : MonoBehaviour
     [SerializeField]int     i_Loaded_Count;
 
 
-
-
-
-
     AsyncOperation  AO_Load_Scene_Next;
     string  str_NickName;
     [SerializeField]PhotonView  photonView_This;
@@ -69,7 +65,7 @@ public class Photon_Scene_A4 : MonoBehaviour
             SingleTon.INSTANCE.Get_NickName();
 
         Invoke("Invoke_O_99" , deltaTime);
-
+        
     }/**void    Start()**/
 
 
@@ -323,6 +319,7 @@ public class Photon_Scene_A4 : MonoBehaviour
     {
         CancelInvoke();
         StopAllCoroutines();
+
         AO_Load_Scene_Next.allowSceneActivation = true;
 
     }/**void    RPC_Load_Scene_Next()**/

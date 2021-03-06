@@ -67,6 +67,7 @@ public class PlayerMoveCtrl : MonoBehaviour
         //액션버튼
         actionBtn = GameObject.FindGameObjectWithTag("actionBtn");
         //테스트용 버튼텍스트
+        //이곳에서 NULL 발생합니다.
         btnText = actionBtn.transform.Find("Text").GetComponent<Text>();
 
         inven = GameObject.FindGameObjectWithTag("Inventory").GetComponent<Inventory>();
