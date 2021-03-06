@@ -67,6 +67,7 @@ public class Photon_Scene_A0 : MonoBehaviour
 
     void    Start()
     {
+
         deltaTime = 0.05f;
 
         i_Limit_NickName_Length = 12;

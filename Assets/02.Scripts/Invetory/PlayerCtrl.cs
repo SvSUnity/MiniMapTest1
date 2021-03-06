@@ -144,6 +144,8 @@ public class PlayerCtrl : MonoBehaviour
 
     void Awake()
     {
+
+
         myTraceAgent = GetComponent<NavMeshAgent>();
         anim = GetComponentInChildren<Animator>();
 
