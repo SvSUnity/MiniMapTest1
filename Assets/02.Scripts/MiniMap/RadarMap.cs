@@ -60,7 +60,7 @@ public class RadarMap : MonoBehaviour
         //Image image = Instantiate(i);
         Image image = null;
         
-
+        /**NULL 발생 부분입니다.**/
         image = MinimapIconManager.instance.GetMinimapIcon(o.tag);
            
         mapObject.Add(new MapObject() { owner = o, icon = image , id = playerId});
