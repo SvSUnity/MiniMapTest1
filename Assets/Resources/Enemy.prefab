@@ -70,6 +70,7 @@ GameObject:
   - component: {fileID: 6996781392318445610}
   - component: {fileID: -3622462107800769425}
   - component: {fileID: -5677494977368837809}
+  - component: {fileID: 1051693599642942965}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -298,6 +299,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54696ee9d548ac84db1b6e6910f3fdba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  life: 100
   enemyBloodEffect: {fileID: 516157054090479559, guid: 1aad81d86d3bf534e8e0950746cd6ad2,
     type: 3}
   enemyBloodDecal: {fileID: 516157054090479557, guid: 1aad81d86d3bf534e8e0950746cd6ad2,
@@ -331,6 +333,18 @@ MonoBehaviour:
   instantiationId: -1
   currentMasterID: -1
   isRuntimeInstantiated: 0
+--- !u!114 &1051693599642942965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7111705922473859596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 749d07700578c8e45aaf2f945da58268, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6397469729949476116
 PrefabInstance:
   m_ObjectHideFlags: 0

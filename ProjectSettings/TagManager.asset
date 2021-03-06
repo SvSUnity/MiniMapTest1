@@ -44,8 +44,8 @@ TagManager:
   - 
   - DropItem
   - Ground
-  - 
-  - 
+  - Player
+  - Enemy
   - 
   - 
   - 

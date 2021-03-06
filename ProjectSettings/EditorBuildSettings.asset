@@ -6,21 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/SeonMyeong/Scenes/Scene_A0.unity
-    guid: 8540aad72533dea489be5ffecbc48b17
-  - enabled: 1
-    path: Assets/SeonMyeong/Scenes/Scene_A1.unity
-    guid: 9acbde6122679ed4c8a7200b6fe46ab5
-  - enabled: 1
-    path: Assets/SeonMyeong/Scenes/Scene_A2.unity
-    guid: 9e59d2be7fbb9c44fbfe99efd41e5db9
-  - enabled: 1
-    path: Assets/SeonMyeong/Scenes/Scene_A3.unity
-    guid: d55431b86084cb745b326e18db14cfd5
-  - enabled: 1
-    path: Assets/SeonMyeong/Scenes/Scene_A4.unity
-    guid: ebe0e4331aac8a24a854cfb84ae51022
-  - enabled: 1
-    path: Assets/01.Scenes/Test3.unity
-    guid: c03f3b98d11c657409631b7712e3ad64
+    path: Assets/01.Scenes/Test2.unity
+    guid: 29ee3ae138ebdfc47a9b8abe2e9baee9
   m_configObjects: {}
