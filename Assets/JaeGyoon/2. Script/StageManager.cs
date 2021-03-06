@@ -59,6 +59,11 @@ public class StageManager : MonoBehaviour
     public Image nightIMG;
     public Text dayTxt;
 
+    public Image dayIcon;
+    public Image nightICon;
+
+
+
     int suvDay;
 
     // 로비 이식전 테스트용
@@ -479,12 +484,18 @@ public class StageManager : MonoBehaviour
 
         if ( day == true)
         {
-            dayIMG.fillAmount = 1 - (currentTime / halfDay) ;          
+            dayIMG.fillAmount = 1 - (currentTime / halfDay) ;
+            dayIcon.gameObject.SetActive(true);
+            nightICon.gameObject.SetActive(false);
+
                 
         }
         else if (day == false)
         {
             nightIMG.fillAmount = 1 - (currentTime / halfDay);
+            dayIcon.gameObject.SetActive(false);
+            nightICon.gameObject.SetActive(true);
+
         }
 
     }
