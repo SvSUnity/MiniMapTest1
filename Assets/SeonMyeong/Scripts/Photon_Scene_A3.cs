@@ -58,6 +58,15 @@ public class Photon_Scene_A3 : MonoBehaviour
         if(photonView_This.ObservedComponents[0] != this)
         {photonView_This.ObservedComponents[0] = this;}
 
+        //PhotonNetwork
+
+        if(PhotonNetwork.connected)
+        print(PhotonNetwork.ServerAddress.ToString());
+
+        ServerConnection    SC = PhotonNetwork.Server;
+
+        print("Server : "+SC.ToString());
+
     }/**void    Awake()**/
 
     void    Start()
@@ -163,6 +172,8 @@ public class Photon_Scene_A3 : MonoBehaviour
 
             PhotonNetwork.isMessageQueueRunning = false;
             PhotonNetwork.isMessageQueueRunning = true;
+
+            
             
             Invoke("Invoke_O_97" , deltaTime);
 

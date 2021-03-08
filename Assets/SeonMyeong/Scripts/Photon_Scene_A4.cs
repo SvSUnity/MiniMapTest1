@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -293,15 +293,35 @@ public class Photon_Scene_A4 : MonoBehaviour
         {
             i_Player_Count =
                 PhotonNetwork.room.PlayerCount;
+
             if(i_Loaded_Count > i_Player_Count - 1)
             {
-                photonView_This.RPC(
-                    "RPC_Load_Scene_Next",PhotonTargets.All,null);
-            }
+                CancelInvoke("Invoke_R_Waiting_Another_Player");
+
+                //print("Time : "+PhotonNetwork.);
+
+                int inst_Ping =
+                    PhotonNetwork.GetPing();
+                    print("Ping : "+inst_Ping.ToString("000")+"ms");
+                float   f_Ping = (float)inst_Ping;
+                f_Ping = f_Ping * 0.01f;
+                Invoke("Invoke_O_RPC_Load_Scene_Next",f_Ping);
+
+            }/**if(i_Loaded_Count > i_Player_Count - 1)**/
 
         }/**if(b_Inst_IsMaster)**/
 
     }/**void    Invoke_R_Waiting_Another_Player()**/
+
+
+    void    Invoke_O_RPC_Load_Scene_Next()
+    {
+        CancelInvoke("Invoke_O_RPC_Load_Scene_Next");
+
+        photonView_This.RPC(
+                    "RPC_Load_Scene_Next" , PhotonTargets.AllViaServer,null);
+        
+    }/**void    Invoke_O_RPC_Load_Scene_Next()**/
 
     /****************************************************************/
     /****************************************************************/
@@ -314,7 +334,6 @@ public class Photon_Scene_A4 : MonoBehaviour
     }/**void    RPC_Add_Loaded_Count()**/
 
     [PunRPC]
-
     void    RPC_Load_Scene_Next()
     {
         CancelInvoke();

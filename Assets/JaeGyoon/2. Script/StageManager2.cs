@@ -246,7 +246,8 @@ public class StageManager2 : MonoBehaviour
        //생성된 프리팹 오브젝트의 PhotonView 컴포넌트의 Owner는 Scene이 된다.
 
        yield return null;
-    }
+
+    }/**IEnumerator CreatePlayer()**/
       
 
   
@@ -278,6 +279,14 @@ public class StageManager2 : MonoBehaviour
         SceneManager.LoadScene("Lobby");
     }
 
+
+
+    //방장이 바뀌었을 경우//
+    void OnMasterClientSwitched(PhotonPlayer newMasterClient)
+    {
+        print("newMasterClient : "+newMasterClient.NickName);
+        
+    }/**void OnMasterClientSwitched(PhotonPlayer newMasterClient)**/
     /////////////////////////////////////////////////////////////////////////////
     ///
 
@@ -311,10 +320,6 @@ public class StageManager2 : MonoBehaviour
                 
             }
         }
-
-
-
-
     }
 
 
@@ -345,7 +350,11 @@ public class StageManager2 : MonoBehaviour
 
                     // (포톤 추가)
                     // 네트워크 플레이어를 Scene 에 귀속하여 생성
-                    PhotonNetwork.InstantiateSceneObject("PropTree", randomPoint, Quaternion.identity, 0, null);
+                    ///20210308
+                    //GameObject  obj_Inst_Tree =
+                        PhotonNetwork.InstantiateSceneObject("PropTree", randomPoint, Quaternion.identity, 0, null);
+                    
+                    //obj_Inst_Tree.transform.SetParent(this.transform);
                 }
             }
 
@@ -362,7 +371,11 @@ public class StageManager2 : MonoBehaviour
                     randomPoint = new Vector3(randomX, 0.5f, randomZ);
                    
                     // 네트워크 플레이어를 Scene 에 귀속하여 생성
-                    PhotonNetwork.InstantiateSceneObject("Grass1", randomPoint, Quaternion.identity, 0, null);
+                    //20210308
+                    //GameObject  obj_Inst_Grass1 =
+                        PhotonNetwork.InstantiateSceneObject("Grass1", randomPoint, Quaternion.identity, 0, null);
+                    
+                    //obj_Inst_Grass1.transform.SetParent(this.transform);
                 }
             }
 
@@ -376,7 +389,11 @@ public class StageManager2 : MonoBehaviour
                     randomPoint = new Vector3(randomX, 0.5f, randomZ);
 
                     // 네트워크 플레이어를 Scene 에 귀속하여 생성
+                    //20210308
+                    //GameObject  obj_Inst_Grass2 =
+                        
                     PhotonNetwork.InstantiateSceneObject("Grass2", randomPoint, Quaternion.identity, 0, null);
+                    //obj_Inst_Grass2.transform.SetParent(this.transform);
                 }
             }
 
@@ -390,7 +407,9 @@ public class StageManager2 : MonoBehaviour
                     randomPoint = new Vector3(randomX, 0.5f, randomZ);
 
                     // 네트워크 플레이어를 Scene 에 귀속하여 생성
-                    PhotonNetwork.InstantiateSceneObject("Grass3", randomPoint, Quaternion.identity, 0, null);
+                    //GameObject  obj_Inst_Grass3 =
+                        PhotonNetwork.InstantiateSceneObject("Grass3", randomPoint, Quaternion.identity, 0, null);
+                    //obj_Inst_Grass3.transform.SetParent(this.transform);
                 }
             }
 
@@ -420,11 +439,10 @@ public class StageManager2 : MonoBehaviour
                 randomPoint = new Vector3(randomX, 1f, randomZ);
 
 
-
-
-
-                PhotonNetwork.InstantiateSceneObject("ProtoItem", randomPoint, Quaternion.identity, 0, null);
-                
+                //20210308
+                //GameObject  obj_Inst_Item =
+                    PhotonNetwork.InstantiateSceneObject("ProtoItem", randomPoint, Quaternion.identity, 0, null);
+                //obj_Inst_Item.transform.SetParent(this.transform);
             }
         }
 
@@ -436,38 +454,25 @@ public class StageManager2 : MonoBehaviour
 
     private void Update()
     {
+         // if ( test == true)
+        // {
 
 
-        if ( test == true)
-        {
+        //     if (PhotonNetwork.connected && PhotonNetwork.isMasterClient)
+        //     {
+        //         // 몬스터 스폰 코루틴 호출
+        //         StartCoroutine(this.CreateEnemy());
 
+        //         StartCoroutine(this.CreateTree());
 
-            if (PhotonNetwork.connected && PhotonNetwork.isMasterClient)
-            {
-                // 몬스터 스폰 코루틴 호출
-                StartCoroutine(this.CreateEnemy());
-
-                StartCoroutine(this.CreateTree());
-
-                StartCoroutine(this.CreateItem());
-
-                test = false;
-            }
-
-
-
-        }
+        //         StartCoroutine(this.CreateItem());
+        //         Debug.Log(1);
+        //         test = false;
+        //     }
 
 
 
-
-
-
-
-
-
-
-
+        // }
 
 
         currentTime += Time.deltaTime;
