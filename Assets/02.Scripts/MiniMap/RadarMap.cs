@@ -130,8 +130,8 @@ public class RadarMap : MonoBehaviour
                 NavMeshAgent enemyDestination = m.owner.GetComponent<NavMeshAgent>();
                 Vector3 v = enemyDestination.destination - m.owner.transform.position;
 
+                //Debug.Log(enemyDestination.destination);
                 float ang = Mathf.Atan2(v.z, v.x) * Mathf.Rad2Deg;
-                Debug.Log(ang);
                 m.icon.transform.rotation = Quaternion.Euler(0, 0, ang+45f);
             }
             //else if (m.owner.tag == "TeamPlayer")
