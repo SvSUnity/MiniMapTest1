@@ -5,6 +5,7 @@ using UnityEngine.AI;
 
 [System.Serializable]
 
+
 public class Anim // 이렇게 외부 변수로 클래스를 정의하면 다른 스크립트에서도 아래 목록을 가진 이 클래스를 사용할 수 있음.
 {
     public AnimationClip idle1;

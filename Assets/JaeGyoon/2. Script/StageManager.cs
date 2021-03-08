@@ -11,7 +11,7 @@ public class StageManager : MonoBehaviour
     
     
     PhotonView pv; //RPC 호출을 위한 PhotonView 연결 레퍼런스
-  //  private Transform[] playerPos; //플레어의 생성 위치 저장 레퍼런스
+   private Transform[] playerPos; //플레어의 생성 위치 저장 레퍼런스
 
     public csTurret Turret; // 베이스 스타트를 위한 변수
 
@@ -78,7 +78,7 @@ public class StageManager : MonoBehaviour
         //playerPos = GameObject.Find("PlayerSpawnPoint").GetComponentsInChildren<Transform>();
         //// 씬 전환이 완벽히 끝나고 나서 플레이어가 생성되어야 네트워크 통신이 원활 ( 만들어 지는 와중에 통신이 되면 안되기 때문 )
 
-       // StartCoroutine(this.CreatePlayer()); //플레이어를 생성하는 함수 호출
+      // StartCoroutine(this.CreatePlayer()); //플레이어를 생성하는 함수 호출
 
         PhotonNetwork.isMessageQueueRunning = true; //포톤 클라우드로부터 네트워크 메시지 수신을 다시 연결 ( 포톤 로드씬을 이용해도 되지만 일단 아는것부터 )        
 
@@ -100,7 +100,6 @@ public class StageManager : MonoBehaviour
             StartCoroutine(this.CreateTree());
 
             StartCoroutine(this.CreateItem());
-
             
         }
       else
@@ -429,12 +428,8 @@ public class StageManager : MonoBehaviour
 
     private void Update()
     {
-
-
-        if ( test == true)
+        if (test == true)
         {
-
-
             if (PhotonNetwork.connected && PhotonNetwork.isMasterClient)
             {
                 // 몬스터 스폰 코루틴 호출
@@ -446,20 +441,7 @@ public class StageManager : MonoBehaviour
 
                 test = false;
             }
-
-
-
         }
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -468,6 +450,7 @@ public class StageManager : MonoBehaviour
         {
             day = !day;
             currentTime = 0;
+
 
             if ( day == true)
             {
@@ -482,22 +465,46 @@ public class StageManager : MonoBehaviour
 
         }
 
-        if ( day == true)
-        {
-            dayIMG.fillAmount = 1 - (currentTime / halfDay) ;
-            dayIcon.gameObject.SetActive(true);
-            nightICon.gameObject.SetActive(false);
 
-                
-        }
-        else if (day == false)
-        {
-            nightIMG.fillAmount = 1 - (currentTime / halfDay);
-            dayIcon.gameObject.SetActive(false);
-            nightICon.gameObject.SetActive(true);
+        //if ( day == true)
+        //{
+        //    dayIMG.fillAmount = 1 - (currentTime / halfDay) ;
+        //    dayIcon.gameObject.SetActive(true);
+        //    nightICon.gameObject.SetActive(false);
 
+
+        //}
+        //else if (day == false)
+        //{
+        //    nightIMG.fillAmount = 1 - (currentTime / halfDay);
+        //    dayIcon.gameObject.SetActive(false);
+        //    nightICon.gameObject.SetActive(true);
+
+        //}
+
+        ////RPC 함수 호출
+        //pv.RPC("DayTemp", PhotonTargets.AllBuffered);
+
+        if (PhotonNetwork.isMasterClient)
+        {
+            
         }
+
+
+        DayTemp();
 
     }
 
+
+    [PunRPC]
+    public void DayTemp()
+    {
+
+
+
+
+            dayIMG.fillAmount = 1 - (currentTime / halfDay);
+            dayIcon.gameObject.SetActive(day);
+            nightICon.gameObject.SetActive(!day);
+    }
 }

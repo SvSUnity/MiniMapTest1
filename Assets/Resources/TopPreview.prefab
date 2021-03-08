@@ -743,6 +743,7 @@ GameObject:
   - component: {fileID: 1831370983019339033}
   - component: {fileID: 2084879579597673276}
   - component: {fileID: 1491008217782838682}
+  - component: {fileID: -8961457123867410447}
   m_Layer: 0
   m_Name: TopPreview
   m_TagString: TopPre
@@ -796,6 +797,22 @@ MonoBehaviour:
   layerGround: 9
   greenMaterial: {fileID: 2100000, guid: 997fb222e7c082e4187c46fc0e349f0a, type: 2}
   redMaterial: {fileID: 2100000, guid: 498bf9a5f8520044bba4390e68f7cd5a, type: 2}
+--- !u!114 &-8961457123867410447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7878423440265851422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6a041568a7453e43a472106c17155bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item:
+  - {fileID: 11400000, guid: 4419053bf33adc14489cc12414d09ead, type: 2}
+  - {fileID: 11400000, guid: 5761345f8e68e5940bc36438ba7dc240, type: 2}
+  itemCount: 0100000001000000
 --- !u!1 &8388571473439305231
 GameObject:
   m_ObjectHideFlags: 0

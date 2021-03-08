@@ -81,10 +81,33 @@ public class CraftManual : MonoBehaviour
 
 
 
+    public int GetCraftTouchIndex()
+    {
+        // 터치 중인 손가락 수만큼 돌면서 craft중인 손가락인덱스를 가져옴
+        for (int fingerID = 0; fingerID < Input.touchCount; ++fingerID)
+        {
+            if (EventSystem.current.IsPointerOverGameObject(0) == false)
+            {
+                return fingerID;
+            }
+        }
+
+        return 0;
+    }
 
 
 
-void Awake()
+
+
+
+
+
+
+
+
+
+
+    void Awake()
     {
         myinven = GameObject.FindObjectOfType<Inventory>();
         reqCheck = GetComponent<RequireCheck>();
@@ -96,30 +119,30 @@ void Awake()
 
 #if UNITY_EDITOR
 
-        ray = Camera.main.ScreenPointToRay(Input.mousePosition); // 카메라의 시점으로 마우스 포인터를 바라보는 방향           
+        //ray = Camera.main.ScreenPointToRay(Input.mousePosition); // 카메라의 시점으로 마우스 포인터를 바라보는 방향           
 
-        if (Input.GetKeyDown(KeyCode.Tab) && !isPreviewActivated) // 프리뷰를 보고있지 않고, 탭 키를 누르면        
-        {
-            BuildWindow();
-        }
+        //if (Input.GetKeyDown(KeyCode.Tab) && !isPreviewActivated) // 프리뷰를 보고있지 않고, 탭 키를 누르면        
+        //{
+        //    BuildWindow();
+        //}
 
-        if (isPreviewActivated)
-        {
-            PreviewPositionUpdate();
-        }
-
-
-        if (Input.GetButtonDown("Fire1"))
-        {
-            Building();
-        }
+        //if (isPreviewActivated)
+        //{
+        //    PreviewPositionUpdate();
+        //}
 
 
+        //if (Input.GetButtonDown("Fire1"))
+        //{
+        //    Building();
+        //}
 
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Cancel();
-        }
+
+
+        //if (Input.GetKeyDown(KeyCode.Escape))
+        //{
+        //    Cancel();
+        //}
 #endif
 
 #if UNITY_ANDROID
@@ -127,35 +150,71 @@ void Awake()
 
         pointerID = 0;
 
-        
+
         // 터치시
-        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+
+        if (Input.touchCount > 0 && EventSystem.current.IsPointerOverGameObject(0) == false)
         {
-            if (EventSystem.current.IsPointerOverGameObject(0) == false)
+            int craftFingerID = GetCraftTouchIndex();
+
+            //ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+             ray = Camera.main.ScreenPointToRay(Input.touches[craftFingerID].position); // 카메라의 시점으로 마우스 포인터를 바라보는 방향   
+            Debug.Log(123456789);
+
+
+
+
+
+            switch (Input.GetTouch(craftFingerID).phase)
             {
-                ray = Camera.main.ScreenPointToRay(Input.mousePosition); // 카메라의 시점으로 마우스 포인터를 바라보는 방향    
+                case TouchPhase.Moved:
+                case TouchPhase.Began:
+                    if (isPreviewActivated)
+                    {
+                        PreviewPositionUpdate();
+                    }
+                    break;
 
-                if (isPreviewActivated)
-                {
-                    PreviewPositionUpdate();
-                }
-
-
-                //if (isPreviewActivated)
-                //{
-                //    buildUI.SetActive(true);
-                //}
-                //else
-                //{
-                //    buildUI.SetActive(false);
-
-                //}
-
-
-
-
+                case TouchPhase.Ended:
+                    break;
+                default:
+                    break;
             }
+
+
+
         }
+
+
+
+
+        //if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+        //{
+        //    if (EventSystem.current.IsPointerOverGameObject(0) == false)
+        //    {
+        //        ray = Camera.main.ScreenPointToRay(Input.mousePosition); // 카메라의 시점으로 마우스 포인터를 바라보는 방향    
+
+        //        if (isPreviewActivated)
+        //        {
+        //            PreviewPositionUpdate();
+        //        }
+
+
+        //        //if (isPreviewActivated)
+        //        //{
+        //        //    buildUI.SetActive(true);
+        //        //}
+        //        //else
+        //        //{
+        //        //    buildUI.SetActive(false);
+
+        //        //}
+
+
+
+
+        //    }
+        //}
 
 
         if (isPreviewActivated)
@@ -206,8 +265,7 @@ void Awake()
         }
         else
         {
-           CloseBuildWindow();
-           
+           Cancel();           
         }
     }
 
@@ -310,8 +368,7 @@ void Awake()
 
     void PreviewPositionUpdate()
     {
-
-
+                  
 
 
         if ( Physics.Raycast(ray , out hitInfo , range,whatIsGround))
@@ -328,14 +385,19 @@ void Awake()
 
 
                 buildPreview.transform.position = PreviewPos;
-                                
+
             //}
 
-            if (Input.GetButtonDown("Fire2") )
-            {
-                previewRotation += 90f;
-            }
-            buildPreview.transform.rotation = Quaternion.Euler(0f, previewRotation, 0f);
+
+
+
+
+
+            //if (Input.GetButtonDown("Fire2"))
+            //{
+            //    previewRotation += 90f;
+            //}
+            //buildPreview.transform.rotation = Quaternion.Euler(0f, previewRotation, 0f);
 
 
 
@@ -419,11 +481,15 @@ void Awake()
 
     public void RotaBtn()
     {
-        previewRotation += 90f;
+
+
+
+        previewRotation += 90f;     
+        buildPreview.transform.rotation = Quaternion.Euler(0f, previewRotation, 0f);
+
+        
+
         PreviewPositionUpdate();
-
-
-
 
 
 
