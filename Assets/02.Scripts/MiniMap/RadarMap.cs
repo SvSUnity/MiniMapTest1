@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-
+using UnityEngine.AI;
 public class MapObject
 {
     Image _icon ;
@@ -125,7 +125,15 @@ public class RadarMap : MonoBehaviour
                 }
 
             }
+            else if(m.owner.layer == LayerMask.NameToLayer("Enemy"))
+            {
+                NavMeshAgent enemyDestination = m.owner.GetComponent<NavMeshAgent>();
+                Vector3 v = enemyDestination.destination - m.owner.transform.position;
 
+                float ang = Mathf.Atan2(v.z, v.x) * Mathf.Rad2Deg;
+                Debug.Log(ang);
+                m.icon.transform.rotation = Quaternion.Euler(0, 0, ang+45f);
+            }
             //else if (m.owner.tag == "TeamPlayer")
             //{
             //    player = m.owner.GetComponent<PlayerMoveCtrl>();//아군캐릭터의 플레이어 스크립트 가져옴
