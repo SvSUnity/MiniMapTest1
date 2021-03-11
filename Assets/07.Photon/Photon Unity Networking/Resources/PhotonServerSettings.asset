@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f3758f8f58fdef43803eb9be1df0608, type: 3}
   m_Name: PhotonServerSettings
   m_EditorClassIdentifier: 
-  AppID: 1e72c458-85f4-4118-86e1-f3b2b3e48e4f
+  AppID: 99bf1089-f3e0-4610-9ed6-0f064e8a8e77
   VoiceAppID: 
   ChatAppID: 
   HostType: 4
@@ -64,4 +64,5 @@ MonoBehaviour:
   - SetReqObejct
   - ShotStart
   - TaggedPlayer
+  - SetTarget
   DisableAutoOpenWizard: 1

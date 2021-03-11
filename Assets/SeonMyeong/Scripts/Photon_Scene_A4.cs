@@ -273,7 +273,7 @@ public class Photon_Scene_A4 : MonoBehaviour
         image_Loading_BAR.fillAmount = 1.0f;
         yield return new WaitForSeconds(0.5f);
         photonView_This.RPC(
-            "RPC_Add_Loaded_Count" , PhotonTargets.All, null);
+            "RPC_Add_Loaded_Count" , PhotonTargets.All , null);
 
         StopCoroutine(IE_RPC_Add_Loaded_Count_To_EveryOne()  );
 
@@ -300,12 +300,12 @@ public class Photon_Scene_A4 : MonoBehaviour
 
                 //print("Time : "+PhotonNetwork.);
 
-                int inst_Ping =
-                    PhotonNetwork.GetPing();
-                    print("Ping : "+inst_Ping.ToString("000")+"ms");
-                float   f_Ping = (float)inst_Ping;
-                f_Ping = f_Ping * 0.01f;
-                Invoke("Invoke_O_RPC_Load_Scene_Next",f_Ping);
+                //int inst_Ping =
+                //    PhotonNetwork.GetPing();
+                //    print("Ping : "+inst_Ping.ToString("000")+"ms");
+                //float   f_Ping = (float)inst_Ping;
+                //f_Ping = f_Ping * 0.01f;
+                Invoke("Invoke_O_RPC_Load_Scene_Next",0.01f);
 
             }/**if(i_Loaded_Count > i_Player_Count - 1)**/
 
@@ -319,7 +319,7 @@ public class Photon_Scene_A4 : MonoBehaviour
         CancelInvoke("Invoke_O_RPC_Load_Scene_Next");
 
         photonView_This.RPC(
-                    "RPC_Load_Scene_Next" , PhotonTargets.AllViaServer,null);
+                    "RPC_Load_Scene_Next" , PhotonTargets.AllViaServer , null);
         
     }/**void    Invoke_O_RPC_Load_Scene_Next()**/
 
