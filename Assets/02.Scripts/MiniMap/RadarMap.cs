@@ -93,7 +93,7 @@ public class RadarMap : MonoBehaviour
         //mapObject.RemoveRange(0, mapObject.Count);
         //mapObject.AddRange(newList);
     }
-
+    
     void DrawMapDots()
     {
         foreach(MapObject m in mapObject)
@@ -127,8 +127,8 @@ public class RadarMap : MonoBehaviour
             }
             else if(m.owner.layer == LayerMask.NameToLayer("Enemy"))
             {
-                NavMeshAgent enemyDestination = m.owner.GetComponent<NavMeshAgent>();
-                Vector3 v = enemyDestination.destination - m.owner.transform.position;
+                EnemyCtrl enemyDestination = m.owner.GetComponent<EnemyCtrl>();
+                Vector3 v = enemyDestination.targetInfo.target - m.owner.transform.position;
 
                 //Debug.Log(enemyDestination.destination);
                 float ang = Mathf.Atan2(v.z, v.x) * Mathf.Rad2Deg;
@@ -146,6 +146,7 @@ public class RadarMap : MonoBehaviour
                
         }
     }
+    
     void Awake()
     {
         rect = GetComponent<RectTransform>();
@@ -156,7 +157,7 @@ public class RadarMap : MonoBehaviour
     {
         DrawMapDots();
     }
-
+    
 
     [ContextMenu("ShowList")]
     void ShowList()

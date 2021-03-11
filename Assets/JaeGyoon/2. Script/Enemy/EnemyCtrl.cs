@@ -30,7 +30,21 @@ public class Anim // 이렇게 외부 변수로 클래스를 정의하면 다른
 [RequireComponent(typeof(NavMeshAgent))] // 오디오 소스 컴포넌트 요구 ( 이 스크립트를 넣으면 오디오소스가 같이 컴포넌트 된다. )
 [RequireComponent(typeof(CapsuleCollider))] // 오디오 소스 컴포넌트 요구 ( 이 스크립트를 넣으면 오디오소스가 같이 컴포넌트 된다. )
 
-
+public class TargetInfo
+{
+    Vector3 _target;
+    public Vector3 target
+    {
+        get
+        {
+            return _target;
+        }
+        set
+        {
+            _target = value;
+        }
+    }
+}
 public class EnemyCtrl : MonoBehaviour
 {
 
@@ -137,7 +151,8 @@ public class EnemyCtrl : MonoBehaviour
     // 애니메이션 동기화를 위한 변수
     // RPC로 처리해도 됨...선택은 상황에 따라서...
     int net_Aim;
-      
+
+    public TargetInfo targetInfo = new TargetInfo();
 
     private void Awake()
     {
@@ -161,7 +176,6 @@ public class EnemyCtrl : MonoBehaviour
         //  * UnreliableOnChange             Unreliable(UDP 프로토콜) 옵션과 같지만 변경사항이 발생했을 경우에만 전송한다
 
 
-
         if (!PhotonNetwork.isMasterClient)
         {
             //원격 네트워크 유저의 아바타는 물리력을 안받게 처리하고
@@ -182,6 +196,7 @@ public class EnemyCtrl : MonoBehaviour
         // 잘 생각해보자 이런처리 안하면 순간이동 현상을 목격
         currPos = myTr.position;
         currRot = myTr.rotation;
+
                    
 
     }
@@ -218,7 +233,6 @@ public class EnemyCtrl : MonoBehaviour
 
             // 로밍 루트 설정
             RoamingCheckStart();
-
         }
 
         else
@@ -307,6 +321,8 @@ public class EnemyCtrl : MonoBehaviour
         if (PhotonNetwork.isMasterClient)
         {
             // 무언가 특별한 처리를 더 추가하고 싶다면 여기서 추가할 수 있다.
+            SetTarget(myTraceAgent.destination);
+            pv.RPC("SetTarget", PhotonTargets.OthersBuffered, myTraceAgent.destination);
         }
         //포톤 추가
         //원격 플레이어일 때 수행
@@ -987,4 +1003,10 @@ public class EnemyCtrl : MonoBehaviour
         }
     }
 
+
+    [PunRPC]
+    void SetTarget(Vector3 pos)
+    {
+        targetInfo.target = pos;
+    }
 }
