@@ -54,6 +54,13 @@ public class PlayerMoveCtrl : MonoBehaviour
     public Vector3 moveDirection;
     public PlayerInfo playerInfo = new PlayerInfo();
     Inventory inven;
+
+    public Sprite[] imgList;
+
+
+
+
+
     void Awake()
     {
         // 레퍼런스 연결
@@ -65,9 +72,15 @@ public class PlayerMoveCtrl : MonoBehaviour
         currPos = myTr.position;
         Debug.Log(currPos);
         //액션버튼
+
+
         actionBtn = GameObject.FindGameObjectWithTag("actionBtn");
         //테스트용 버튼텍스트
         //이곳에서 NULL 발생합니다.
+
+
+
+
         btnText = actionBtn.transform.Find("Text").GetComponent<Text>();
 
         inven = GameObject.FindGameObjectWithTag("Inventory").GetComponent<Inventory>();
@@ -174,19 +187,29 @@ public class PlayerMoveCtrl : MonoBehaviour
         btn.onClick.RemoveAllListeners();
         btn.onClick.AddListener(delegate { OnClickButton(go); });
 
-        
+
         if (go.tag == "Item")
         {
             ItemInfo itemInfo = go.GetComponent<ItemInfo>();
 
-             btnText.text = itemInfo.item.name + " 선택";
+            btnText.text = itemInfo.item.name + " 선택";
+
+            if (itemInfo.item.name == "Tree")
+            {
+                actionBtn.GetComponent<Image>().sprite = imgList[2];
+            }
+            else if (itemInfo.item.name == "Rock")
+            {
+                actionBtn.GetComponent<Image>().sprite = imgList[1];
+            }
         }
         else
         {
             btnText.text = "땅누름";
+            actionBtn.GetComponent<Image>().sprite = imgList[0];
         }
     }
-    void OnClickButton(GameObject go)
+        void OnClickButton(GameObject go)
     {
         if (Inventory.inventoryActivated)
             return;

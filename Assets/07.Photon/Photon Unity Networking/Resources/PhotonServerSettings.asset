@@ -31,6 +31,7 @@ MonoBehaviour:
   - Chat
   - CheckExist
   - ColorRpc
+  - DayTemp
   - Deamage
   - DestroyRpc
   - DoJump
@@ -63,5 +64,4 @@ MonoBehaviour:
   - SetReqObejct
   - ShotStart
   - TaggedPlayer
-  - DayTemp
   DisableAutoOpenWizard: 1
