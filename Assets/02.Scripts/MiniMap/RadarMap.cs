@@ -118,9 +118,9 @@ public class RadarMap : MonoBehaviour
             if (m.owner.layer == LayerMask.NameToLayer("Player"))
             {
                 player = m.owner.GetComponent<PlayerMoveCtrl>();//내캐릭터의 플레이어스크립트가져옴
-                if ((Mathf.Abs(player.playerInfo.plyaerVector.x) + Mathf.Abs(player.playerInfo.plyaerVector.z)) > 0)
+                if ((Mathf.Abs(player.playerInfo.playerVector.x) + Mathf.Abs(player.playerInfo.playerVector.z)) > 0)
                 {
-                    float ang = Mathf.Atan2(player.playerInfo.plyaerVector.z, player.playerInfo.plyaerVector.x) * Mathf.Rad2Deg;
+                    float ang = Mathf.Atan2(player.playerInfo.playerVector.z, player.playerInfo.playerVector.x) * Mathf.Rad2Deg;
                     m.icon.transform.rotation = Quaternion.Euler(0, 0, ang);
                 }
 

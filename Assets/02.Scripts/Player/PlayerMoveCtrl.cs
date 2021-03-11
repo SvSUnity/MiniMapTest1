@@ -10,7 +10,7 @@ public class PlayerInfo
     Vector3 _playerVector;
 
 
-    public Vector3 plyaerVector
+    public Vector3 playerVector
     {
         get
         {
@@ -57,7 +57,7 @@ public class PlayerMoveCtrl : MonoBehaviour
 
     public Sprite[] imgList;
 
-
+    Transform PlayerBody;
 
 
 
@@ -67,10 +67,12 @@ public class PlayerMoveCtrl : MonoBehaviour
         myTr = GetComponent<Transform>();
         controller = GetComponent<CharacterController>();
         pv = GetComponent<PhotonView>();
+        PlayerBody = transform.Find("Body");
         pv.ObservedComponents[0] = this;
         pv.synchronization = ViewSynchronization.UnreliableOnChange;
         currPos = myTr.position;
-        Debug.Log(currPos);
+        currRot = PlayerBody.rotation;
+
         //액션버튼
 
 
@@ -106,6 +108,12 @@ public class PlayerMoveCtrl : MonoBehaviour
 
             SetMoveDriection(h, v);
             pv.RPC("SetMoveDriection", PhotonTargets.Others, h, v);
+
+            if ((Mathf.Abs(playerInfo.playerVector.x) + Mathf.Abs(playerInfo.playerVector.z)) > 0)
+            {
+                float ang = Mathf.Atan2(playerInfo.playerVector.z, playerInfo.playerVector.x) * Mathf.Rad2Deg *-1f;
+                PlayerBody.rotation = Quaternion.Euler(0, ang + 135f, 0);
+            }
 
             if (controller.isGrounded)
             {
@@ -146,6 +154,8 @@ public class PlayerMoveCtrl : MonoBehaviour
         else
         {
             myTr.position = Vector3.Lerp(myTr.position, currPos, Time.deltaTime * 3.0f);
+            PlayerBody.rotation = Quaternion.Slerp(PlayerBody.rotation, currRot, Time.deltaTime * 3.0f);
+            
         }
 
  
@@ -162,7 +172,7 @@ public class PlayerMoveCtrl : MonoBehaviour
         {
             //박싱
             stream.SendNext(myTr.position);
-            stream.SendNext(myTr.rotation);
+            stream.SendNext(PlayerBody.rotation);
         }
         //원격 플레이어의 위치 정보를 수신
         else
@@ -178,7 +188,7 @@ public class PlayerMoveCtrl : MonoBehaviour
     void SetMoveDriection(float h, float v)
     {
         moveDirection = new Vector3(h * movSpeed, 0, v * movSpeed);
-        playerInfo.plyaerVector = moveDirection.normalized;
+        playerInfo.playerVector = moveDirection.normalized;
     }
     public void btnSet(GameObject go)
     {
