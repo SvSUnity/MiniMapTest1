@@ -78,7 +78,7 @@ public class StageManager : MonoBehaviour
         //playerPos = GameObject.Find("PlayerSpawnPoint").GetComponentsInChildren<Transform>();
         //// 씬 전환이 완벽히 끝나고 나서 플레이어가 생성되어야 네트워크 통신이 원활 ( 만들어 지는 와중에 통신이 되면 안되기 때문 )
 
-      // StartCoroutine(this.CreatePlayer()); //플레이어를 생성하는 함수 호출
+       //StartCoroutine(this.CreatePlayer()); //플레이어를 생성하는 함수 호출
 
         PhotonNetwork.isMessageQueueRunning = true; //포톤 클라우드로부터 네트워크 메시지 수신을 다시 연결 ( 포톤 로드씬을 이용해도 되지만 일단 아는것부터 )        
 
@@ -239,9 +239,9 @@ public class StageManager : MonoBehaviour
 
     //    yield return null;
     //}
-      
 
-  
+
+
 
     // 포톤 추가
     // 룸 나가기 버튼 클릭 이벤트에 연결될 함수
