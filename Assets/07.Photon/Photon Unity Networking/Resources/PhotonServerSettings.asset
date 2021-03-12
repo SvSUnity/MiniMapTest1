@@ -65,4 +65,9 @@ MonoBehaviour:
   - ShotStart
   - TaggedPlayer
   - SetTarget
+  - RPC_Order_Load_Scene_Next_To_All
+  - RPC_Order_Load_Scene_Next_And_Send_Signal
+  - RPC_Add_Loaded_Count_To_All
+  - RPC_Order_Allow_Scene_Next
+  - RPC_Order_Allow_Move_Scene_Next
   DisableAutoOpenWizard: 1
