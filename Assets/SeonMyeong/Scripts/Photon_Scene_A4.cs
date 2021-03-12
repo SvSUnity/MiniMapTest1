@@ -225,7 +225,7 @@ public class Photon_Scene_A4 : MonoBehaviour
         //StopCoroutine(IE_Move_Scene()  );
 
         asyncOperation.allowSceneActivation = true;
-
+            
     }/**IEnumerator IE_Move_Scene(int INSERT)**/
 
 
@@ -244,6 +244,7 @@ public class Photon_Scene_A4 : MonoBehaviour
             inst_Scene_Now + 1 , inst_Scene_Count);
         AO_Load_Scene_Next =
             SceneManager.LoadSceneAsync(inst_Scene_Next);
+
         AO_Load_Scene_Next.allowSceneActivation = false;
 
         bool    b_Inst = false;
@@ -289,13 +290,17 @@ public class Photon_Scene_A4 : MonoBehaviour
         bool    b_Inst_IsMaster =
             PhotonNetwork.isMasterClient;
 
-        if(b_Inst_IsMaster)
-        {
             i_Player_Count =
                 PhotonNetwork.room.PlayerCount;
+        if (!PhotonNetwork.isMasterClient)
+            PhotonNetwork.isMessageQueueRunning = true;
 
-            if(i_Loaded_Count > i_Player_Count - 1)
+        if (i_Loaded_Count > i_Player_Count - 1)
+        {
+
+            if (b_Inst_IsMaster)
             {
+                photonView_This.RPC("RPC_Load_Scene_Next", PhotonTargets.AllViaServer, null);
                 CancelInvoke("Invoke_R_Waiting_Another_Player");
 
                 //print("Time : "+PhotonNetwork.);
@@ -305,7 +310,7 @@ public class Photon_Scene_A4 : MonoBehaviour
                 //    print("Ping : "+inst_Ping.ToString("000")+"ms");
                 //float   f_Ping = (float)inst_Ping;
                 //f_Ping = f_Ping * 0.01f;
-                Invoke("Invoke_O_RPC_Load_Scene_Next",0.01f);
+                //Invoke("Invoke_O_RPC_Load_Scene_Next",0.01f);
 
             }/**if(i_Loaded_Count > i_Player_Count - 1)**/
 
@@ -330,16 +335,18 @@ public class Photon_Scene_A4 : MonoBehaviour
     void    RPC_Add_Loaded_Count()
     {
         i_Loaded_Count = i_Loaded_Count +1;
-
+        if (!PhotonNetwork.isMasterClient)
+            PhotonNetwork.isMessageQueueRunning = false;
     }/**void    RPC_Add_Loaded_Count()**/
 
     [PunRPC]
     void    RPC_Load_Scene_Next()
     {
+
         CancelInvoke();
         StopAllCoroutines();
-
         AO_Load_Scene_Next.allowSceneActivation = true;
+        Debug.Log(1);
 
     }/**void    RPC_Load_Scene_Next()**/
 
