@@ -175,4 +175,9 @@ public class RadarMap : MonoBehaviour
         playerPos = go.transform;
     }
 
+
+    void OnDestroy()
+    {
+        mapObject.Clear();
+    }
 }
