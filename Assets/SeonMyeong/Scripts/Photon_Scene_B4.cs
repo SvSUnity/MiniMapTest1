@@ -134,7 +134,6 @@ public class Photon_Scene_B4 : MonoBehaviour
 
     void Invoke_R_89()
     {
-        print("Invoke_R_89");
         if (PhotonNetwork.player.IsMasterClient)
         {
             int inst_Player_Count_M =
@@ -144,11 +143,12 @@ public class Photon_Scene_B4 : MonoBehaviour
             print("Ready Count : " + inst_Ready_Count);
 
             if (inst_Ready_Count > inst_Player_Count_M)
-            {;
+            {
                 CancelInvoke("Invoke_R_89");
                 photonView_This.RPC(
                     "RPC_Order_Allow_Move_Scene_Next",
                         PhotonTargets.AllViaServer, null);
+                        
             }/**if (inst_Ready_Count > inst_Player_Count_M)**/
 
         }/**if (PhotonNetwork.player.IsMasterClient)**/
