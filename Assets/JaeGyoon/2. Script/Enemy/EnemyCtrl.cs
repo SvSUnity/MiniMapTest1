@@ -154,6 +154,8 @@ public class EnemyCtrl : MonoBehaviour
 
     public TargetInfo targetInfo = new TargetInfo();
 
+    bool isTargetChange = false;   
+
     private void Awake()
     {
         myTraceAgent = GetComponent<NavMeshAgent>();
@@ -321,8 +323,15 @@ public class EnemyCtrl : MonoBehaviour
         if (PhotonNetwork.isMasterClient)
         {
             // 무언가 특별한 처리를 더 추가하고 싶다면 여기서 추가할 수 있다.
-            SetTarget(myTraceAgent.destination);
-            pv.RPC("SetTarget", PhotonTargets.OthersBuffered, myTraceAgent.destination);
+            //타겟의 변경이 있을때만 호출
+            if(isTargetChange)
+            {
+                Debug.Log("targetchange");
+                SetTarget(myTraceAgent.destination);
+                pv.RPC("SetTarget", PhotonTargets.OthersBuffered, myTraceAgent.destination);
+                isTargetChange = false;
+            }
+
         }
         //포톤 추가
         //원격 플레이어일 때 수행
@@ -453,6 +462,7 @@ public class EnemyCtrl : MonoBehaviour
 
                     // 추적대상 설정(플레이어)
                     myTraceAgent.destination = traceTarget.position;
+                    isTargetChange = true;
 
                     //네비속도 및 애니메이션 속도 제어
                     if (enemyKind == MODE_KIND.ENEMYBOSS) // 보스일땐 기존 적보다 이동속도가 뛰어남. 
@@ -705,6 +715,7 @@ public class EnemyCtrl : MonoBehaviour
             if (players.Length == 0)
             {
                 traceTarget = baseTarget;
+                isTargetChange = true;
             }
             //그렇지 않으면...
             else
@@ -713,10 +724,12 @@ public class EnemyCtrl : MonoBehaviour
                 if (dist1 <= dist2)
                 {
                     traceTarget = playerTarget;
+                    isTargetChange = true;
                 }
                 else
                 {
                     traceTarget = baseTarget;
+                    isTargetChange = true;
                 }
             }
 
@@ -979,6 +992,7 @@ public class EnemyCtrl : MonoBehaviour
 
             //일단 첫 Base의 Transform만 연결
             traceTarget = baseAll[0].transform;
+            isTargetChange = true;
 
             //추적하는 대상의 위치(Vector3)를 셋팅하면 바로 추적 시작 (가독성이 좋다)
             myTraceAgent.SetDestination(traceTarget.position);
