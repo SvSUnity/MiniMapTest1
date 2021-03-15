@@ -22,7 +22,7 @@ MonoBehaviour:
   ServerAddress: 
   ServerPort: 5055
   VoiceServerPort: 5055
-  JoinLobby: 1
+  JoinLobby: 0
   EnableLobbyStatistics: 0
   PunLogging: 0
   NetworkLogging: 1
@@ -47,6 +47,7 @@ MonoBehaviour:
   - RequestForPickupItems
   - RequestForPickupTimes
   - RPC_Add_Loaded_Count
+  - RPC_Add_Loaded_Count_To_All
   - RPC_Add_Ready_Count
   - RPC_Button_Start_Enable_for_Master
   - RPC_Clear_Ready_Text_Player_List_Array
@@ -54,6 +55,8 @@ MonoBehaviour:
   - RPC_Judge_Ready_Text_Player_List_Array
   - RPC_Load_Scene_Next
   - RPC_Move_Scene_Next
+  - RPC_Order_Allow_Move_Scene_Next
+  - RPC_Order_Load_Scene_Next_And_Send_Signal
   - RPC_Renovate_Text_Player_List_Array
   - RPC_Reset_Button_XY
   - RPC_Reset_Ready_Count
@@ -62,12 +65,7 @@ MonoBehaviour:
   - RPCSetDropItemInfo
   - SetMoveDriection
   - SetReqObejct
+  - SetTarget
   - ShotStart
   - TaggedPlayer
-  - SetTarget
-  - RPC_Order_Load_Scene_Next_To_All
-  - RPC_Order_Load_Scene_Next_And_Send_Signal
-  - RPC_Add_Loaded_Count_To_All
-  - RPC_Order_Allow_Scene_Next
-  - RPC_Order_Allow_Move_Scene_Next
   DisableAutoOpenWizard: 1
