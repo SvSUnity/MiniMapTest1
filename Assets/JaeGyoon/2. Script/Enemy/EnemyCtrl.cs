@@ -462,7 +462,6 @@ public class EnemyCtrl : MonoBehaviour
 
                     // 추적대상 설정(플레이어)
                     myTraceAgent.destination = traceTarget.position;
-                    isTargetChange = true;
 
                     //네비속도 및 애니메이션 속도 제어
                     if (enemyKind == MODE_KIND.ENEMYBOSS) // 보스일땐 기존 적보다 이동속도가 뛰어남. 
