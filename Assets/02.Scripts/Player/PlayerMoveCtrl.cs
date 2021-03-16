@@ -59,6 +59,12 @@ public class PlayerMoveCtrl : MonoBehaviour
 
     Transform PlayerBody;
 
+    // 캐릭터 체력 구현 작업
+
+    public int maxLife = 300;
+    public int life = 0;
+
+    public Image lifeBar;
 
 
     void Awake()
@@ -91,7 +97,14 @@ public class PlayerMoveCtrl : MonoBehaviour
             this.tag = "TeamPlayer";
         }
         else
+        {
             Camera.main.GetComponent<smoothFollowCam>().target = this.transform;
+        }
+
+
+        //lifeBar = GameObject.Find("HpBar").GetComponent<Image>();
+
+
 
     }
 
