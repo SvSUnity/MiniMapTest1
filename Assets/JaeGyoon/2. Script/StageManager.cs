@@ -276,40 +276,40 @@ public class StageManager : MonoBehaviour
     ///
 
 
-    //// 몬스터 생성 코루틴 함수
-    //IEnumerator CreateEnemy()
-    //{
-    //    //게임중 일정 시간마다 계속 호출됨 
-    //    while (!gameEnd)
-    //    {
-    //        //리스폰 타임 5초
-    //        yield return new WaitForSeconds(5.0f);
+    // 몬스터 생성 코루틴 함수
+    IEnumerator CreateEnemy()
+    {
+        //게임중 일정 시간마다 계속 호출됨 
+        while (!gameEnd)
+        {
+            //리스폰 타임 5초
+            yield return new WaitForSeconds(5.0f);
 
-    //        // 스테이지 총 몬스터 객수 제한을 위하여 찾자~
-    //        Enemys = GameObject.FindGameObjectsWithTag("Enemy");
+            // 스테이지 총 몬스터 객수 제한을 위하여 찾자~
+            Enemys = GameObject.FindGameObjectsWithTag("Enemy");
 
-    //        // 스테이지 총 몬스터 객수 제한
-    //        if (Enemys.Length < 10 && day == false)
-    //        {
-    //            for (int j = Enemys.Length; j < 10; j++)
-    //            {
-    //                //루트 생성위치는 필요하지 않다.그래서 1 번째 인덱스부터 돌리자
-    //                for (int i = 1; i < EnemySpawnPoints.Length; i++)
-    //                {
-    //                    // (포톤 추가)
-    //                    // 네트워크 플레이어를 Scene 에 귀속하여 생성
-    //                    PhotonNetwork.InstantiateSceneObject("Enemy", EnemySpawnPoints[i].localPosition, EnemySpawnPoints[i].localRotation, 0, null);
-    //                }
-    //            }
-
-
-    //        }
-    //    }
+            // 스테이지 총 몬스터 객수 제한
+            if (Enemys.Length < 10 && day == false)
+            {
+                for (int j = Enemys.Length; j < 10; j++)
+                {
+                    //루트 생성위치는 필요하지 않다.그래서 1 번째 인덱스부터 돌리자
+                    for (int i = 1; i < EnemySpawnPoints.Length; i++)
+                    {
+                        // (포톤 추가)
+                        // 네트워크 플레이어를 Scene 에 귀속하여 생성
+                        PhotonNetwork.InstantiateSceneObject("Enemy", EnemySpawnPoints[i].localPosition, EnemySpawnPoints[i].localRotation, 0, null);
+                    }
+                }
 
 
+            }
+        }
 
 
-    //}
+
+
+    }
 
 
 
@@ -441,7 +441,7 @@ public class StageManager : MonoBehaviour
             if (PhotonNetwork.connected && PhotonNetwork.isMasterClient)
             {
                 // 몬스터 스폰 코루틴 호출
-               // StartCoroutine(this.CreateEnemy());
+                StartCoroutine(this.CreateEnemy());
 
                 //StartCoroutine(this.CreateTree());
 
