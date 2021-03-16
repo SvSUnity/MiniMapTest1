@@ -409,13 +409,13 @@ public class StageManager : MonoBehaviour
             // 스테이지 총 몬스터 객수 제한
             if (rockItems.Length < 20)
             {
-                randomX = Random.Range(-(worldMap.transform.localScale.x * 4.8f), (worldMap.transform.localScale.x * 4.8f));
-                randomZ = Random.Range(-(worldMap.transform.localScale.z * 4.8f), (worldMap.transform.localScale.z * 4.8f));
+                randomX = Random.Range(-(worldMap.transform.localScale.x * 4.9f), (worldMap.transform.localScale.x * 4.8f));
+                randomZ = Random.Range(-(worldMap.transform.localScale.z * 4.9f), (worldMap.transform.localScale.z * 4.8f));
                 randomPoint = new Vector3(randomX, 1f, randomZ);
                 PhotonNetwork.InstantiateSceneObject("ItemRock", randomPoint, Quaternion.identity, 0, null);
 
-                randomX = Random.Range(-(worldMap.transform.localScale.x * 4.8f), (worldMap.transform.localScale.x * 4.8f));
-                randomZ = Random.Range(-(worldMap.transform.localScale.z * 4.8f), (worldMap.transform.localScale.z * 4.8f));
+                randomX = Random.Range(-(worldMap.transform.localScale.x * 4.9f), (worldMap.transform.localScale.x * 4.8f));
+                randomZ = Random.Range(-(worldMap.transform.localScale.z * 4.9f), (worldMap.transform.localScale.z * 4.8f));
                 randomPoint = new Vector3(randomX, 1f, randomZ);
                 PhotonNetwork.InstantiateSceneObject("ItemWood", randomPoint, Quaternion.identity, 0, null);
 
