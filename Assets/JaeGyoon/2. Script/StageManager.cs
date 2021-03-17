@@ -11,7 +11,7 @@ public class StageManager : MonoBehaviour
     
     
     PhotonView pv; //RPC 호출을 위한 PhotonView 연결 레퍼런스
-   private Transform[] playerPos; //플레어의 생성 위치 저장 레퍼런스
+    private Transform[] playerPos; //플레어의 생성 위치 저장 레퍼런스
 
     public csTurret Turret; // 베이스 스타트를 위한 변수
 
@@ -71,16 +71,18 @@ public class StageManager : MonoBehaviour
     // 로비 이식전 테스트용
 
     bool test = false;
-
+    RadarMap radamap;
+    SelectObjectRay selectObject;
 
     void Awake()
     {
         pv = GetComponent<PhotonView>(); //PhotonView 컴포넌트를 레퍼런스에 할당
 
-        //playerPos = GameObject.Find("PlayerSpawnPoint").GetComponentsInChildren<Transform>();
+        playerPos = GameObject.Find("PlayerSpawnPoint").GetComponentsInChildren<Transform>();
         //// 씬 전환이 완벽히 끝나고 나서 플레이어가 생성되어야 네트워크 통신이 원활 ( 만들어 지는 와중에 통신이 되면 안되기 때문 )
-
-       //StartCoroutine(this.CreatePlayer()); //플레이어를 생성하는 함수 호출
+        radamap = GameObject.FindGameObjectWithTag("Minimap").GetComponent<RadarMap>();
+        selectObject = GameObject.FindGameObjectWithTag("selectObject").GetComponent<SelectObjectRay>();
+        StartCoroutine(this.CreatePlayer()); //플레이어를 생성하는 함수 호출
 
         PhotonNetwork.isMessageQueueRunning = true; //포톤 클라우드로부터 네트워크 메시지 수신을 다시 연결 ( 포톤 로드씬을 이용해도 되지만 일단 아는것부터 )        
 
@@ -91,25 +93,23 @@ public class StageManager : MonoBehaviour
 
         //스폰 위치 얻기
         EnemySpawnPoints = GameObject.Find("EnemySpawnPoint").GetComponentsInChildren<Transform>();
-            
+
 
         // 포톤 추가
         if (PhotonNetwork.connected && PhotonNetwork.isMasterClient)
         {
             // 몬스터 스폰 코루틴 호출
-           // StartCoroutine(this.CreateEnemy());
-
-            //StartCoroutine(this.CreateTree());
+            StartCoroutine(this.CreateEnemy());
 
             StartCoroutine(this.CreateItem());
-            
+
         }
-      else
+        else
         {
             test = true;
         }
 
-        
+
 
         day = true;
 
@@ -212,65 +212,67 @@ public class StageManager : MonoBehaviour
 
     // 포톤 추가
     // 플레이어를 생성하는 함수
-    //IEnumerator CreatePlayer()
-    //{
-    //    // 지금은 테스트를 위하여 플레이어 스폰 포인트가 2개이다 따라서 차후 접속 인원수에 맞게 스폰 포인트와
-    //    // 총 접속인원의 수를 제한
+    IEnumerator CreatePlayer()
+    {
+        // 지금은 테스트를 위하여 플레이어 스폰 포인트가 2개이다 따라서 차후 접속 인원수에 맞게 스폰 포인트와
+        // 총 접속인원의 수를 제한
+        PhotonNetwork.isMessageQueueRunning = false;
+        yield return new WaitForSeconds(0.375f);
+        PhotonNetwork.isMessageQueueRunning = true;
 
+        //현재 입장한 룸 정보를 받아옴(레퍼런스 연결)
+        Room currRoom = PhotonNetwork.room;
 
-    //    //현재 입장한 룸 정보를 받아옴(레퍼런스 연결)
-    //    Room currRoom = PhotonNetwork.room;
+        // 테스트를 위한 object 배열
+        object[] ex = new object[3];
+        ex[0] = 3;
+        ex[1] = 4;
+        ex[2] = 5;
 
-    //    // 테스트를 위한 object 배열
-    //    object[] ex = new object[3];
-    //    ex[0] = 3;
-    //    ex[1] = 4;
-    //    ex[2] = 5;
+        //float pos = Random.Range(-100.0f, 100.0f);
+        //포톤네트워크를 이용한 동적 네트워크 객체는 다음과 같이 Resources 폴더 안에 애셋의 이름을 인자로 전달 해야한다. 
+        //PhotonNetwork.Instantiate( "MainPlayer", new Vector3(pos, 20.0f, pos), Quaternion.identity, 0 );
+        GameObject player = PhotonNetwork.Instantiate("MainPlayer", playerPos[currRoom.PlayerCount].position, playerPos[currRoom.PlayerCount].rotation, 0, ex);
+        radamap.SetPlayerPos(player);
+        selectObject.SetPlayerMoveCtrl(player);
+        //// 기존 이름으로 변경해야 드럼통 폭파 가능(DestructionRay 스크립트 참조)
 
-    //    //float pos = Random.Range(-100.0f, 100.0f);
-    //    //포톤네트워크를 이용한 동적 네트워크 객체는 다음과 같이 Resources 폴더 안에 애셋의 이름을 인자로 전달 해야한다. 
-    //    //PhotonNetwork.Instantiate( "MainPlayer", new Vector3(pos, 20.0f, pos), Quaternion.identity, 0 );
-    //    GameObject player = PhotonNetwork.Instantiate("MainPlayer", playerPos[currRoom.PlayerCount].position, playerPos[currRoom.PlayerCount].rotation, 0, ex);
+        //PhotonNetwork.InstantiateSceneObject(string prefabName, Vector3 position, Quaternion rotation, byte group, object[] data);
+        //이 함수도 PhotonNetwork.Instantiate와 마찬가지로 네트워크 상에 프리팹을 동시에 생성시키지만, Master Client 만 생성 및 삭제 가능.
+        //생성된 프리팹 오브젝트의 PhotonView 컴포넌트의 Owner는 Scene이 된다.
 
-    //    //// 기존 이름으로 변경해야 드럼통 폭파 가능(DestructionRay 스크립트 참조)
-    //    player.name = "Player";
-
-    //    //PhotonNetwork.InstantiateSceneObject(string prefabName, Vector3 position, Quaternion rotation, byte group, object[] data);
-    //    //이 함수도 PhotonNetwork.Instantiate와 마찬가지로 네트워크 상에 프리팹을 동시에 생성시키지만, Master Client 만 생성 및 삭제 가능.
-    //    //생성된 프리팹 오브젝트의 PhotonView 컴포넌트의 Owner는 Scene이 된다.
-
-    //    yield return null;
-    //}
+        yield return null;
+    }
 
 
 
 
     // 포톤 추가
     // 룸 나가기 버튼 클릭 이벤트에 연결될 함수
-    public void OnClickExitRoom()
-    {
+    //public void OnClickExitRoom()
+    //{
 
-        // 로그 메시지에 출력할 문자열 생성
-        string msg = "\n\t<color=#ff0000>["
-                    + PhotonNetwork.player.NickName
-                    + "] Disconnected</color>";
+    //    // 로그 메시지에 출력할 문자열 생성
+    //    string msg = "\n\t<color=#ff0000>["
+    //                + PhotonNetwork.player.NickName
+    //                + "] Disconnected</color>";
 
-        //RPC 함수 호출
-        pv.RPC("LogMsg", PhotonTargets.AllBuffered, msg);
+    //    //RPC 함수 호출
+    //    pv.RPC("LogMsg", PhotonTargets.AllBuffered, msg);
 
-        //현재 룸을 빠져나가며 생성한 모든 네트워크 객체를 삭제
-        PhotonNetwork.LeaveRoom();
+    //    //현재 룸을 빠져나가며 생성한 모든 네트워크 객체를 삭제
+    //    PhotonNetwork.LeaveRoom();
 
-        //(!) 서버에 통보한 후 룸에서 나가려는 클라이언트가 생성한 모든 네트워크 객체및 RPC를 제거하는 과정 진행(포톤 서버에서 진행)
-    }
+    //    //(!) 서버에 통보한 후 룸에서 나가려는 클라이언트가 생성한 모든 네트워크 객체및 RPC를 제거하는 과정 진행(포톤 서버에서 진행)
+    //}
 
-    // 포톤 추가
-    //룸에서 접속 종료됐을 때 호출되는 콜백 함수 ( (!) 과정 후 포톤이 호출 )
-    public void OnLeftRoom()
-    {
-        // 로비로 이동
-        SceneManager.LoadScene("Lobby");
-    }
+    //// 포톤 추가
+    ////룸에서 접속 종료됐을 때 호출되는 콜백 함수 ( (!) 과정 후 포톤이 호출 )
+    //public void OnLeftRoom()
+    //{
+    //    // 로비로 이동
+    //    SceneManager.LoadScene("Lobby");
+    //}
 
     /////////////////////////////////////////////////////////////////////////////
     ///
@@ -434,18 +436,18 @@ public class StageManager : MonoBehaviour
     }
 
 
-    private void Update()
+    void Update()
     {
         if (test == true)
         {
             if (PhotonNetwork.connected && PhotonNetwork.isMasterClient)
             {
                 // 몬스터 스폰 코루틴 호출
-                StartCoroutine(this.CreateEnemy());
+                //StartCoroutine(this.CreateEnemy());
 
-                //StartCoroutine(this.CreateTree());
+                ////StartCoroutine(this.CreateTree());
 
-                StartCoroutine(this.CreateItem());
+                //StartCoroutine(this.CreateItem());
 
                 test = false;
             }
@@ -493,24 +495,12 @@ public class StageManager : MonoBehaviour
         ////RPC 함수 호출
         //pv.RPC("DayTemp", PhotonTargets.AllBuffered);
 
-        if (PhotonNetwork.isMasterClient)
-        {
-            
-        }
-
-
         DayTemp();
 
     }
 
-
-    [PunRPC]
     public void DayTemp()
     {
-
-
-
-
             dayIMG.fillAmount = 1 - (currentTime / halfDay);
             dayIcon.gameObject.SetActive(day);
             nightICon.gameObject.SetActive(!day);
