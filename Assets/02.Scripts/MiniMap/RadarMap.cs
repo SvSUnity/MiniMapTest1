@@ -155,7 +155,8 @@ public class RadarMap : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        DrawMapDots();
+        if(playerPos !=null)
+            DrawMapDots();
     }
     
 
