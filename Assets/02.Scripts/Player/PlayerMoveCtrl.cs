@@ -66,7 +66,7 @@ public class PlayerMoveCtrl : MonoBehaviour
 
     public int maxLife = 100;
 
-    public Image lifeBar;
+    public GameObject lifeBar;
 
     void Awake()
     {
@@ -177,11 +177,9 @@ public class PlayerMoveCtrl : MonoBehaviour
             hp = currHP;            
         }
 
-
-        lifeBar.fillAmount = (float)hp / (float)maxLife;
-
-
-
+        Vector3 tempScale = lifeBar.transform.localScale;
+        tempScale.x = (float)hp / (float)maxLife;
+        lifeBar.transform.localScale = tempScale;
 
 
 
@@ -309,6 +307,17 @@ public class PlayerMoveCtrl : MonoBehaviour
 
 
     }
+
+
+
+    void PlayerDead()
+    {
+
+    }
+
+
+
+
 
 
 
