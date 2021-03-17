@@ -61,11 +61,12 @@ public class PlayerMoveCtrl : MonoBehaviour
 
     // 캐릭터 체력 구현 작업
 
-    public int maxLife = 300;
-    public int life = 0;
+    public int currHP;
+    public int hp;
+
+    public int maxLife = 100;
 
     public Image lifeBar;
-
 
     void Awake()
     {
@@ -104,7 +105,7 @@ public class PlayerMoveCtrl : MonoBehaviour
 
         //lifeBar = GameObject.Find("HpBar").GetComponent<Image>();
 
-
+        hp = maxLife;
 
     }
 
@@ -162,16 +163,29 @@ public class PlayerMoveCtrl : MonoBehaviour
             // CharacterController의 Move 함수에 방향과 크기의 벡터값을 적용(디바이스마다 일정)
             controller.Move(rot * moveDirection * Time.deltaTime);
 
+
+            Debug.Log( hp);
+
+
         }
         //원격플레이어일때 수행
         else
         {
             myTr.position = Vector3.Lerp(myTr.position, currPos, Time.deltaTime * 3.0f);
             PlayerBody.rotation = Quaternion.Slerp(PlayerBody.rotation, currRot, Time.deltaTime * 3.0f);
-            
+
+            hp = currHP;            
         }
 
  
+
+
+
+
+
+
+
+
 
     }
     void OnPhotonInstantiate(PhotonMessageInfo info)
@@ -186,6 +200,8 @@ public class PlayerMoveCtrl : MonoBehaviour
             //박싱
             stream.SendNext(myTr.position);
             stream.SendNext(PlayerBody.rotation);
+
+            stream.SendNext(hp);
         }
         //원격 플레이어의 위치 정보를 수신
         else
@@ -193,6 +209,8 @@ public class PlayerMoveCtrl : MonoBehaviour
             //언박싱
             currPos = (Vector3)stream.ReceiveNext();
             currRot = (Quaternion)stream.ReceiveNext();
+
+            currHP = (int)stream.ReceiveNext();
         }
 
     }
@@ -267,6 +285,33 @@ public class PlayerMoveCtrl : MonoBehaviour
     //        Destroy(col.gameObject);
     //    }
     //}
+
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if ( pv.isMine)
+        {
+            if ( other.tag == "EnemyWeapon")
+            {
+                int monsterDMG = other.gameObject.GetComponent<EnemyAttackPoint>().power;
+
+                hp -= monsterDMG;
+
+                lifeBar.fillAmount = (float)hp / (float)maxLife;
+            }
+        }
+
+
+
+        if ( hp <= 0)
+        {
+            hp = 0;
+        }
+
+
+    }
+
 
 
 }

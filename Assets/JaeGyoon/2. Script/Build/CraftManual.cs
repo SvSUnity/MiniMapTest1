@@ -153,33 +153,33 @@ public class CraftManual : MonoBehaviour
 
         // 터치시
 
-        if (Input.touchCount > 0 && EventSystem.current.IsPointerOverGameObject(0) == false)
+        if (Input.touchCount > 0 && EventSystem.current.IsPointerOverGameObject(0) == false && (Input.GetTouch(0).phase == TouchPhase.Began || Input.GetTouch(0).phase == TouchPhase.Moved))
         {
-            int craftFingerID = GetCraftTouchIndex();
+           // int craftFingerID = GetCraftTouchIndex();
 
             //ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-             ray = Camera.main.ScreenPointToRay(Input.touches[craftFingerID].position); // 카메라의 시점으로 마우스 포인터를 바라보는 방향   
-            Debug.Log(123456789);
+             ray = Camera.main.ScreenPointToRay(Input.touches[0].position); // 카메라의 시점으로 마우스 포인터를 바라보는 방향   
+
+            PreviewPositionUpdate();
 
 
 
 
+            //switch (Input.GetTouch(craftFingerID).phase)
+            //{
+            //    case TouchPhase.Moved:
+            //    case TouchPhase.Began:
+            //        if (isPreviewActivated)
+            //        {
+            //            PreviewPositionUpdate();
+            //        }
+            //        break;
 
-            switch (Input.GetTouch(craftFingerID).phase)
-            {
-                case TouchPhase.Moved:
-                case TouchPhase.Began:
-                    if (isPreviewActivated)
-                    {
-                        PreviewPositionUpdate();
-                    }
-                    break;
-
-                case TouchPhase.Ended:
-                    break;
-                default:
-                    break;
-            }
+            //    case TouchPhase.Ended:
+            //        break;
+            //    default:
+            //        break;
+            //}
 
 
 

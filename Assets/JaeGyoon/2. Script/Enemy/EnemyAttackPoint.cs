@@ -8,7 +8,11 @@ public class EnemyAttackPoint : MonoBehaviour
     public Collider co;
 
     //충돌이 일어나면 코루틴으로 연속충돌을 방지한다
-    void OnCollisionEnter(Collision coll)
+
+
+   
+
+    void OnTriggerEnter(Collider coll)
     {
         if (coll.gameObject.tag == "Player")
         {
