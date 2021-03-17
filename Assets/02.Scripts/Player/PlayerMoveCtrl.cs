@@ -164,7 +164,7 @@ public class PlayerMoveCtrl : MonoBehaviour
             controller.Move(rot * moveDirection * Time.deltaTime);
 
 
-            Debug.Log( hp);
+            
 
 
         }
@@ -177,8 +177,8 @@ public class PlayerMoveCtrl : MonoBehaviour
             hp = currHP;            
         }
 
- 
 
+        lifeBar.fillAmount = (float)hp / (float)maxLife;
 
 
 
@@ -296,9 +296,7 @@ public class PlayerMoveCtrl : MonoBehaviour
             {
                 int monsterDMG = other.gameObject.GetComponent<EnemyAttackPoint>().power;
 
-                hp -= monsterDMG;
-
-                lifeBar.fillAmount = (float)hp / (float)maxLife;
+                hp -= monsterDMG;                
             }
         }
 

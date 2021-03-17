@@ -22,7 +22,6 @@ TagManager:
   - DropItem
   - Room_Btn
   - 555Pre
-  - protoItem
   - 555
   - TopPre
   - Grass2
@@ -33,6 +32,8 @@ TagManager:
   - Grass3
   - Bullet
   - test
+  - EnemyWeapon
+  - protoItem
   layers:
   - Default
   - TransparentFX
