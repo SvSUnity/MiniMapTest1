@@ -24,6 +24,6 @@ EditorBuildSettings:
     path: Assets/SeonMyeong/Scenes/Scene_B4.unity
     guid: f280b59f1ea5c894b90aa193f8fc7aa1
   - enabled: 1
-    path: Assets/01.Scenes/Test3.unity
-    guid: c03f3b98d11c657409631b7712e3ad64
+    path: Assets/01.Scenes/Main.unity
+    guid: c5ac840311540b64badbb8bb67e26819
   m_configObjects: {}

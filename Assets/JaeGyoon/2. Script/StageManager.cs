@@ -228,11 +228,10 @@ public class StageManager : MonoBehaviour
         //ex[0] = 3;
         //ex[1] = 4;
         //ex[2] = 5;
-
-        //float pos = Random.Range(-100.0f, 100.0f);
+        int index = Random.Range(1, playerPos.Length);
         //포톤네트워크를 이용한 동적 네트워크 객체는 다음과 같이 Resources 폴더 안에 애셋의 이름을 인자로 전달 해야한다. 
         //PhotonNetwork.Instantiate( "MainPlayer", new Vector3(pos, 20.0f, pos), Quaternion.identity, 0 );
-        GameObject player = PhotonNetwork.Instantiate("MainPlayer", playerPos[currRoom.PlayerCount].position, playerPos[currRoom.PlayerCount].rotation, 0);
+        GameObject player = PhotonNetwork.Instantiate("MainPlayer", playerPos[index].position, playerPos[index].rotation, 0);
         radamap.SetPlayerPos(player);
         selectObject.SetPlayerMoveCtrl(player);
         //// 기존 이름으로 변경해야 드럼통 폭파 가능(DestructionRay 스크립트 참조)
