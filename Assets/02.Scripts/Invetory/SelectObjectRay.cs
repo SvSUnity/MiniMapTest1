@@ -36,7 +36,7 @@ public class SelectObjectRay : MonoBehaviour
             Vector2 pos = Input.mousePosition;
             if (!dontTouchArea[0].Contains(pos) && !dontTouchArea[1].Contains(pos) )
             {
-                if (Physics.Raycast(ray, out hitInfo, 150.0f))
+                if (Physics.Raycast(ray, out hitInfo, 150.0f,layerMask))
                 {
                     if (hitInfo.collider.tag == "Item")
                     {
@@ -68,7 +68,7 @@ public class SelectObjectRay : MonoBehaviour
 
                     if (!dontTouchArea[0].Contains(pos)&&!dontTouchArea[1].Contains(pos))
                     {
-                        if (Physics.Raycast(ray, out hitInfo, 150.0f))
+                        if (Physics.Raycast(ray, out hitInfo, 150.0f,layerMask))
                         {
                             if (hitInfo.collider.tag == "Item")
                             {
