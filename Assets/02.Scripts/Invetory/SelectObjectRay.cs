@@ -12,13 +12,14 @@ public class SelectObjectRay : MonoBehaviour
     int Pid;
     List<Rect> dontTouchArea = new List<Rect>();//터치불가능영역, UI영역
     PlayerMoveCtrl player;
-
+    public Texture texture;
         
     void Awake()
     {
         selectEffect = transform.Find("selectObject").gameObject;
         dontTouchArea.Add(new Rect(0, 0, Screen.width * 0.3f, Screen.height * 0.5f));
-        dontTouchArea.Add(new Rect(Screen.width * 0.8f, 0, Screen.width * 0.2f, Screen.height * 0.3f));
+        dontTouchArea.Add(new Rect(Screen.width * 0.7f, 0, Screen.width * 0.3f, Screen.height * 0.3f));
+        dontTouchArea.Add(new Rect(Screen.width * 0.9f, 0, Screen.width * 0.1f, Screen.height * 0.5f));
     }
 
     // Update is called once per frame
@@ -26,7 +27,7 @@ public class SelectObjectRay : MonoBehaviour
     {
         int layerMask = (1 << LayerMask.NameToLayer("Map")) + (1 << LayerMask.NameToLayer("Enemy")) + (1 << LayerMask.NameToLayer("Player"));
         layerMask = ~layerMask;
-
+        //영역확인용
         //Map레이어만 레이캐스트에서 제외
 #if UNITY_EDITOR
         ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -103,5 +104,11 @@ public class SelectObjectRay : MonoBehaviour
         selectEffect.SetActive(false);
     }
 
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawGUITexture(dontTouchArea[0], texture);
+        Gizmos.DrawGUITexture(dontTouchArea[1], texture);
+        Gizmos.DrawGUITexture(dontTouchArea[2], texture);
+    }
 
 }
