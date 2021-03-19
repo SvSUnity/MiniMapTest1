@@ -66,7 +66,7 @@ public class PlayerMoveCtrl : MonoBehaviour
 
     public int maxLife = 100;
 
-    public GameObject lifeBar;
+    public Image lifeBar;
 
     void Awake()
     {
@@ -177,12 +177,30 @@ public class PlayerMoveCtrl : MonoBehaviour
             hp = currHP;            
         }
 
-        Vector3 tempScale = lifeBar.transform.localScale;
-        tempScale.x = (float)hp / (float)maxLife;
-        lifeBar.transform.localScale = tempScale;
+
+        // 스프라이트 방식으로 조절할때는 이렇게
+        //Vector3 tempScale = lifeBar.transform.localScale;
+        //tempScale.x = (float)hp / (float)maxLife;
+        //lifeBar.transform.localScale = tempScale;
+
+        lifeBar.fillAmount = (float)hp / (float)maxLife;
 
 
+        //생명력 수치에 따라 Filled 이미지의 색상을 변경 
+        if (lifeBar.fillAmount <= 0.4f)
+        {
+            lifeBar.color = Color.red;
+        }
+        else if (lifeBar.fillAmount <= 0.6f)
+        {
+            lifeBar.color = Color.yellow;
+        }
 
+
+        if (hp <= 0)
+        {
+            StartCoroutine(PlayerDie());
+        }
 
 
     }
@@ -310,8 +328,20 @@ public class PlayerMoveCtrl : MonoBehaviour
 
 
 
-    void PlayerDead()
+    IEnumerator PlayerDie()
     {
+        
+        gameObject.tag = "Untagged";
+
+
+        movSpeed = 0;
+
+        yield return new WaitForSeconds(5.0f);
+
+        hp = maxLife;
+        lifeBar.color = Color.green;
+        movSpeed = 5;
+        gameObject.tag = "Player";
 
     }
 
