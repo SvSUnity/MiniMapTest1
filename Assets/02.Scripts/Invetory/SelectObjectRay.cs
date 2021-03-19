@@ -24,7 +24,7 @@ public class SelectObjectRay : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        int layerMask = (1 << LayerMask.NameToLayer("Map"));
+        int layerMask = (1 << LayerMask.NameToLayer("Map")) + (1 << LayerMask.NameToLayer("Enemy")) + (1 << LayerMask.NameToLayer("Player"));
         layerMask = ~layerMask;
 
         //Map레이어만 레이캐스트에서 제외
