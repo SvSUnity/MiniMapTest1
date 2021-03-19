@@ -992,7 +992,8 @@ public class EnemyCtrl : MonoBehaviour
             //일단 첫 Base의 Transform만 연결
             traceTarget = baseAll[0].transform;
             isTargetChange = true;
-
+            myTraceAgent.enabled = true;
+            myRbody.isKinematic = true;
             //추적하는 대상의 위치(Vector3)를 셋팅하면 바로 추적 시작 (가독성이 좋다)
             myTraceAgent.SetDestination(traceTarget.position);
             // 위와 같은 동작을 수행하지만...가독성이 별로다
@@ -1012,7 +1013,7 @@ public class EnemyCtrl : MonoBehaviour
 
             //myRbody.isKinematic = false;
             //네비게이션도 실행
-            myTraceAgent.enabled = true;
+
         }
     }
 
