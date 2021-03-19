@@ -821,7 +821,7 @@ GameObject:
   - component: {fileID: 150434906}
   - component: {fileID: 150434905}
   - component: {fileID: 150434904}
-  m_Layer: 12
+  m_Layer: 9
   m_Name: Sea
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -2652,7 +2652,7 @@ GameObject:
   - component: {fileID: 473662694}
   - component: {fileID: 473662693}
   - component: {fileID: 473662692}
-  m_Layer: 12
+  m_Layer: 9
   m_Name: Sand4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4258,7 +4258,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 789236961}
-  m_Layer: 12
+  m_Layer: 9
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4923,7 +4923,7 @@ GameObject:
   - component: {fileID: 832168359}
   - component: {fileID: 832168358}
   - component: {fileID: 832168361}
-  m_Layer: 12
+  m_Layer: 9
   m_Name: Side3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6491,7 +6491,7 @@ GameObject:
   - component: {fileID: 1056557001}
   - component: {fileID: 1056557000}
   - component: {fileID: 1056556999}
-  m_Layer: 12
+  m_Layer: 9
   m_Name: Sand2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6795,7 +6795,7 @@ GameObject:
   - component: {fileID: 1110298026}
   - component: {fileID: 1110298025}
   - component: {fileID: 1110298028}
-  m_Layer: 12
+  m_Layer: 9
   m_Name: Side4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10221,7 +10221,7 @@ GameObject:
   - component: {fileID: 1725012890}
   - component: {fileID: 1725012889}
   - component: {fileID: 1725012892}
-  m_Layer: 12
+  m_Layer: 9
   m_Name: Side1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10328,7 +10328,7 @@ GameObject:
   - component: {fileID: 1726492944}
   - component: {fileID: 1726492943}
   - component: {fileID: 1726492942}
-  m_Layer: 12
+  m_Layer: 9
   m_Name: Sand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10507,7 +10507,7 @@ GameObject:
   - component: {fileID: 1793742571}
   - component: {fileID: 1793742570}
   - component: {fileID: 1793742569}
-  m_Layer: 12
+  m_Layer: 9
   m_Name: Sea (1)
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -10867,7 +10867,7 @@ GameObject:
   - component: {fileID: 1868533772}
   - component: {fileID: 1868533771}
   - component: {fileID: 1868533770}
-  m_Layer: 12
+  m_Layer: 9
   m_Name: Sand3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11959,7 +11959,7 @@ GameObject:
   - component: {fileID: 2013147989}
   - component: {fileID: 2013147988}
   - component: {fileID: 2013147987}
-  m_Layer: 12
+  m_Layer: 9
   m_Name: Plane
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -12153,7 +12153,7 @@ GameObject:
   - component: {fileID: 2023022362}
   - component: {fileID: 2023022361}
   - component: {fileID: 2023022364}
-  m_Layer: 12
+  m_Layer: 9
   m_Name: Side2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
