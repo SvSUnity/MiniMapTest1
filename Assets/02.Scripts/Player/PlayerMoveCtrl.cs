@@ -330,18 +330,19 @@ public class PlayerMoveCtrl : MonoBehaviour
 
     IEnumerator PlayerDie()
     {
+        if ( pv.isMine)
+        {
+            
+            movSpeed = 0;
+
+            yield return new WaitForSeconds(5.0f);
+
+            hp = maxLife;
+            lifeBar.color = Color.green;
+            movSpeed = 5;
+            
+        }
         
-        gameObject.tag = "Untagged";
-
-
-        movSpeed = 0;
-
-        yield return new WaitForSeconds(5.0f);
-
-        hp = maxLife;
-        lifeBar.color = Color.green;
-        movSpeed = 5;
-        gameObject.tag = "Player";
 
     }
 
