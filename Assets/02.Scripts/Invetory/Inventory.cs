@@ -112,7 +112,7 @@ public class Inventory : MonoBehaviour
 
     public bool InventoryCheck(List<Item> _item,List<int> _itemCount)
     {
-        bool resurt = true;
+        bool result = true;
 
         int cnt = 0;
         foreach(Item item in _item)
@@ -126,13 +126,13 @@ public class Inventory : MonoBehaviour
                     listIndex = _item.IndexOf(item);
                     Debug.Log(listIndex);
                     slotIndex.Add(i);//아이템 존재하는 슬롯의 인덱스 저장
-                    resurt = slots[i].itemCount == _itemCount[listIndex] ? true : false;
-                    if(resurt)
+                    result = slots[i].itemCount >= _itemCount[listIndex] ? true : false;
+                    if(result)
                         cnt++;
                     break;
                 }
                 else
-                    resurt = false;
+                    result = false;
             }
         }
 
@@ -147,10 +147,10 @@ public class Inventory : MonoBehaviour
             }
         }
         else
-            resurt = false;
+            result = false;
 
 
         slotIndex.Clear();
-        return resurt;
+        return result;
     }
 }

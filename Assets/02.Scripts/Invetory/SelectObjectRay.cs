@@ -24,7 +24,10 @@ public class SelectObjectRay : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        int layerMask = (1 << LayerMask.NameToLayer("Map"));
+        layerMask = ~layerMask;
 
+        //Map레이어만 레이캐스트에서 제외
 #if UNITY_EDITOR
         ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         Debug.DrawRay(ray.origin, ray.direction * 100.0f, Color.blue);
