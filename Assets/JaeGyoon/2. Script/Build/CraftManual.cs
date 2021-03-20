@@ -433,9 +433,9 @@ public class CraftManual : MonoBehaviour
 
             }
 
-            if (buildPreview.tag == "555Pre")
+            if (buildPreview.tag == "RockWall")
             {
-                PhotonNetwork.Instantiate("SphereFFF", buildPreview.transform.position, Quaternion.identity, 0, null);
+                PhotonNetwork.Instantiate("RockWall", buildPreview.transform.position, Quaternion.identity, 0, null);
                                
             }
 

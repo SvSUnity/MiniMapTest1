@@ -14214,9 +14214,9 @@ MonoBehaviour:
     previewPrefab: {fileID: 7878423440265851422, guid: c85f2784996654f4da5870e50bc4a9b8,
       type: 3}
   - craftName: Second
-    realPrefab: {fileID: 3079373488308904998, guid: 11ac6f7842cb89f4f924cef2b16fec03,
+    realPrefab: {fileID: 3079373488308904998, guid: f0fdc7a3f8911c34782663e54fdc8c59,
       type: 3}
-    previewPrefab: {fileID: 3079373488308904998, guid: eec138a6f73f9b74db1ec7037b33e88f,
+    previewPrefab: {fileID: 7878423440265851422, guid: fad385adb80713142a08a381c86cff8b,
       type: 3}
   craft:
   - craftName: Turret

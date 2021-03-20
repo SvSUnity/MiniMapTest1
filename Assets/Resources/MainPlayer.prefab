@@ -76,8 +76,8 @@ MonoBehaviour:
   moveDirection: {x: 0, y: 0, z: 0}
   imgList:
   - {fileID: 21300000, guid: ab33291c9d2df4e4ba8c8e0a7d041674, type: 3}
-  - {fileID: 21300000, guid: fd899644d37ad58449243358bf07a98c, type: 3}
-  - {fileID: 21300000, guid: 17c3d07889787f640abac664a3b057a0, type: 3}
+  - {fileID: 21300000, guid: 40dc1f07f7ea6eb439a1be2838245332, type: 3}
+  - {fileID: 21300000, guid: bfe2f019026f2db4dbe4048b171b51ff, type: 3}
   currHP: 0
   hp: 100
   maxLife: 100
