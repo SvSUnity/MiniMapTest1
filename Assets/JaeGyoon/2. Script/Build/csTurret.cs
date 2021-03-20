@@ -28,7 +28,9 @@ public class csTurret : MonoBehaviour
 
     public GameObject bullet; //총탄 프리팹을 위한 레퍼런스
 
-    public Transform firePos; //총탄의 발사 시작 좌표 연결 변수 ( 총알의 발사 위치 )
+    public Transform firePos; //총탄의 발사 시작 좌표 연결 변수 ( 적을 감지하는 위치 , 약간 위에 있음 )
+
+    private Vector3 spawnPoint; // 총알의 생성 위치.
 
     private float bulletSpeed; //  //총알 발사 주기 ( 공격 속도 )
 
@@ -131,10 +133,10 @@ public class csTurret : MonoBehaviour
         // 원격 플래이어의 회전 값을 처리할 변수의 초기값 설정 
         currRot = myTr.rotation;
 
-       
 
 
 
+        
 
 
 
@@ -254,6 +256,16 @@ public class csTurret : MonoBehaviour
     // 총탄 발사 코루틴 함수
     IEnumerator FireStart()
     {
+
+
+        float tempPointX = firePos.transform.position.x;
+        float tempPointZ = firePos.transform.position.z;
+
+        spawnPoint = new Vector3(tempPointX, 0.5f, tempPointZ);
+
+
+
+
         ////Debug.Log("Fire");
         ////Bullet 프리팹을 동적 생성
         //Instantiate(bullet, firePos.position, firePos.rotation);
@@ -262,7 +274,7 @@ public class csTurret : MonoBehaviour
 
         //Debug.Log("Fire");
         //Bullet 프리팹을 동적 생성
-        csMissile obj = Instantiate(bullet, firePos.position, firePos.rotation).GetComponent<csMissile>();
+        csMissile obj = Instantiate(bullet, spawnPoint, firePos.rotation).GetComponent<csMissile>();
         // 동적 생성한 총알에 유저 ownerId 부여(숫자 1부터~)
         obj.playerId = pv.ownerId;
 
