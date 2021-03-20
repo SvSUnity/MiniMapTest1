@@ -12,6 +12,7 @@ public class LoginManager : MonoBehaviour
     public InputField New_IDInputField;
     public InputField New_PassInputField;
     public GameObject CreateAccountPane10bj;
+    public GameObject loginFailed;
 
     string LoginUrl;
     string CreateUrl;
@@ -47,8 +48,11 @@ public class LoginManager : MonoBehaviour
         Debug.Log(webRequest.text);
         if(webRequest.text == "success")
         {
-            Debug.Log(2);
             SceneManager.LoadScene("Scene_A0");
+        }
+        else
+        {
+            loginFailed.SetActive(true);
         }
     }
 
@@ -75,7 +79,7 @@ public class LoginManager : MonoBehaviour
 
         Debug.Log(webRequest.text);
 
-
+        CreateAccountPane10bj.SetActive(false);
         yield return null;
     }         
 
