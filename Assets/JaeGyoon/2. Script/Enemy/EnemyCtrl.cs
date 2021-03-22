@@ -81,13 +81,12 @@ public class EnemyCtrl : MonoBehaviour
     float dist2; // 나와 베이스의 거리
 
     //플레이어를 찾기 위한 배열 
-    public GameObject[] players; // 네트워크를 구현할 예정이므로 플레이어 배열
+    GameObject[] players; // 네트워크를 구현할 예정이므로 플레이어 배열
     private Transform playerTarget;
 
     //추적 대상인 베이스 캠프
-    private GameObject[] baseAll;
-    private GameObject[] Test;
-    private Transform baseTarget;
+    GameObject[] otherPlayers;
+    private Transform otherTarget;
 
     //로밍 장소 
     private Transform[] roamingCheckPoints; // 몬스터가 순찰하기 위해 이동할 목표 지점 여러개
@@ -167,10 +166,7 @@ public class EnemyCtrl : MonoBehaviour
         myTr = GetComponent<Transform>(); // 나의 위치값을 레퍼런스              
 
 
-        baseAll = GameObject.FindGameObjectsWithTag("TeamPlayer");
-        Test = GameObject.FindGameObjectsWithTag("Player");
-
-        players = Test.Concat(baseAll).ToArray();
+        players = GameObject.FindGameObjectsWithTag("Player");
         //players = GameObject.FindGameObjectsWithTag("Player");
 
 
@@ -225,7 +221,6 @@ public class EnemyCtrl : MonoBehaviour
         if (PhotonNetwork.isMasterClient)
         {
             traceTarget = players[0].transform; // //일단 첫 Base의 Transform만 연결
-            Debug.Log(traceTarget);
 
             //traceTarget = baseAll[0].transform;
             //추적하는 대상의 위치(Vector3)를 셋팅하면 바로 추적 시작 (가독성이 좋다)
@@ -361,7 +356,6 @@ public class EnemyCtrl : MonoBehaviour
  
         while (!isDie)
         {
-            Debug.Log(traceTarget.position);
             yield return new WaitForSeconds(0.5f);
 
             //자신과 Player의 거리 셋팅 
@@ -369,7 +363,6 @@ public class EnemyCtrl : MonoBehaviour
             float dist = Vector3.Distance(myTr.position, traceTarget.position); // 나와 타겟의 거리 ( 타겟은 플레이어일수도, 베이스일수도 있음 )
 
 
-            Debug.Log(dist);
             // 순서 중요 
             if (isHit)  //공격 받았을시 무조건 적으로 애니메이션 실행
             {
@@ -689,11 +682,7 @@ public class EnemyCtrl : MonoBehaviour
             yield return new WaitForSeconds(0.2f);
 
             // 자신과 가장 가까운 플레이어 찾음
-            //players = GameObject.FindGameObjectsWithTag("Player");
-            baseAll = GameObject.FindGameObjectsWithTag("TeamPlayer");
-            Test = GameObject.FindGameObjectsWithTag("Player");
-
-            players = Test.Concat(baseAll).ToArray();
+            players = GameObject.FindGameObjectsWithTag("Player");
 
             //플레이어가 있을경우 
             if (players.Length != 0)
@@ -712,21 +701,21 @@ public class EnemyCtrl : MonoBehaviour
 
 
 
-            // 자신과 가장 가까운 베이스 찾음
+            // 자신과 가장 팀플레이어찾음
             if (GameObject.FindGameObjectsWithTag("TeamPlayer") != null)
-                baseAll = GameObject.FindGameObjectsWithTag("TeamPlayer");
+                otherPlayers = GameObject.FindGameObjectsWithTag("TeamPlayer");
 
-            if (baseAll.Length != 0)
+            if (otherPlayers.Length != 0)
             {
 
-                baseTarget = baseAll[0].transform;
-                dist2 = (baseTarget.position - myTr.position).sqrMagnitude;
-                foreach (GameObject _baseAll in baseAll)
+                otherTarget = otherPlayers[0].transform;
+                dist2 = (otherTarget.position - myTr.position).sqrMagnitude;
+                foreach (GameObject _baseAll in otherPlayers)
                 {
                     if ((_baseAll.transform.position - myTr.position).sqrMagnitude < dist2)
                     {
-                        baseTarget = _baseAll.transform;
-                        dist2 = (baseTarget.position - myTr.position).sqrMagnitude;
+                        otherTarget = _baseAll.transform;
+                        dist2 = (otherTarget.position - myTr.position).sqrMagnitude;
                     }
                 }
 
@@ -745,16 +734,16 @@ public class EnemyCtrl : MonoBehaviour
             //}
 
 
-            //만약 플레이어가 없으면 베이스 목표 설정  
+            //만약 플레이어가 없으면 팀플레이어를 대상으로잡음, 현재 플레이어가 없는경우는존재하지않으므로 삭제필요할거같음
             if (players.Length == 0)
             {
-                traceTarget = baseTarget;
+                traceTarget = otherTarget;
                 isTargetChange = true;
             }
             //그렇지 않으면...
             else
             {
-                // 플레이어가 베이스보다 우선순위가 높게 셋팅 (게임마다 틀리다 즉 자기 맘)
+                // 플레이어가 팀보다 우선순위가 높게 셋팅 (게임마다 틀리다 즉 자기 맘)
                 if (dist1 <= dist2)
                 {
                     traceTarget = playerTarget;
@@ -762,7 +751,13 @@ public class EnemyCtrl : MonoBehaviour
                 }
                 else
                 {
-                    traceTarget = baseTarget;
+                    //!!에러원인 팀플레이어가 현재 존재하지않는 싱글상황에 몬스터가 나오면 거리기준으로 일단 팀플레이어가 우선적으로잡힘
+                    //팀이 존재하지않을경우엔 나를 대상으로 지정하고 시작하도록 설정
+                    //거리관련된 우선순위관해선 어느정도 로직수정이 필요해보임
+                    if(otherTarget !=null)
+                        traceTarget = otherTarget;
+                    else
+                        traceTarget = playerTarget;
                     isTargetChange = true;
                 }
             }
@@ -1025,7 +1020,7 @@ public class EnemyCtrl : MonoBehaviour
         {
 
             //일단 첫 Base의 Transform만 연결
-            traceTarget = baseAll[0].transform;
+            traceTarget = otherPlayers[0].transform;
             isTargetChange = true;
             myTraceAgent.enabled = true;
             myRbody.isKinematic = true;

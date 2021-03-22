@@ -25,9 +25,10 @@ public class SelectObjectRay : MonoBehaviour
     void Update()
     {
         //int layerMask = (1 << LayerMask.NameToLayer("Map")) + (1 << LayerMask.NameToLayer("Enemy")) + (1 << LayerMask.NameToLayer("Player"));
-        int layerMask = (1 << LayerMask.NameToLayer("Item"));
+        //layerMask = ~layerMask;
+        int layerMask = (1 << LayerMask.NameToLayer("Item")) + (1 << LayerMask.NameToLayer("Ground"));
 
-        //Item 레이어만 인식
+        //레이캐스트가 지면과 아이템만 인식
 #if UNITY_EDITOR
         //선택불가영역확인용
         DebugDrawRect(dontTouchArea[0], Color.red);
