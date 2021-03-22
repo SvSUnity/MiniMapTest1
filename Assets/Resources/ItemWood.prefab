@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8389326204080750230}
   - component: {fileID: 7271622475108761230}
   - component: {fileID: 6209582974251062126}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: ItemWood
   m_TagString: Item
   m_Icon: {fileID: 0}
@@ -97,6 +97,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: a1e7b9d41e2e59944a13a3a9b64c31bc, type: 3}
       propertyPath: m_Name
       value: Tree_Fall2
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: a1e7b9d41e2e59944a13a3a9b64c31bc, type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: a1e7b9d41e2e59944a13a3a9b64c31bc, type: 3}
       propertyPath: m_RootOrder

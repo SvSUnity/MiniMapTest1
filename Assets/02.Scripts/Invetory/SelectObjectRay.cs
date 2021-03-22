@@ -24,11 +24,10 @@ public class SelectObjectRay : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        int layerMask = (1 << LayerMask.NameToLayer("Map")) + (1 << LayerMask.NameToLayer("Enemy")) + (1 << LayerMask.NameToLayer("Player"));
-        layerMask = ~layerMask;
+        //int layerMask = (1 << LayerMask.NameToLayer("Map")) + (1 << LayerMask.NameToLayer("Enemy")) + (1 << LayerMask.NameToLayer("Player"));
+        int layerMask = (1 << LayerMask.NameToLayer("Item"));
 
-
-        //Map레이어만 레이캐스트에서 제외
+        //Item 레이어만 인식
 #if UNITY_EDITOR
         //선택불가영역확인용
         DebugDrawRect(dontTouchArea[0], Color.red);

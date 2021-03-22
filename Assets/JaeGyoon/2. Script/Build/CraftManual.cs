@@ -61,6 +61,8 @@ public class CraftManual : MonoBehaviour
     public GameObject tab1;
     public GameObject tab2;
 
+    public GameObject popup;
+
     Inventory myinven;
 
 
@@ -157,6 +159,10 @@ public class CraftManual : MonoBehaviour
         {
            // int craftFingerID = GetCraftTouchIndex();
 
+            if(popup.activeSelf)
+            {
+                popup.SetActive(false);
+            }
             //ray = Camera.main.ScreenPointToRay(Input.mousePosition);
              ray = Camera.main.ScreenPointToRay(Input.touches[0].position); // 카메라의 시점으로 마우스 포인터를 바라보는 방향   
 
@@ -420,7 +426,10 @@ public class CraftManual : MonoBehaviour
             Requirement req = buildPreview.GetComponent<Requirement>();
 
             if (!reqCheck.Check(req))
+            {
+                popup.SetActive(true);
                 return;
+            }
 
 
             if (buildPreview.tag == "Wall")
