@@ -6,10 +6,10 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 public class StageManager : MonoBehaviour
 {
+    public static StageManager instance;
+    public List<GameObject> PlayerList = new List<GameObject>();
+
     // 포톤 추가////////////////////////////////////////////////
-   
-    
-    
     PhotonView pv; //RPC 호출을 위한 PhotonView 연결 레퍼런스
     private Transform[] playerPos; //플레어의 생성 위치 저장 레퍼런스
 
@@ -76,6 +76,10 @@ public class StageManager : MonoBehaviour
 
     void Awake()
     {
+        if (StageManager.instance == null)
+        {
+            StageManager.instance = this;
+        }
         pv = GetComponent<PhotonView>(); //PhotonView 컴포넌트를 레퍼런스에 할당
 
         playerPos = GameObject.Find("PlayerSpawnPoint").GetComponentsInChildren<Transform>();

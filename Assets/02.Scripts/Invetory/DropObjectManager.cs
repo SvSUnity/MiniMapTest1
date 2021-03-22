@@ -36,7 +36,7 @@ public class DropObject
 public class DropObjectManager : MonoBehaviour
 {
     public static DropObjectManager instance;
-    public List<GameObject> dropItems = new List<GameObject>();
+    List<GameObject> dropItems = new List<GameObject>();
     PhotonView pv;
 
     public DropObject dropObject = new DropObject();
@@ -99,5 +99,10 @@ public class DropObjectManager : MonoBehaviour
         GameObject go = dropObject.reqObject;
         go.SetActive(true);
         go.transform.position = pos;
+    }
+
+    public void ListAdd(GameObject go)
+    {
+        dropItems.Add(go);
     }
 }

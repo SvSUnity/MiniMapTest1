@@ -3923,7 +3923,7 @@ GameObject:
   m_Component:
   - component: {fileID: 708166211}
   m_Layer: 5
-  m_Name: TestMiniMap2
+  m_Name: MiniMap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

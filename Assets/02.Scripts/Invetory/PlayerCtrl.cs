@@ -142,6 +142,8 @@ public class PlayerCtrl : MonoBehaviour
     //플레이어의 HUD에 표현할 스코어 Text UI 항목 연결 레퍼런스
     public Text txtKillCount;
 
+
+
     void Awake()
     {
 
@@ -237,7 +239,7 @@ public class PlayerCtrl : MonoBehaviour
         yield return new WaitForSeconds(5.0f);
 
         // 일정 간격으로 주변의 가장 가까운 Enemy를 찾는 코루틴 
-        if(pv.isMine)
+        if (pv.isMine)
         {
             StartCoroutine(this.TargetSetting());
 
@@ -250,165 +252,165 @@ public class PlayerCtrl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(pv.isMine)
+        if (pv.isMine)
         {
 
 
-        //Debug.Log(myTr.localRotation.y);//raidan
-        //Debug.Log(myTr.localRotation.y * Mathf.Rad2Deg);//defree 수학적으로 이용할 degree
-        //Debug.Log(myTr.rotation.eulerAngles.y);//degree
-        //Debug.Log(myTr.localEulerAngles.y);//degree
+            //Debug.Log(myTr.localRotation.y);//raidan
+            //Debug.Log(myTr.localRotation.y * Mathf.Rad2Deg);//defree 수학적으로 이용할 degree
+            //Debug.Log(myTr.rotation.eulerAngles.y);//degree
+            //Debug.Log(myTr.localEulerAngles.y);//degree
 
-        anim.SetFloat("velocity", Mathf.Abs(myTraceAgent.velocity.x + myTraceAgent.velocity.z));
-        //Debug.Log(myTraceAgent.velocity);
-        ray.origin = firePos.position;
-        ray.direction = firePos.TransformDirection(Vector3.forward);
+            anim.SetFloat("velocity", Mathf.Abs(myTraceAgent.velocity.x + myTraceAgent.velocity.z));
+            //Debug.Log(myTraceAgent.velocity);
+            ray.origin = firePos.position;
+            ray.direction = firePos.TransformDirection(Vector3.forward);
 
-        if(Physics.Raycast(ray,out hitInfo1, 30.0f))
-        {
-            Vector3 posValue = firePos.InverseTransformPoint(hitInfo1.point);
-            rayLine.SetPosition(0, posValue);
-            rayDot.localPosition = posValue;
-
-            if (shot && (hitInfo1.collider.tag == "Enemy" || hitInfo1.collider.tag == "Barrel"))
+            if (Physics.Raycast(ray, out hitInfo1, 30.0f))
             {
-                //발사를 위한 변수 true
-                check = true;
-            }
-        }
-        else
-        {
-            //난 달릴땐 레이저 빔 안보이게... 개인의 취향
-            if (Mathf.Abs(myTraceAgent.velocity.z) > 0)
-            {
-                //Debug.Log("2coll");
-                //기본 거리체크 레이저 생성
-                rayLine.SetPosition(0, new Vector3(0, 0, 0));
+                Vector3 posValue = firePos.InverseTransformPoint(hitInfo1.point);
+                rayLine.SetPosition(0, posValue);
+                rayDot.localPosition = posValue;
 
-                //타겟에 레이저 Dot 초기화 
-                rayDot.localPosition = Vector3.zero;
+                if (shot && (hitInfo1.collider.tag == "Enemy" || hitInfo1.collider.tag == "Barrel"))
+                {
+                    //발사를 위한 변수 true
+                    check = true;
+                }
             }
             else
             {
-                //Debug.Log("2coll");
-                //기본 거리체크 레이저 생성
-                rayLine.SetPosition(0, new Vector3(0, 0, 30.0f));
-
-                //타겟에 레이저 Dot 초기화 
-                rayDot.localPosition = Vector3.zero;
-
-            }
-        }
-
-        if(!shot)
-        {
-            if(FireAction)
-            {
-                if(Time.time > turnValue)
+                //난 달릴땐 레이저 빔 안보이게... 개인의 취향
+                if (Mathf.Abs(myTraceAgent.velocity.z) > 0)
                 {
-                    turnRight = !turnRight;
-                    turnValue = Time.time + 2.5f;
+                    //Debug.Log("2coll");
+                    //기본 거리체크 레이저 생성
+                    rayLine.SetPosition(0, new Vector3(0, 0, 0));
+
+                    //타겟에 레이저 Dot 초기화 
+                    rayDot.localPosition = Vector3.zero;
                 }
-                if(turnRight)
+                else
                 {
-                    myTr.Rotate(Vector3.up * Time.deltaTime * 55.0f);
-                }
-                if(!turnRight)
-                {
-                    myTr.Rotate(Vector3.up * -Time.deltaTime * 55.0f);
+                    //Debug.Log("2coll");
+                    //기본 거리체크 레이저 생성
+                    rayLine.SetPosition(0, new Vector3(0, 0, 30.0f));
+
+                    //타겟에 레이저 Dot 초기화 
+                    rayDot.localPosition = Vector3.zero;
+
                 }
             }
 
-            check = false;
-        }
-        else
-        {
-            if(shot)
+            if (!shot)
             {
-                if(Time.time > enemyLookTime)
+                if (FireAction)
                 {
-                    Vector3 targetDir = EnemyTarget.position - myTr.position;
-                    float dotValue = Vector3.Dot(myTr.forward, targetDir.normalized);
-
-                    //범위 지정안해주면 에러남 실수연산은 오차를동반하기때문에 에러가난다
-                    if(dotValue > 1.0f)
+                    if (Time.time > turnValue)
                     {
-                        dotValue = 1.0f;
+                        turnRight = !turnRight;
+                        turnValue = Time.time + 2.5f;
                     }
-                    else if(dotValue < -1.0f)
+                    if (turnRight)
                     {
-                        dotValue = -1.0f;
+                        myTr.Rotate(Vector3.up * Time.deltaTime * 55.0f);
                     }
-                    float value = Mathf.Acos(dotValue);
-                    
-
-                    if(value * Mathf.Rad2Deg>35.0f)
+                    if (!turnRight)
                     {
-                        enemyLookRotation = Quaternion.LookRotation(EnemyTarget.position - myTr.position);
-                        myTr.rotation = Quaternion.Lerp(myTr.rotation, enemyLookRotation, Time.deltaTime * 7.0f);
-                        enemyLookTime = Time.time + 0.01f;
+                        myTr.Rotate(Vector3.up * -Time.deltaTime * 55.0f);
                     }
+                }
 
-                    else
+                check = false;
+            }
+            else
+            {
+                if (shot)
+                {
+                    if (Time.time > enemyLookTime)
                     {
-                        myTr.LookAt(EnemyTarget);
+                        Vector3 targetDir = EnemyTarget.position - myTr.position;
+                        float dotValue = Vector3.Dot(myTr.forward, targetDir.normalized);
+
+                        //범위 지정안해주면 에러남 실수연산은 오차를동반하기때문에 에러가난다
+                        if (dotValue > 1.0f)
+                        {
+                            dotValue = 1.0f;
+                        }
+                        else if (dotValue < -1.0f)
+                        {
+                            dotValue = -1.0f;
+                        }
+                        float value = Mathf.Acos(dotValue);
+
+
+                        if (value * Mathf.Rad2Deg > 35.0f)
+                        {
+                            enemyLookRotation = Quaternion.LookRotation(EnemyTarget.position - myTr.position);
+                            myTr.rotation = Quaternion.Lerp(myTr.rotation, enemyLookRotation, Time.deltaTime * 7.0f);
+                            enemyLookTime = Time.time + 0.01f;
+                        }
+
+                        else
+                        {
+                            myTr.LookAt(EnemyTarget);
+                        }
                     }
                 }
             }
-        }
 
-        if (shot && check)
-        {
-            if (Time.time > bulletSpeed)
+            if (shot && check)
             {
-                //일정 주기로 발사
-                ShotStart();
+                if (Time.time > bulletSpeed)
+                {
+                    //일정 주기로 발사
+                    ShotStart();
 
-                //(포톤 추가)원격 네트워크 플레이어의 자신의 아바타 플레이어에는 RPC로 원격으로 FireStart 함수를 호출 
-                pv.RPC("ShotStart", PhotonTargets.Others, null);
+                    //(포톤 추가)원격 네트워크 플레이어의 자신의 아바타 플레이어에는 RPC로 원격으로 FireStart 함수를 호출 
+                    pv.RPC("ShotStart", PhotonTargets.Others, null);
 
-                //(포톤 추가)모든 네트웍 유저에게 RPC 데이타를 전송하여 RPC 함수를 호출, 로컬 플레이어는 로컬 Fire 함수를 바로 호출 
-                //pv.RPC("ShotStart", PhotonTargets.All, null);
+                    //(포톤 추가)모든 네트웍 유저에게 RPC 데이타를 전송하여 RPC 함수를 호출, 로컬 플레이어는 로컬 Fire 함수를 바로 호출 
+                    //pv.RPC("ShotStart", PhotonTargets.All, null);
 
-                bulletSpeed = Time.time + 0.3f;
+                    bulletSpeed = Time.time + 0.3f;
+                }
             }
-        }
 
-        if(shot)
-        {
-            anim.SetBool("Shot", true);
-        }
-        else
-        {
-            anim.SetBool("Shot", false);
-        }
-
-        ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        Debug.DrawRay(ray.origin, ray.direction * 100.0f, Color.blue);
-
-
-
-
-
-        if (Input.GetMouseButtonDown(0)&&!isDie)
-        {
-            if(Physics.Raycast(ray,out hitInfo1, Mathf.Infinity,1 <<LayerMask.NameToLayer("Barrel")))
+            if (shot)
             {
-                movePoint = hitInfo1.point;
-                myTraceAgent.destination = movePoint;
-                myTraceAgent.stoppingDistance = 2.0f;//대상과 거리가 2미터쯤이면 정지
+                anim.SetBool("Shot", true);
             }
-            else if (Physics.Raycast(ray, out hitInfo1, Mathf.Infinity, 1 << LayerMask.NameToLayer("Ground")))
+            else
             {
-                movePoint = hitInfo1.point;
-
-                myTraceAgent.destination = movePoint;
-                myTraceAgent.stoppingDistance = 0.0f;
-
-                barrelFire = false;
-
+                anim.SetBool("Shot", false);
             }
-        }
+
+            ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Debug.DrawRay(ray.origin, ray.direction * 100.0f, Color.blue);
+
+
+
+
+
+            if (Input.GetMouseButtonDown(0) && !isDie)
+            {
+                if (Physics.Raycast(ray, out hitInfo1, Mathf.Infinity, 1 << LayerMask.NameToLayer("Barrel")))
+                {
+                    movePoint = hitInfo1.point;
+                    myTraceAgent.destination = movePoint;
+                    myTraceAgent.stoppingDistance = 2.0f;//대상과 거리가 2미터쯤이면 정지
+                }
+                else if (Physics.Raycast(ray, out hitInfo1, Mathf.Infinity, 1 << LayerMask.NameToLayer("Ground")))
+                {
+                    movePoint = hitInfo1.point;
+
+                    myTraceAgent.destination = movePoint;
+                    myTraceAgent.stoppingDistance = 0.0f;
+
+                    barrelFire = false;
+
+                }
+            }
 
         }
         //원격플레이어일때 수행
@@ -437,7 +439,7 @@ public class PlayerCtrl : MonoBehaviour
                 }
             }
             //우선순위지정
-            if(barrelFire)
+            if (barrelFire)
             {
                 EnemyTarget = barrelPos;
             }
@@ -466,7 +468,7 @@ public class PlayerCtrl : MonoBehaviour
                 FireAction = true;
             }
 
-            if(FireAction)
+            if (FireAction)
             {
                 if (dist2 < 37.0f)
                 {
@@ -487,7 +489,7 @@ public class PlayerCtrl : MonoBehaviour
     private void ShotStart()
     {
         //Debug.Log(true);
-        if(!isDie)
+        if (!isDie)
             StartCoroutine(this.FireStart());
     }
 
@@ -504,9 +506,9 @@ public class PlayerCtrl : MonoBehaviour
 
         muzzleFlash.SetActive(true);
 
-        if(Physics.Raycast(firePos.position,firePos.forward,out hitInfo2,37.0f))
+        if (Physics.Raycast(firePos.position, firePos.forward, out hitInfo2, 37.0f))
         {
-            if(hitInfo2.collider.tag=="Enemy")
+            if (hitInfo2.collider.tag == "Enemy")
             {
                 object[] _params = new object[2];
                 //Enemy가 Ray에 닿은 정확한 월드값
@@ -580,10 +582,9 @@ public class PlayerCtrl : MonoBehaviour
     }
 
     //네트워크 객체 생성완료시 자동 호출되는 함수
-    void onPhotonInstantiate(PhotonMessageInfo info)
+    void OnPhotonInstantiate(PhotonMessageInfo info)
     {
-        object[] data = pv.instantiationData;
-        Debug.Log((int)data[0]);
+
     }
     void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
@@ -603,6 +604,5 @@ public class PlayerCtrl : MonoBehaviour
         }
 
     }
-
 
 }
