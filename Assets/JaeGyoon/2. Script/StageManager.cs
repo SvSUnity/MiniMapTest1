@@ -457,8 +457,10 @@ public class StageManager : MonoBehaviour
         }
 
 
-
-        currentTime += Time.deltaTime;
+        //플레이어 캐릭터가 현재 방에접속된 플레이어숫자와 일치해야 시간이증가하기시작
+        //모든플레이어가 동시에 시간이 증가하도록 하기위해 추가
+        if(PlayerList.Count == PhotonNetwork.room.PlayerCount)
+            currentTime += Time.deltaTime;
         if ( currentTime >= halfDay)
         {
             day = !day;
@@ -487,13 +489,7 @@ public class StageManager : MonoBehaviour
                         _Enemy.GetComponent<EnemyCtrl>().EnemyDie();
 
                     }
-
-
                 }
-
-
-
-
             }
 
         }

@@ -209,7 +209,7 @@ public class PlayerMoveCtrl : MonoBehaviour
     }
     void OnPhotonInstantiate(PhotonMessageInfo info)
     {
-        object[] data = pv.instantiationData;
+        StageManager.instance.PlayerListAdd(this.gameObject);
     }
     void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
