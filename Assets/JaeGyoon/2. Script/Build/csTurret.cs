@@ -261,7 +261,7 @@ public class csTurret : MonoBehaviour
         float tempPointX = firePos.transform.position.x;
         float tempPointZ = firePos.transform.position.z;
 
-        spawnPoint = new Vector3(tempPointX, 0.5f, tempPointZ);
+        spawnPoint = new Vector3(tempPointX, 1f, tempPointZ);
 
 
 

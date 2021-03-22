@@ -195,7 +195,10 @@ public class PlayerMoveCtrl : MonoBehaviour
         {
             lifeBar.color = Color.yellow;
         }
-
+        else if (lifeBar.fillAmount <= 0.9f)
+        {
+            lifeBar.color = Color.green;
+        }
 
         if (hp <= 0)
         {

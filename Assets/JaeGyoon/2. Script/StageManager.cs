@@ -474,6 +474,26 @@ public class StageManager : MonoBehaviour
                 dayIMG.fillAmount = 1;
                 nightIMG.fillAmount = 1;
 
+
+
+
+                Enemys = GameObject.FindGameObjectsWithTag("Enemy"); // 
+
+                if (Enemys.Length > 0)
+                {
+
+                    foreach (GameObject _Enemy in Enemys)
+                    {
+                        _Enemy.GetComponent<EnemyCtrl>().EnemyDie();
+
+                    }
+
+
+                }
+
+
+
+
             }
 
         }
