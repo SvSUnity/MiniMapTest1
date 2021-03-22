@@ -68,6 +68,9 @@ public class PlayerMoveCtrl : MonoBehaviour
 
     public Image lifeBar;
 
+    public Animator anim;
+
+
     void Awake()
     {
         // 레퍼런스 연결
@@ -107,6 +110,8 @@ public class PlayerMoveCtrl : MonoBehaviour
 
         hp = maxLife;
 
+        anim = GetComponent<Animator>();
+
     }
 
     void Update()
@@ -119,6 +124,9 @@ public class PlayerMoveCtrl : MonoBehaviour
 
             float v = Input.GetAxis("Vertical") + UltimateJoystick.GetVerticalAxis("Test");
             float h = Input.GetAxis("Horizontal") + UltimateJoystick.GetHorizontalAxis("Test");
+
+            
+
 
             SetMoveDriection(h, v);
             pv.RPC("SetMoveDriection", PhotonTargets.Others, h, v);
@@ -239,6 +247,17 @@ public class PlayerMoveCtrl : MonoBehaviour
     {
         moveDirection = new Vector3(h * movSpeed, 0, v * movSpeed);
         playerInfo.playerVector = moveDirection.normalized;
+
+        if (h != 0 || v  != 0)
+        {
+            anim.SetBool("Move", true);
+        }
+        else
+        {
+            anim.SetBool("Move", false);
+        }
+
+
     }
     public void btnSet(GameObject go)
     {
@@ -334,8 +353,7 @@ public class PlayerMoveCtrl : MonoBehaviour
     IEnumerator PlayerDie()
     {
         if ( pv.isMine)
-        {
-            
+        {            
             movSpeed = 0;
 
             yield return new WaitForSeconds(5.0f);
@@ -345,7 +363,11 @@ public class PlayerMoveCtrl : MonoBehaviour
             movSpeed = 5;
             
         }
-        
+        else
+        {
+            lifeBar.color = Color.green;
+        }
+       
 
     }
 

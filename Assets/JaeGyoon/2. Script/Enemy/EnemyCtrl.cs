@@ -1,7 +1,10 @@
-﻿using System.Collections;
+﻿using System.Linq;
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+
 
 [System.Serializable]
 
@@ -78,11 +81,12 @@ public class EnemyCtrl : MonoBehaviour
     float dist2; // 나와 베이스의 거리
 
     //플레이어를 찾기 위한 배열 
-    private GameObject[] players; // 네트워크를 구현할 예정이므로 플레이어 배열
+    public GameObject[] players; // 네트워크를 구현할 예정이므로 플레이어 배열
     private Transform playerTarget;
 
     //추적 대상인 베이스 캠프
     private GameObject[] baseAll;
+    private GameObject[] Test;
     private Transform baseTarget;
 
     //로밍 장소 
@@ -163,7 +167,11 @@ public class EnemyCtrl : MonoBehaviour
         myTr = GetComponent<Transform>(); // 나의 위치값을 레퍼런스              
 
 
-        baseAll = GameObject.FindGameObjectsWithTag("Player");
+        baseAll = GameObject.FindGameObjectsWithTag("TeamPlayer");
+        Test = GameObject.FindGameObjectsWithTag("Player");
+
+        players = Test.Concat(baseAll).ToArray();
+        //players = GameObject.FindGameObjectsWithTag("Player");
 
 
         // 로밍 위치 얻기
@@ -216,9 +224,10 @@ public class EnemyCtrl : MonoBehaviour
         
         if (PhotonNetwork.isMasterClient)
         {
-            //traceTarget = players[0].transform; // //일단 첫 Base의 Transform만 연결
+            traceTarget = players[0].transform; // //일단 첫 Base의 Transform만 연결
+            Debug.Log(traceTarget);
 
-            traceTarget = baseAll[0].transform;
+            //traceTarget = baseAll[0].transform;
             //추적하는 대상의 위치(Vector3)를 셋팅하면 바로 추적 시작 (가독성이 좋다)
             myTraceAgent.SetDestination(traceTarget.position);
             // 위와 같은 동작을 수행하지만...가독성이 별로다
@@ -348,16 +357,19 @@ public class EnemyCtrl : MonoBehaviour
 
     IEnumerator ModeSet()
     {
-        
 
+ 
         while (!isDie)
         {
-
+            Debug.Log(traceTarget.position);
             yield return new WaitForSeconds(0.5f);
 
             //자신과 Player의 거리 셋팅 
+            
             float dist = Vector3.Distance(myTr.position, traceTarget.position); // 나와 타겟의 거리 ( 타겟은 플레이어일수도, 베이스일수도 있음 )
 
+
+            Debug.Log(dist);
             // 순서 중요 
             if (isHit)  //공격 받았을시 무조건 적으로 애니메이션 실행
             {
@@ -677,7 +689,11 @@ public class EnemyCtrl : MonoBehaviour
             yield return new WaitForSeconds(0.2f);
 
             // 자신과 가장 가까운 플레이어 찾음
-            players = GameObject.FindGameObjectsWithTag("Player");
+            //players = GameObject.FindGameObjectsWithTag("Player");
+            baseAll = GameObject.FindGameObjectsWithTag("TeamPlayer");
+            Test = GameObject.FindGameObjectsWithTag("Player");
+
+            players = Test.Concat(baseAll).ToArray();
 
             //플레이어가 있을경우 
             if (players.Length != 0)
@@ -697,17 +713,36 @@ public class EnemyCtrl : MonoBehaviour
 
 
             // 자신과 가장 가까운 베이스 찾음
-            baseAll = GameObject.FindGameObjectsWithTag("Player");
-            baseTarget = baseAll[0].transform;
-            dist2 = (baseTarget.position - myTr.position).sqrMagnitude;
-            foreach (GameObject _baseAll in baseAll)
+            if (GameObject.FindGameObjectsWithTag("TeamPlayer") != null)
+                baseAll = GameObject.FindGameObjectsWithTag("TeamPlayer");
+
+            if (baseAll.Length != 0)
             {
-                if ((_baseAll.transform.position - myTr.position).sqrMagnitude < dist2)
+
+                baseTarget = baseAll[0].transform;
+                dist2 = (baseTarget.position - myTr.position).sqrMagnitude;
+                foreach (GameObject _baseAll in baseAll)
                 {
-                    baseTarget = _baseAll.transform;
-                    dist2 = (baseTarget.position - myTr.position).sqrMagnitude;
+                    if ((_baseAll.transform.position - myTr.position).sqrMagnitude < dist2)
+                    {
+                        baseTarget = _baseAll.transform;
+                        dist2 = (baseTarget.position - myTr.position).sqrMagnitude;
+                    }
                 }
+
+
             }
+
+            //    baseTarget = baseAll[0].transform;
+            //dist2 = (baseTarget.position - myTr.position).sqrMagnitude;
+            //foreach (GameObject _baseAll in baseAll)
+            //{
+            //    if ((_baseAll.transform.position - myTr.position).sqrMagnitude < dist2)
+            //    {
+            //        baseTarget = _baseAll.transform;
+            //        dist2 = (baseTarget.position - myTr.position).sqrMagnitude;
+            //    }
+            //}
 
 
             //만약 플레이어가 없으면 베이스 목표 설정  

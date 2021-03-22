@@ -528,4 +528,8 @@ public class StageManager : MonoBehaviour
     {
         PlayerList.Add(go);
     }
+    public List<GameObject> GetPlayerList()
+    {
+        return PlayerList;
+    }
 }

@@ -14,7 +14,7 @@ public class EnemyAttackPoint : MonoBehaviour
 
     void OnTriggerEnter(Collider coll)
     {
-        if (coll.gameObject.tag == "Player")
+        if (coll.gameObject.tag == "Player" || coll.gameObject.tag == "TeamPlayer")
         {
             StartCoroutine(this.ResetColl());
         }

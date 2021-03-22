@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: -5921663955204490749}
   - component: {fileID: 548061790058820396}
   - component: {fileID: 2840609933483218379}
+  - component: {fileID: 3424908817225352060}
   m_Layer: 10
   m_Name: MainPlayer
   m_TagString: Player
@@ -82,6 +83,7 @@ MonoBehaviour:
   hp: 100
   maxLife: 100
   lifeBar: {fileID: 5760761619275724150}
+  anim: {fileID: 0}
 --- !u!114 &-754290396788947095
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -151,6 +153,25 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!95 &3424908817225352060
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 558321983574037080}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: e4aa31f274820b94eb0d0b764e0f383b, type: 3}
+  m_Controller: {fileID: 9100000, guid: 081111fd1834f42469e07a9a2ce295c6, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &682093828797789797
 GameObject:
   m_ObjectHideFlags: 0
@@ -747,6 +768,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4158096630655302, guid: c647a6e9ba715004ebbf4dc6d7bd1e7a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 95905397883882224, guid: c647a6e9ba715004ebbf4dc6d7bd1e7a,
+        type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
