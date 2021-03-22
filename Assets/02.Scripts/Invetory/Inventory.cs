@@ -9,13 +9,12 @@ public class Inventory : MonoBehaviour
 
     public List<int> slotIndex = new List<int>();
 
-    // 필요한 컴포넌트
     [SerializeField]
     private GameObject go_InventoryBase;
     [SerializeField]
     private GameObject go_SlotsParent;
 
-    // 슬롯들.
+    // 인벤토리슬롯
     private Slot[] slots;
 
     int inventoryCnt=0;//아이템이 존재하는 인벤토리 칸수
@@ -26,24 +25,6 @@ public class Inventory : MonoBehaviour
         slots = go_SlotsParent.GetComponentsInChildren<Slot>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        TryOpenInventory();
-    }
-
-    private void TryOpenInventory()
-    {
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            inventoryActivated = !inventoryActivated;
-
-            if (inventoryActivated)
-                OpenInventory();
-            else
-                CloseInventory();
-        }
-    }
     public void OnBtn()
     {
         inventoryActivated = !inventoryActivated;

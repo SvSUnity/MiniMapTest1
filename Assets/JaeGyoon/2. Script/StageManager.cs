@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class StageManager : MonoBehaviour
 {
     public static StageManager instance;
-    public List<GameObject> PlayerList = new List<GameObject>();
+    List<GameObject> PlayerList = new List<GameObject>();
 
     // 포톤 추가////////////////////////////////////////////////
     PhotonView pv; //RPC 호출을 위한 PhotonView 연결 레퍼런스
@@ -527,5 +527,9 @@ public class StageManager : MonoBehaviour
             dayIMG.fillAmount = 1 - (currentTime / halfDay);
             dayIcon.gameObject.SetActive(day);
             nightICon.gameObject.SetActive(!day);
+    }
+    public void PlayerListAdd(GameObject go)
+    {
+        PlayerList.Add(go);
     }
 }

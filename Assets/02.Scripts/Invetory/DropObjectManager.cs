@@ -105,4 +105,13 @@ public class DropObjectManager : MonoBehaviour
     {
         dropItems.Add(go);
     }
+
+    [ContextMenu("ShowItemList")]
+    void ShowList()
+    {
+        foreach (GameObject go in dropItems)
+        {
+            Debug.Log(go);
+        }
+    }
 }
