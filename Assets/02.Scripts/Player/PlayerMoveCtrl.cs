@@ -94,7 +94,7 @@ public class PlayerMoveCtrl : MonoBehaviour
 
 
 
-        btnText = actionBtn.transform.Find("Text").GetComponent<Text>();
+        //btnText = actionBtn.transform.Find("Text").GetComponent<Text>();
 
         inven = GameObject.FindGameObjectWithTag("Inventory").GetComponent<Inventory>();
         if (!pv.isMine)
@@ -181,7 +181,7 @@ public class PlayerMoveCtrl : MonoBehaviour
 
 
                 StartCoroutine(PlayerDie());
-                pv.RPC("PlayerDie", PhotonTargets.Others);
+                
             }
 
 
@@ -280,7 +280,7 @@ public class PlayerMoveCtrl : MonoBehaviour
         {
             ItemInfo itemInfo = go.GetComponent<ItemInfo>();
 
-            btnText.text = itemInfo.item.name + " 선택";
+            // btnText.text = itemInfo.item.name + " 선택";
 
             if (itemInfo.item.name == "Tree")
             {
@@ -293,7 +293,7 @@ public class PlayerMoveCtrl : MonoBehaviour
         }
         else
         {
-            btnText.text = "땅누름";
+            // btnText.text = "땅누름";
             actionBtn.GetComponent<Image>().sprite = imgList[0];
         }
     }
@@ -386,8 +386,13 @@ public class PlayerMoveCtrl : MonoBehaviour
             deadCount = 0;
         }
         else
-        {
+        {           
             lifeBar.color = Color.green;
+            anim.SetTrigger("Die");
+            yield return new WaitForSeconds(5.0f);
+            anim.SetTrigger("Heal");
+            deadCount = 0;
+
         }
        
 
