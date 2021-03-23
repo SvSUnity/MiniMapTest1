@@ -86,13 +86,10 @@ public class StageManager : MonoBehaviour
         //// 씬 전환이 완벽히 끝나고 나서 플레이어가 생성되어야 네트워크 통신이 원활 ( 만들어 지는 와중에 통신이 되면 안되기 때문 )
         radamap = GameObject.FindGameObjectWithTag("Minimap").GetComponent<RadarMap>();
         selectObject = GameObject.FindGameObjectWithTag("selectObject").GetComponent<SelectObjectRay>();
-        StartCoroutine(this.CreatePlayer()); //플레이어를 생성하는 함수 호출
+
 
         PhotonNetwork.isMessageQueueRunning = true; //포톤 클라우드로부터 네트워크 메시지 수신을 다시 연결 ( 포톤 로드씬을 이용해도 되지만 일단 아는것부터 )        
 
-
-
-        Debug.Log(123);
 
 
         //스폰 위치 얻기
@@ -100,13 +97,19 @@ public class StageManager : MonoBehaviour
 
 
         // 포톤 추가
-        if (PhotonNetwork.connected && PhotonNetwork.isMasterClient)
+        if (PhotonNetwork.connected)
         {
-            // 몬스터 스폰 코루틴 호출
-            StartCoroutine(this.CreateEnemy());
 
-            StartCoroutine(this.CreateItem());
+            StartCoroutine(this.CreatePlayer()); //플레이어를 생성하는 함수 호출
 
+
+            if(PhotonNetwork.isMasterClient)
+            {
+                // 몬스터 스폰 코루틴 호출
+                StartCoroutine(this.CreateEnemy());
+
+                StartCoroutine(this.CreateItem());
+            }
         }
         else
         {

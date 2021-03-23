@@ -102,7 +102,7 @@ public class SelectObjectRay : MonoBehaviour
             player = go.GetComponent<PlayerMoveCtrl>();
     }
 
-    //플레이어로부터 오브젝트 파괴시 호출됨
+    //아이템획득(오브젝트 파괴)시 호출됨
     public void SelectObjectDestroy()
     {
         selectEffect.SetActive(false);
