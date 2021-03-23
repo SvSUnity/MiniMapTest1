@@ -97,20 +97,12 @@ public class StageManager : MonoBehaviour
 
 
         // 포톤 추가
-        if (PhotonNetwork.connected)
+        if (PhotonNetwork.connected&& PhotonNetwork.isMasterClient)
         {
+            // 몬스터 스폰 코루틴 호출
+            StartCoroutine(this.CreateEnemy());
 
-            StartCoroutine(this.CreatePlayer()); //플레이어를 생성하는 함수 호출
-            Debug.Log(1);
-
-
-            if(PhotonNetwork.isMasterClient)
-            {
-                // 몬스터 스폰 코루틴 호출
-                StartCoroutine(this.CreateEnemy());
-
-                StartCoroutine(this.CreateItem());
-            }
+            StartCoroutine(this.CreateItem());
         }
         else
         {
@@ -136,8 +128,8 @@ public class StageManager : MonoBehaviour
 
    
         yield return new WaitForSeconds(1.0f);
+        StartCoroutine(this.CreatePlayer()); //플레이어를 생성하는 함수 호출
 
- 
 
 
         suvDay = 1;
