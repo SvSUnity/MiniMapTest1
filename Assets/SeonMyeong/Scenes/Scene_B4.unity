@@ -498,8 +498,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image_BackGround_Black: {fileID: 622601805}
   image_Loading_BAR: {fileID: 662971513}
-  i_Player_Count: 0
-  i_Loaded_Count: 0
   photonView_This: {fileID: 0}
 --- !u!114 &1390706792
 MonoBehaviour:
@@ -524,8 +522,8 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 0}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 1
-  instantiationId: 1
+  viewIdField: 999
+  instantiationId: 999
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!1 &2034558566
