@@ -70,6 +70,7 @@ public class PlayerMoveCtrl : MonoBehaviour
 
     public Animator anim;
 
+    int deadCount;
 
     void Awake()
     {
@@ -172,7 +173,16 @@ public class PlayerMoveCtrl : MonoBehaviour
             controller.Move(rot * moveDirection * Time.deltaTime);
 
 
-            
+
+
+            if (hp <= 0)
+            {
+
+
+
+                StartCoroutine(PlayerDie());
+                pv.RPC("PlayerDie", PhotonTargets.Others);
+            }
 
 
         }
@@ -208,10 +218,9 @@ public class PlayerMoveCtrl : MonoBehaviour
             lifeBar.color = Color.green;
         }
 
-        if (hp <= 0)
-        {
-            StartCoroutine(PlayerDie());
-        }
+
+
+       
 
 
     }
@@ -352,16 +361,29 @@ public class PlayerMoveCtrl : MonoBehaviour
 
     IEnumerator PlayerDie()
     {
+
+        if (deadCount > 0)
+        {
+            yield break;
+        }
+
+        deadCount++;
+
         if ( pv.isMine)
         {            
-            movSpeed = 0;
 
+
+            movSpeed = 0;
+            anim.SetTrigger("Die");
             yield return new WaitForSeconds(5.0f);
+            anim.SetTrigger("Heal");
+            
 
             hp = maxLife;
             lifeBar.color = Color.green;
             movSpeed = 5;
-            
+
+            deadCount = 0;
         }
         else
         {

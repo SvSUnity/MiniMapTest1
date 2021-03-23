@@ -288,7 +288,7 @@ public class StageManager : MonoBehaviour
         while (!gameEnd)
         {
             //리스폰 타임 5초
-            yield return new WaitForSeconds(5.0f);
+            yield return new WaitForSeconds(1.0f);
 
             // 스테이지 총 몬스터 객수 제한을 위하여 찾자~
             Enemys = GameObject.FindGameObjectsWithTag("Enemy");
