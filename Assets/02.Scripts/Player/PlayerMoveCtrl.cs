@@ -314,6 +314,7 @@ public class PlayerMoveCtrl : MonoBehaviour
                 go.GetComponent<PhotonView>().TransferOwnership(PhotonNetwork.player.ID);
                 PhotonNetwork.Destroy(go);
                 btn.onClick.RemoveAllListeners();
+                actionBtn.GetComponent<Image>().sprite = imgList[0];
                 //SelectObjectRay so = GameObject.FindGameObjectWithTag("selectObject").GetComponent<SelectObjectRay>();
                 //so.SelectObjectDestroy();//오브젝트가 파괴됬음을 알림
             }

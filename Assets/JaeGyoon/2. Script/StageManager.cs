@@ -101,6 +101,7 @@ public class StageManager : MonoBehaviour
         {
 
             StartCoroutine(this.CreatePlayer()); //플레이어를 생성하는 함수 호출
+            Debug.Log(1);
 
 
             if(PhotonNetwork.isMasterClient)
@@ -223,9 +224,9 @@ public class StageManager : MonoBehaviour
     {
         // 지금은 테스트를 위하여 플레이어 스폰 포인트가 2개이다 따라서 차후 접속 인원수에 맞게 스폰 포인트와
         // 총 접속인원의 수를 제한
-        PhotonNetwork.isMessageQueueRunning = false;
-        yield return new WaitForSeconds(1f);
-        PhotonNetwork.isMessageQueueRunning = true;
+        //PhotonNetwork.isMessageQueueRunning = false;
+        //yield return new WaitForSeconds(1f);
+        //PhotonNetwork.isMessageQueueRunning = true;
 
         //현재 입장한 룸 정보를 받아옴(레퍼런스 연결)
         Room currRoom = PhotonNetwork.room;
