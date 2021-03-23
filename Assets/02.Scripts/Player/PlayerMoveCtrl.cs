@@ -175,14 +175,7 @@ public class PlayerMoveCtrl : MonoBehaviour
 
 
 
-            if (hp <= 0)
-            {
-
-
-
-                StartCoroutine(PlayerDie());
-                
-            }
+            
 
 
         }
@@ -218,9 +211,12 @@ public class PlayerMoveCtrl : MonoBehaviour
             lifeBar.color = Color.green;
         }
 
+        if (hp <= 0)
+        {
+            StartCoroutine(PlayerDie());
+        }
 
 
-       
 
 
     }
@@ -370,32 +366,24 @@ public class PlayerMoveCtrl : MonoBehaviour
 
         deadCount++;
 
-        if ( pv.isMine)
-        {            
 
 
-            movSpeed = 0;
-            anim.SetTrigger("Die");
-            yield return new WaitForSeconds(5.0f);
-            anim.SetTrigger("Heal");
-            
 
-            hp = maxLife;
-            lifeBar.color = Color.green;
-            movSpeed = 5;
+        movSpeed = 0;
+        anim.SetTrigger("Die");
+        yield return new WaitForSeconds(5.0f);
+        anim.SetTrigger("Heal");
+        yield return new WaitForSeconds(2.0f);
 
-            deadCount = 0;
-        }
-        else
-        {           
-            lifeBar.color = Color.green;
-            anim.SetTrigger("Die");
-            yield return new WaitForSeconds(5.0f);
-            anim.SetTrigger("Heal");
-            deadCount = 0;
 
-        }
-       
+        hp = maxLife;
+        lifeBar.color = Color.green;
+        movSpeed = 5;
+
+        deadCount = 0;
+
+
+
 
     }
 
