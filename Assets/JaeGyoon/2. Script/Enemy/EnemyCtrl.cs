@@ -1018,12 +1018,12 @@ public class EnemyCtrl : MonoBehaviour
     {
         if (PhotonNetwork.isMasterClient)
         {
-
+            this.gameObject.GetComponent<PhotonView>().TransferOwnership(newMasterClient.ID);
             //일단 첫 Base의 Transform만 연결
-            traceTarget = otherPlayers[0].transform;
+            traceTarget = players[0].transform;
             isTargetChange = true;
             myTraceAgent.enabled = true;
-            myRbody.isKinematic = true;
+            myRbody.isKinematic = false;
             //추적하는 대상의 위치(Vector3)를 셋팅하면 바로 추적 시작 (가독성이 좋다)
             myTraceAgent.SetDestination(traceTarget.position);
             // 위와 같은 동작을 수행하지만...가독성이 별로다

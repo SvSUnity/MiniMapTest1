@@ -97,7 +97,7 @@ public class StageManager : MonoBehaviour
 
 
         // 포톤 추가
-        if (PhotonNetwork.connected&& PhotonNetwork.isMasterClient)
+        if (PhotonNetwork.connected && PhotonNetwork.isMasterClient)
         {
             // 몬스터 스폰 코루틴 호출
             StartCoroutine(this.CreateEnemy());
@@ -123,10 +123,10 @@ public class StageManager : MonoBehaviour
     IEnumerator Start()
     {
 
-       
 
 
-   
+
+
         yield return new WaitForSeconds(1.0f);
         StartCoroutine(this.CreatePlayer()); //플레이어를 생성하는 함수 호출
 
@@ -423,7 +423,7 @@ public class StageManager : MonoBehaviour
 
                 // *5 로 하니 완전 맵끝에 생성될때 부자연스러움
             }
-                      
+
 
 
 
@@ -455,15 +455,15 @@ public class StageManager : MonoBehaviour
 
         //플레이어 캐릭터가 현재 방에접속된 플레이어숫자와 일치해야 시간이증가하기시작
         //모든플레이어가 동시에 시간이 증가하도록 하기위해 추가
-        if(PlayerList.Count == PhotonNetwork.room.PlayerCount)
+        if (PlayerList.Count == PhotonNetwork.room.PlayerCount)
             currentTime += Time.deltaTime;
-        if ( currentTime >= halfDay)
+        if (currentTime >= halfDay)
         {
             day = !day;
             currentTime = 0;
 
 
-            if ( day == true)
+            if (day == true)
             {
 
                 suvDay++;
@@ -516,9 +516,9 @@ public class StageManager : MonoBehaviour
 
     public void DayTemp()
     {
-            dayIMG.fillAmount = 1 - (currentTime / halfDay);
-            dayIcon.gameObject.SetActive(day);
-            nightICon.gameObject.SetActive(!day);
+        dayIMG.fillAmount = 1 - (currentTime / halfDay);
+        dayIcon.gameObject.SetActive(day);
+        nightICon.gameObject.SetActive(!day);
     }
     public void PlayerListAdd(GameObject go)
     {
@@ -527,5 +527,10 @@ public class StageManager : MonoBehaviour
     public List<GameObject> GetPlayerList()
     {
         return PlayerList;
+    }
+
+    void OnMasterClientSwitched(PhotonPlayer newMasterClient)
+    {
+        Debug.Log(newMasterClient);
     }
 }
