@@ -130,6 +130,8 @@ public class StageManager : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
         StartCoroutine(this.CreatePlayer()); //플레이어를 생성하는 함수 호출
 
+        //10초마다 모든유저의시간을 마스터클라이언트의시간으로 동기화시킴
+        StartCoroutine(this.TimeSynchronization());
 
 
         suvDay = 1;
@@ -453,10 +455,6 @@ public class StageManager : MonoBehaviour
 
         }
 
-        Debug.Log("PlayerCount : "  + PhotonNetwork.room.PlayerCount);
-        Debug.Log("PlayerListCount : " + PlayerList.Count);
-
-
 
 
         //플레이어 캐릭터가 현재 방에접속된 플레이어숫자와 일치해야 시간이증가하기시작
@@ -481,7 +479,7 @@ public class StageManager : MonoBehaviour
 
 
 
-                Enemys = GameObject.FindGameObjectsWithTag("Enemy"); 
+                Enemys = GameObject.FindGameObjectsWithTag("Enemy");
 
                 if (Enemys.Length > 0)
                 {
@@ -533,7 +531,7 @@ public class StageManager : MonoBehaviour
     public void PlayerListRemove(GameObject go)
     {
         PlayerList.Remove(go);
-    } 
+    }
     public List<GameObject> GetPlayerList()
     {
         return PlayerList;
@@ -554,6 +552,23 @@ public class StageManager : MonoBehaviour
     {
         //방을나가게되면 코루틴을 다 중단시킴
         StopAllCoroutines();
+    }
+
+
+    //시간동기화용 함수
+    IEnumerator TimeSynchronization()
+    {
+        while(!gameEnd)
+        {
+            yield return new WaitForSeconds(10f);
+            if(PhotonNetwork.isMasterClient)
+                pv.RPC("RPCTimeSynchronization", PhotonTargets.AllBuffered, currentTime);
+        }
+    }
+    [PunRPC]
+    void RPCTimeSynchronization(float time)
+    {
+        currentTime = time;
     }
 
 

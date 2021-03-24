@@ -70,4 +70,7 @@ MonoBehaviour:
   - TaggedPlayer
   - PlayerDie
   - RPCPlyaerListRemove
+  - RPCTest
+  - RPCtimeSynchronization
+  - RPCTimeSynchronization
   DisableAutoOpenWizard: 1
