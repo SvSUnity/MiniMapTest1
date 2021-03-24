@@ -173,9 +173,14 @@ public class PlayerMoveCtrl : MonoBehaviour
             controller.Move(rot * moveDirection * Time.deltaTime);
 
 
+            if (hp <= 0)
+            {
+                //StartCoroutine(PlayerDie());
+                pv.RPC("PlayerDie", PhotonTargets.All);
+
+            }
 
 
-            
 
 
         }
@@ -206,15 +211,12 @@ public class PlayerMoveCtrl : MonoBehaviour
         {
             lifeBar.color = Color.yellow;
         }
-        else if (lifeBar.fillAmount <= 0.9f)
+        else if (lifeBar.fillAmount > 0.6f)
         {
             lifeBar.color = Color.green;
         }
 
-        if (hp <= 0)
-        {
-            StartCoroutine(PlayerDie());
-        }
+        
 
 
 
@@ -342,23 +344,27 @@ public class PlayerMoveCtrl : MonoBehaviour
 
                 hp -= monsterDMG;                
             }
+
+
+            if (hp <= 0)
+            {
+                hp = 0;
+            }
+
         }
 
 
 
-        if ( hp <= 0)
-        {
-            hp = 0;
-        }
+        
 
 
     }
 
 
-
+    [PunRPC]
     IEnumerator PlayerDie()
     {
-
+        
         if (deadCount > 0)
         {
             yield break;
@@ -366,9 +372,7 @@ public class PlayerMoveCtrl : MonoBehaviour
 
         deadCount++;
 
-
-
-
+        
         movSpeed = 0;
         anim.SetTrigger("Die");
         yield return new WaitForSeconds(5.0f);
@@ -377,6 +381,12 @@ public class PlayerMoveCtrl : MonoBehaviour
 
 
         hp = maxLife;
+
+        
+
+
+        
+
         lifeBar.color = Color.green;
         movSpeed = 5;
 

@@ -68,4 +68,5 @@ MonoBehaviour:
   - SetTarget
   - ShotStart
   - TaggedPlayer
+  - PlayerDie
   DisableAutoOpenWizard: 1
