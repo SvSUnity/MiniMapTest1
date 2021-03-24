@@ -540,6 +540,24 @@ public class StageManager : MonoBehaviour
     void OnMasterClientSwitched(PhotonPlayer newMasterClient)
     {
         Debug.Log(newMasterClient);
+        if (PhotonNetwork.isMasterClient)
+        {
+            // 몬스터 스폰 코루틴 호출
+            StartCoroutine(this.CreateEnemy());
+
+            StartCoroutine(this.CreateItem());
+        }
+    }
+    void OnLeftRoom()
+    {
+        //방을나가게되면 코루틴을 다 중단시킴
+        StopAllCoroutines();
     }
 
+
+    //방에서 나가는버튼 테스트용
+    public void LeftRoomBtn()
+    {
+        PhotonNetwork.LeaveRoom();
+    }
 }
