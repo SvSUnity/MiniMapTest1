@@ -450,8 +450,11 @@ public class StageManager : MonoBehaviour
 
                 test = false;
             }
+
         }
 
+
+        
 
         //플레이어 캐릭터가 현재 방에접속된 플레이어숫자와 일치해야 시간이증가하기시작
         //모든플레이어가 동시에 시간이 증가하도록 하기위해 추가
@@ -524,6 +527,11 @@ public class StageManager : MonoBehaviour
     {
         PlayerList.Add(go);
     }
+
+    public void PlayerListRemove(GameObject go)
+    {
+        PlayerList.Remove(go);
+    }
     public List<GameObject> GetPlayerList()
     {
         return PlayerList;
@@ -533,4 +541,5 @@ public class StageManager : MonoBehaviour
     {
         Debug.Log(newMasterClient);
     }
+
 }

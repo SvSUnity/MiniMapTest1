@@ -234,6 +234,12 @@ public class PlayerMoveCtrl : MonoBehaviour
     {
         StageManager.instance.PlayerListAdd(this.gameObject);
     }
+
+
+    void OnLeftRoom()
+    {
+        StageManager.instance.PlayerListRemove(this.gameObject);
+    }
     void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         //로컬 플레이어의 위치 정보를 송신
