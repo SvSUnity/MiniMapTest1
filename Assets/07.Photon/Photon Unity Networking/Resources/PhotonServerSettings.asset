@@ -69,4 +69,5 @@ MonoBehaviour:
   - ShotStart
   - TaggedPlayer
   - PlayerDie
+  - RPCPlyaerListRemove
   DisableAutoOpenWizard: 1

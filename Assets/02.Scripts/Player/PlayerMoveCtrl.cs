@@ -236,7 +236,7 @@ public class PlayerMoveCtrl : MonoBehaviour
     }
 
 
-    void OnLeftRoom()
+    void OnDestroy()
     {
         StageManager.instance.PlayerListRemove(this.gameObject);
     }

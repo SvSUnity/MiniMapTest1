@@ -453,8 +453,11 @@ public class StageManager : MonoBehaviour
 
         }
 
+        Debug.Log("PlayerCount : "  + PhotonNetwork.room.PlayerCount);
+        Debug.Log("PlayerListCount : " + PlayerList.Count);
 
-        
+
+
 
         //플레이어 캐릭터가 현재 방에접속된 플레이어숫자와 일치해야 시간이증가하기시작
         //모든플레이어가 동시에 시간이 증가하도록 하기위해 추가
@@ -478,7 +481,7 @@ public class StageManager : MonoBehaviour
 
 
 
-                Enemys = GameObject.FindGameObjectsWithTag("Enemy"); // 
+                Enemys = GameObject.FindGameObjectsWithTag("Enemy"); 
 
                 if (Enemys.Length > 0)
                 {
@@ -527,11 +530,10 @@ public class StageManager : MonoBehaviour
     {
         PlayerList.Add(go);
     }
-
     public void PlayerListRemove(GameObject go)
     {
         PlayerList.Remove(go);
-    }
+    } 
     public List<GameObject> GetPlayerList()
     {
         return PlayerList;
