@@ -72,6 +72,7 @@ public class PlayerMoveCtrl : MonoBehaviour
 
     int deadCount;
 
+    int testDead;
     void Awake()
     {
         // 레퍼런스 연결
@@ -175,8 +176,15 @@ public class PlayerMoveCtrl : MonoBehaviour
 
             if (hp <= 0)
             {
-                //StartCoroutine(PlayerDie());
-                pv.RPC("PlayerDie", PhotonTargets.All);
+
+                if (deadCount <= 0)
+                {
+                    //StartCoroutine(PlayerDie());
+                    pv.RPC("PlayerDie", PhotonTargets.All);
+                }
+                deadCount++;
+
+                
 
             }
 
@@ -236,6 +244,7 @@ public class PlayerMoveCtrl : MonoBehaviour
             stream.SendNext(PlayerBody.rotation);
 
             stream.SendNext(hp);
+            
         }
         //원격 플레이어의 위치 정보를 수신
         else
@@ -245,6 +254,7 @@ public class PlayerMoveCtrl : MonoBehaviour
             currRot = (Quaternion)stream.ReceiveNext();
 
             currHP = (int)stream.ReceiveNext();
+            
         }
 
     }
@@ -365,33 +375,35 @@ public class PlayerMoveCtrl : MonoBehaviour
     IEnumerator PlayerDie()
     {
         
-        if (deadCount > 0)
+       
+        
+        if ( pv.isMine)
         {
-            yield break;
+            movSpeed = 0;
+            anim.SetTrigger("Die");
+            yield return new WaitForSeconds(5.0f);
+            anim.SetTrigger("Heal");
+            yield return new WaitForSeconds(2.0f);
+
+            hp = maxLife;
+            
+            movSpeed = 5;
+
+            deadCount = 0;
+
+            Debug.Log("mine hp:" + hp);
         }
+       
+        else
+        {
+            anim.SetTrigger("Die");
+            yield return new WaitForSeconds(5.0f);
+            anim.SetTrigger("Heal");
+            yield return new WaitForSeconds(2.0f);
 
-        deadCount++;
-
-        
-        movSpeed = 0;
-        anim.SetTrigger("Die");
-        yield return new WaitForSeconds(5.0f);
-        anim.SetTrigger("Heal");
-        yield return new WaitForSeconds(2.0f);
-
-
-        hp = maxLife;
-
-        
-
-
-        
-
-        lifeBar.color = Color.green;
-        movSpeed = 5;
-
-        deadCount = 0;
-
+            deadCount = 0;
+            Debug.Log("bug hp:" + hp);
+        }
 
 
 
