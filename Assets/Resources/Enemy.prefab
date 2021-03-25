@@ -35,7 +35,7 @@ GameObject:
   - component: {fileID: 8908902836096456208}
   - component: {fileID: 7713578440420766849}
   - component: {fileID: 1229092808447661165}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Head Weapon
   m_TagString: EnemyWeapon
   m_Icon: {fileID: 0}
@@ -50,7 +50,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4202696456301575857}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.796, z: 1.24}
+  m_LocalPosition: {x: 0, y: 0.796, z: 0.71}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 3554677979028979067}
@@ -67,7 +67,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 2.5
+  m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1229092808447661165
 MonoBehaviour:
@@ -279,7 +279,7 @@ NavMeshAgent:
   m_Acceleration: 5000
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 5
+  m_StoppingDistance: 2
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1

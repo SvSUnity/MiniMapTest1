@@ -31,15 +31,8 @@ public class PreviewObject : MonoBehaviour
     {
         ChangeColor();
 
-
-        //if(Input.GetMouseButtonDown(0))
-        //{
-        //    previewUI.SetActive(false);
-        //}
-        //else if(Input.GetMouseButtonUp(0))
-        //{
-        //    previewUI.SetActive(true);
-        //}
+        
+      
     }
 
 
@@ -50,6 +43,8 @@ public class PreviewObject : MonoBehaviour
         {
             colliderList.Add(other);
         }
+
+        Debug.Log("enter:"+other);
        
     }
 
@@ -62,8 +57,11 @@ public class PreviewObject : MonoBehaviour
        // if (other.gameObject.layer != IGNORE_RAYCAST_LAYER)
         {
             colliderList.Remove(other);
-        } 
-       
+        }
+        Debug.Log("exit:" + other);
+
+
+     
     }
 
 
@@ -72,6 +70,13 @@ public class PreviewObject : MonoBehaviour
         if ( colliderList.Count > 0) // 땅이나 무시 레이어가 아닌 충돌체가 0보다 크면
         {
             SetColor(redMaterial);
+            Debug.Log(colliderList);
+
+            if (colliderList[0] == null)
+            {
+                colliderList.Remove(colliderList[0]);
+            }
+
         }
         else
         {
