@@ -358,7 +358,7 @@ public class EnemyCtrl : MonoBehaviour
  
         while (!isDie)
         {
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.1f);
             //자신과 Player의 거리 셋팅 
 
             float dist = Vector3.Distance(myTr.position, traceTarget.position); // 나와 타겟의 거리 ( 타겟은 플레이어일수도, 베이스일수도 있음 )
@@ -373,33 +373,33 @@ public class EnemyCtrl : MonoBehaviour
             }
             else if (dist <= attackDist) // Attack 사거리에 들어왔는지 ?? 공격받았을때 말고는 실행
             {
-                if (playerState.playerInfo.isAlive)
+                //if (playerState.playerInfo.isAlive)
                     enemyMode = MODE_STATE.ATTACK; //몬스터의 상태를 공격으로 설정
-                else
-                {
-                    enemyMode = MODE_STATE.MOVE;
-                }
+                //else
+                //{
+                //    enemyMode = MODE_STATE.MOVE;
+                //}
             }
             else if (traceAttack)
             /* 몬스터를 추적중이라면... 트레이스 애니메이션이 2가지인 이유는 서프라이즈 애니메이션때 거리가 벌어져 추적이 끝나면 다시 또 놀라기 때문에 몇초동안 
             무조건 적으로 타겟을 쫓아가는 로직을 만든다. */
             {
-                if (playerState.playerInfo.isAlive)
+                //if (playerState.playerInfo.isAlive)
                     enemyMode = MODE_STATE.TRACE; //몬스터의 상태를 추적으로 설정
-                else
-                {
-                    enemyMode = MODE_STATE.MOVE;
-                }
+                //else
+                //{
+                //    enemyMode = MODE_STATE.MOVE;
+                //}
 
             }
             else if (dist <= traceDist) // Trace 사거리에 들어왔는지 ??
             {
-                if (playerState.playerInfo.isAlive)
+                //if (playerState.playerInfo.isAlive)
                     enemyMode = MODE_STATE.TRACE; //몬스터의 상태를 추적으로 설정
-                else
-                {
-                    enemyMode = MODE_STATE.MOVE;
-                }
+                //else
+                //{
+                //    enemyMode = MODE_STATE.MOVE;
+                //}
             }
             else if (dist <= findDist) // Find 사거리에 들어왔는지 ??
             {
@@ -710,6 +710,7 @@ public class EnemyCtrl : MonoBehaviour
                 dist1 = (playerTarget.position - myTr.position).sqrMagnitude;
                 foreach (GameObject _players in players)
                 {
+ 
                     if ((_players.transform.position - myTr.position).sqrMagnitude < dist1)
                     {
                         playerTarget = _players.transform;
@@ -731,7 +732,7 @@ public class EnemyCtrl : MonoBehaviour
                 dist2 = (otherTarget.position - myTr.position).sqrMagnitude;
                 foreach (GameObject _otherTarget in otherPlayers)
                 {
-                    if ((_otherTarget.transform.position - myTr.position).sqrMagnitude < dist2)
+                    if ((_otherTarget.transform.position - myTr.position).sqrMagnitude < dist2 )
                     {
                         otherTarget = _otherTarget.transform;
                         dist2 = (otherTarget.position - myTr.position).sqrMagnitude;
@@ -765,7 +766,11 @@ public class EnemyCtrl : MonoBehaviour
                 // 플레이어가 팀보다 우선순위가 높게 셋팅 (게임마다 틀리다 즉 자기 맘)
                 if (dist1 <= dist2)
                 {
-                    traceTarget = playerTarget;
+                    PlayerMoveCtrl p = playerTarget.GetComponent<PlayerMoveCtrl>();
+                    if (p.playerInfo.isAlive)
+                        traceTarget = playerTarget;
+                    else
+                        traceTarget = roamingTarget;
                     isTargetChange = true;
                 }
                 else
@@ -773,10 +778,15 @@ public class EnemyCtrl : MonoBehaviour
                     //!!에러원인 팀플레이어가 현재 존재하지않는 싱글상황에 몬스터가 나오면 거리기준으로 일단 팀플레이어가 우선적으로잡힘
                     //팀이 존재하지않을경우엔 나를 대상으로 지정하고 시작하도록 설정
                     //거리관련된 우선순위관해선 어느정도 로직수정이 필요해보임
-                    if(otherTarget !=null)
+                    PlayerMoveCtrl p = playerTarget.GetComponent<PlayerMoveCtrl>();
+                    PlayerMoveCtrl o = otherTarget.GetComponent<PlayerMoveCtrl>();
+
+                    if (otherTarget != null && o.playerInfo.isAlive)
                         traceTarget = otherTarget;
-                    else
+                    else if (p.playerInfo.isAlive)
                         traceTarget = playerTarget;
+                    else
+                        traceTarget = roamingTarget;
                     isTargetChange = true;
                 }
             }
