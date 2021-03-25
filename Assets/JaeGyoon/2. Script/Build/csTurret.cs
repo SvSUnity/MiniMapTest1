@@ -154,7 +154,9 @@ public class csTurret : MonoBehaviour
         turret.SetActive(false);
 
         // 5초뒤 건설 완료
-        yield return new WaitForSeconds(5.0f);      
+        yield return new WaitForSeconds(5.0f);
+
+        this.gameObject.tag = "Player";
 
         turret.SetActive(true);
 
