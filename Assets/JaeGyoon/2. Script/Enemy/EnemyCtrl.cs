@@ -157,7 +157,9 @@ public class EnemyCtrl : MonoBehaviour
 
     public TargetInfo targetInfo = new TargetInfo();
 
-    bool isTargetChange = false;   
+    bool isTargetChange = false;
+
+    PlayerMoveCtrl playerState;
 
     private void Awake()
     {
@@ -360,7 +362,9 @@ public class EnemyCtrl : MonoBehaviour
             //자신과 Player의 거리 셋팅 
 
             float dist = Vector3.Distance(myTr.position, traceTarget.position); // 나와 타겟의 거리 ( 타겟은 플레이어일수도, 베이스일수도 있음 )
-            PlayerMoveCtrl playerState = traceTarget.GetComponent<PlayerMoveCtrl>();
+
+            if(traceTarget.gameObject.tag == "Player" || traceTarget.gameObject.tag == "TeamPlayer")
+                playerState = traceTarget.GetComponent<PlayerMoveCtrl>();
 
             // 순서 중요 
             if (isHit)  //공격 받았을시 무조건 적으로 애니메이션 실행

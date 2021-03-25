@@ -35,6 +35,7 @@ TagManager:
   - EnemyWeapon
   - protoItem
   - RockWall
+  - Build
   layers:
   - Default
   - TransparentFX
