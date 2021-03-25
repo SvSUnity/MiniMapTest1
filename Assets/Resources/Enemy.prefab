@@ -165,9 +165,9 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 126
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!82 &703133474
 AudioSource:
@@ -279,7 +279,7 @@ NavMeshAgent:
   m_Acceleration: 5000
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 4
+  m_StoppingDistance: 3
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -338,7 +338,7 @@ MonoBehaviour:
   speed: 6
   findDist: 20
   traceDist: 15
-  attackDist: 5
+  attackDist: 3
   hungryTimeSet: 5
   nonHungryTimeSet: 5
   isHit: 0
