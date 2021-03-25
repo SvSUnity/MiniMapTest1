@@ -8,6 +8,7 @@ public class PlayerInfo
 {
 
     Vector3 _playerVector;
+    bool _isAlive;
 
 
     public Vector3 playerVector
@@ -19,6 +20,18 @@ public class PlayerInfo
         set
         {
             _playerVector = value;
+        }
+    }
+
+    public bool isAlive
+    {
+        get
+        {
+            return _isAlive;
+        }
+        set
+        {
+            _isAlive = value;
         }
     }
 
@@ -84,7 +97,7 @@ public class PlayerMoveCtrl : MonoBehaviour
         pv.synchronization = ViewSynchronization.UnreliableOnChange;
         currPos = myTr.position;
         currRot = PlayerBody.rotation;
-
+        playerInfo.isAlive = true;//기본적으로 살아있는상태
         //액션버튼
 
 
@@ -385,12 +398,15 @@ public class PlayerMoveCtrl : MonoBehaviour
         
         if ( pv.isMine)
         {
+            playerInfo.isAlive = false;
             movSpeed = 0;
             anim.SetTrigger("Die");
             yield return new WaitForSeconds(5.0f);
             anim.SetTrigger("Heal");
             yield return new WaitForSeconds(2.0f);
 
+
+            playerInfo.isAlive = true;
             hp = maxLife;
             
             movSpeed = 5;
@@ -402,11 +418,12 @@ public class PlayerMoveCtrl : MonoBehaviour
        
         else
         {
+            playerInfo.isAlive = false;
             anim.SetTrigger("Die");
             yield return new WaitForSeconds(5.0f);
             anim.SetTrigger("Heal");
             yield return new WaitForSeconds(2.0f);
-
+            playerInfo.isAlive = true;
             deadCount = 0;
             Debug.Log("bug hp:" + hp);
         }

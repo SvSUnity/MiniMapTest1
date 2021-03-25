@@ -357,11 +357,10 @@ public class EnemyCtrl : MonoBehaviour
         while (!isDie)
         {
             yield return new WaitForSeconds(0.5f);
-
             //자신과 Player의 거리 셋팅 
-            
-            float dist = Vector3.Distance(myTr.position, traceTarget.position); // 나와 타겟의 거리 ( 타겟은 플레이어일수도, 베이스일수도 있음 )
 
+            float dist = Vector3.Distance(myTr.position, traceTarget.position); // 나와 타겟의 거리 ( 타겟은 플레이어일수도, 베이스일수도 있음 )
+            PlayerMoveCtrl playerState = traceTarget.GetComponent<PlayerMoveCtrl>();
 
             // 순서 중요 
             if (isHit)  //공격 받았을시 무조건 적으로 애니메이션 실행
@@ -370,17 +369,33 @@ public class EnemyCtrl : MonoBehaviour
             }
             else if (dist <= attackDist) // Attack 사거리에 들어왔는지 ?? 공격받았을때 말고는 실행
             {
-                enemyMode = MODE_STATE.ATTACK; //몬스터의 상태를 공격으로 설정 
+                if (playerState.playerInfo.isAlive)
+                    enemyMode = MODE_STATE.ATTACK; //몬스터의 상태를 공격으로 설정
+                else
+                {
+                    enemyMode = MODE_STATE.MOVE;
+                }
             }
             else if (traceAttack)
             /* 몬스터를 추적중이라면... 트레이스 애니메이션이 2가지인 이유는 서프라이즈 애니메이션때 거리가 벌어져 추적이 끝나면 다시 또 놀라기 때문에 몇초동안 
             무조건 적으로 타겟을 쫓아가는 로직을 만든다. */
             {
-                enemyMode = MODE_STATE.TRACE; //몬스터의 상태를 추적으로 설정
+                if (playerState.playerInfo.isAlive)
+                    enemyMode = MODE_STATE.TRACE; //몬스터의 상태를 추적으로 설정
+                else
+                {
+                    enemyMode = MODE_STATE.MOVE;
+                }
+
             }
             else if (dist <= traceDist) // Trace 사거리에 들어왔는지 ??
             {
-                enemyMode = MODE_STATE.TRACE; //몬스터의 상태를 추적으로 설정 
+                if (playerState.playerInfo.isAlive)
+                    enemyMode = MODE_STATE.TRACE; //몬스터의 상태를 추적으로 설정
+                else
+                {
+                    enemyMode = MODE_STATE.MOVE;
+                }
             }
             else if (dist <= findDist) // Find 사거리에 들어왔는지 ??
             {
@@ -701,7 +716,7 @@ public class EnemyCtrl : MonoBehaviour
 
 
 
-            // 자신과 가장 팀플레이어찾음
+            // 자신과 가장 가까운 팀플레이어찾음
             if (GameObject.FindGameObjectsWithTag("TeamPlayer") != null)
                 otherPlayers = GameObject.FindGameObjectsWithTag("TeamPlayer");
 
@@ -710,11 +725,11 @@ public class EnemyCtrl : MonoBehaviour
 
                 otherTarget = otherPlayers[0].transform;
                 dist2 = (otherTarget.position - myTr.position).sqrMagnitude;
-                foreach (GameObject _baseAll in otherPlayers)
+                foreach (GameObject _otherTarget in otherPlayers)
                 {
-                    if ((_baseAll.transform.position - myTr.position).sqrMagnitude < dist2)
+                    if ((_otherTarget.transform.position - myTr.position).sqrMagnitude < dist2)
                     {
-                        otherTarget = _baseAll.transform;
+                        otherTarget = _otherTarget.transform;
                         dist2 = (otherTarget.position - myTr.position).sqrMagnitude;
                     }
                 }
