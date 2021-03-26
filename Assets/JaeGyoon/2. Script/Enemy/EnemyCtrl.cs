@@ -742,54 +742,38 @@ public class EnemyCtrl : MonoBehaviour
 
             }
 
-            //    baseTarget = baseAll[0].transform;
-            //dist2 = (baseTarget.position - myTr.position).sqrMagnitude;
-            //foreach (GameObject _baseAll in baseAll)
-            //{
-            //    if ((_baseAll.transform.position - myTr.position).sqrMagnitude < dist2)
-            //    {
-            //        baseTarget = _baseAll.transform;
-            //        dist2 = (baseTarget.position - myTr.position).sqrMagnitude;
-            //    }
-            //}
 
 
-            //만약 플레이어가 없으면 팀플레이어를 대상으로잡음, 현재 플레이어가 없는경우는존재하지않으므로 삭제필요할거같음
-            if (players.Length == 0)
+            // 플레이어가 팀보다 우선순위가 높게 셋팅 (게임마다 틀리다 즉 자기 맘)
+            if (dist1 <= dist2)
             {
-                traceTarget = otherTarget;
+                //PlayerMoveCtrl p = playerTarget.GetComponent<PlayerMoveCtrl>();
+                //if (p.playerInfo.isAlive)
+                traceTarget = playerTarget;
+                //else
+                //    traceTarget = roamingTarget;
                 isTargetChange = true;
             }
-            //그렇지 않으면...
             else
             {
-                // 플레이어가 팀보다 우선순위가 높게 셋팅 (게임마다 틀리다 즉 자기 맘)
-                if (dist1 <= dist2)
-                {
-                    PlayerMoveCtrl p = playerTarget.GetComponent<PlayerMoveCtrl>();
-                    if (p.playerInfo.isAlive)
-                        traceTarget = playerTarget;
-                    else
-                        traceTarget = roamingTarget;
-                    isTargetChange = true;
-                }
-                else
-                {
-                    //!!에러원인 팀플레이어가 현재 존재하지않는 싱글상황에 몬스터가 나오면 거리기준으로 일단 팀플레이어가 우선적으로잡힘
-                    //팀이 존재하지않을경우엔 나를 대상으로 지정하고 시작하도록 설정
-                    //거리관련된 우선순위관해선 어느정도 로직수정이 필요해보임
-                    PlayerMoveCtrl p = playerTarget.GetComponent<PlayerMoveCtrl>();
-                    PlayerMoveCtrl o = otherTarget.GetComponent<PlayerMoveCtrl>();
+                PlayerMoveCtrl p = playerTarget.GetComponent<PlayerMoveCtrl>();
 
-                    if (otherTarget != null && o.playerInfo.isAlive)
+                if (otherTarget != null)
+                {
+                    PlayerMoveCtrl o = otherTarget.GetComponent<PlayerMoveCtrl>();
+                    if (o.playerInfo.isAlive)
                         traceTarget = otherTarget;
-                    else if (p.playerInfo.isAlive)
-                        traceTarget = playerTarget;
                     else
                         traceTarget = roamingTarget;
-                    isTargetChange = true;
                 }
+                else if (p.playerInfo.isAlive)
+                    traceTarget = playerTarget;
+                else
+                    traceTarget = roamingTarget;
+                isTargetChange = true;
+
             }
+
 
         }
     }

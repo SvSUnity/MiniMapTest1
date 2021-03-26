@@ -16,7 +16,7 @@ public class Craft
 
 public class CraftManual : MonoBehaviour
 {
-    
+    List<Rect> dontTouchArea = new List<Rect>();//터치불가능영역, UI영역
     private bool isActivated = false; // 건물생성 창이 열려있는지 확인하는 변수. ( 최초 창은 꺼져있으므로 false )
 
     [SerializeField]
@@ -113,6 +113,10 @@ public class CraftManual : MonoBehaviour
     {
         myinven = GameObject.FindObjectOfType<Inventory>();
         reqCheck = GetComponent<RequireCheck>();
+        dontTouchArea.Add(new Rect(0, 0, Screen.width * 0.3f, Screen.height * 0.5f));
+        dontTouchArea.Add(new Rect(Screen.width * 0.7f, 0, Screen.width * 0.3f, Screen.height * 0.3f));
+        dontTouchArea.Add(new Rect(Screen.width * 0.9f, 0, Screen.width * 0.1f, Screen.height * 0.5f));
+        dontTouchArea.Add(new Rect(Screen.width * 0.8f, Screen.height * 0.65f, Screen.width * 0.2f, Screen.height * 0.35f));
     }
 
     // Update is called once per frame
@@ -120,7 +124,7 @@ public class CraftManual : MonoBehaviour
     {
 
 #if UNITY_EDITOR
-
+        DebugDrawRect(dontTouchArea[3], Color.blue);
         //ray = Camera.main.ScreenPointToRay(Input.mousePosition); // 카메라의 시점으로 마우스 포인터를 바라보는 방향           
 
         //if (Input.GetKeyDown(KeyCode.Tab) && !isPreviewActivated) // 프리뷰를 보고있지 않고, 탭 키를 누르면        
@@ -154,19 +158,33 @@ public class CraftManual : MonoBehaviour
 
 
         // 터치시
-
-        if (Input.touchCount > 0 && EventSystem.current.IsPointerOverGameObject(0) == false && (Input.GetTouch(0).phase == TouchPhase.Began || Input.GetTouch(0).phase == TouchPhase.Moved))
+        //&& EventSystem.current.IsPointerOverGameObject(0) == false
+        if (Input.touchCount > 0 )
         {
            // int craftFingerID = GetCraftTouchIndex();
-
-            if(popup.activeSelf)
+           for(int i = 0; i<Input.touchCount; i++)
             {
-                popup.SetActive(false);
-            }
-            //ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-             ray = Camera.main.ScreenPointToRay(Input.touches[0].position); // 카메라의 시점으로 마우스 포인터를 바라보는 방향   
+                if((Input.GetTouch(i).phase == TouchPhase.Began || Input.GetTouch(i).phase == TouchPhase.Moved))
+                {
+                    if (popup.activeSelf)
+                    {
+                        popup.SetActive(false);
+                    }
+                    //ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                    Vector2 pos = Input.GetTouch(i).position;
+                    ray = Camera.main.ScreenPointToRay(Input.touches[i].position); // 카메라의 시점으로 마우스 포인터를 바라보는 방향  
 
-            PreviewPositionUpdate();
+
+                    foreach(Rect area in dontTouchArea)
+                    {
+                        if(!area.Contains(pos))
+                            PreviewPositionUpdate();
+                    }
+                        
+                }
+            }
+
+
 
 
 
@@ -557,7 +575,17 @@ public class CraftManual : MonoBehaviour
     }
 
 
-
+    void DebugDrawRect(Rect rect, Color color)
+    {
+        //아래
+        Debug.DrawLine(new Vector3(rect.x, rect.y), new Vector3(rect.x + rect.width, rect.y), color);
+        //왼쪽
+        Debug.DrawLine(new Vector3(rect.x, rect.y), new Vector3(rect.x, rect.y + rect.height), color);
+        //오른쪽
+        Debug.DrawLine(new Vector3(rect.x + rect.width, rect.y), new Vector3(rect.x + rect.width, rect.y + rect.height), color);
+        //위
+        Debug.DrawLine(new Vector3(rect.x, rect.y + rect.height), new Vector3(rect.x + rect.width, rect.y + rect.height), color);
+    }
 
 
 

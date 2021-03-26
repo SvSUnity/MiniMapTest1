@@ -39,10 +39,10 @@ public class SelectObjectRay : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && !Inventory.inventoryActivated)
         {
             Vector2 pos = Input.mousePosition;
-            if (!dontTouchArea[0].Contains(pos) && !dontTouchArea[1].Contains(pos))
+            if (!dontTouchArea[0].Contains(pos) && !dontTouchArea[1].Contains(pos) && !dontTouchArea[2].Contains(pos))
             {
                 if (Physics.Raycast(ray, out hitInfo, 150.0f, layerMask))
-                {
+                {   
                     if (hitInfo.collider.tag == "Item")
                     {
                         player.btnSet(hitInfo.collider.gameObject);
@@ -50,7 +50,8 @@ public class SelectObjectRay : MonoBehaviour
                         selectEffect.transform.position = new Vector3(hitInfo.transform.position.x, 0.1f, hitInfo.transform.position.z);
                     }
                     else if (hitInfo.collider.tag == "Ground")
-                    { print("Tag : Ground");
+                    { 
+                        print("Tag : Ground");
                         player.btnSet(hitInfo.collider.gameObject);
                         selectEffect.SetActive(false);
                     }
@@ -71,7 +72,7 @@ public class SelectObjectRay : MonoBehaviour
                     Vector2 pos = Input.GetTouch(i).position;
                     ray = Camera.main.ScreenPointToRay(Input.touches[i].position);
 
-                    if (!dontTouchArea[0].Contains(pos) && !dontTouchArea[1].Contains(pos))
+                    if (!dontTouchArea[0].Contains(pos) && !dontTouchArea[1].Contains(pos) &&!dontTouchArea[2].Contains(pos))
                     {
                         if (Physics.Raycast(ray, out hitInfo, 150.0f, layerMask))
                         {
