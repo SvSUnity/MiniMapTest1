@@ -113,7 +113,7 @@ public class CraftManual : MonoBehaviour
     {
         myinven = GameObject.FindObjectOfType<Inventory>();
         reqCheck = GetComponent<RequireCheck>();
-        dontTouchArea.Add(new Rect(0, 0, Screen.width * 0.3f, Screen.height * 0.5f));
+        dontTouchArea.Add(new Rect(0, 0, Screen.width * 0.35f, Screen.height));
         dontTouchArea.Add(new Rect(Screen.width * 0.7f, 0, Screen.width * 0.3f, Screen.height * 0.3f));
         dontTouchArea.Add(new Rect(Screen.width * 0.9f, 0, Screen.width * 0.1f, Screen.height * 0.5f));
         dontTouchArea.Add(new Rect(Screen.width * 0.8f, Screen.height * 0.65f, Screen.width * 0.2f, Screen.height * 0.35f));
@@ -124,6 +124,7 @@ public class CraftManual : MonoBehaviour
     {
 
 #if UNITY_EDITOR
+        DebugDrawRect(dontTouchArea[0], Color.blue);
         DebugDrawRect(dontTouchArea[3], Color.blue);
         //ray = Camera.main.ScreenPointToRay(Input.mousePosition); // 카메라의 시점으로 마우스 포인터를 바라보는 방향           
 
@@ -164,7 +165,7 @@ public class CraftManual : MonoBehaviour
            // int craftFingerID = GetCraftTouchIndex();
            for(int i = 0; i<Input.touchCount; i++)
             {
-                if((Input.GetTouch(i).phase == TouchPhase.Began || Input.GetTouch(i).phase == TouchPhase.Moved))
+                if ((Input.GetTouch(i).phase == TouchPhase.Began ||Input.GetTouch(i).phase == TouchPhase.Moved))
                 {
                     if (popup.activeSelf)
                     {
@@ -175,12 +176,18 @@ public class CraftManual : MonoBehaviour
                     ray = Camera.main.ScreenPointToRay(Input.touches[i].position); // 카메라의 시점으로 마우스 포인터를 바라보는 방향  
 
 
-                    foreach(Rect area in dontTouchArea)
+                    //foreach(Rect area in dontTouchArea)
+                    //{
+                    //    if(!area.Contains(pos))
+                    //        PreviewPositionUpdate();
+                    //}
+                    if (!dontTouchArea[0].Contains(pos) && !dontTouchArea[1].Contains(pos) && !dontTouchArea[2].Contains(pos) && !dontTouchArea[3].Contains(pos))
                     {
-                        if(!area.Contains(pos))
-                            PreviewPositionUpdate();
+                        PreviewPositionUpdate();
+                        Debug.Log("PositionUpdate");
                     }
-                        
+                    else
+                        return;
                 }
             }
 
@@ -516,7 +523,7 @@ public class CraftManual : MonoBehaviour
 
         
 
-        PreviewPositionUpdate();
+        //PreviewPositionUpdate();
 
 
 
