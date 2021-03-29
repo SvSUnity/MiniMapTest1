@@ -221,7 +221,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 0795bf57a3062f34f912bb2e31102918, type: 3}
       propertyPath: m_RootOrder
-      value: 85
+      value: 81
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 0795bf57a3062f34f912bb2e31102918, type: 3}
       propertyPath: m_LocalScale.x
@@ -1845,7 +1845,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 0795bf57a3062f34f912bb2e31102918, type: 3}
       propertyPath: m_RootOrder
-      value: 87
+      value: 82
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 0795bf57a3062f34f912bb2e31102918, type: 3}
       propertyPath: m_LocalScale.x
@@ -4740,7 +4740,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 56fcad316909a954e9befd47adff7b8d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -9.8
+      value: -9.81
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 56fcad316909a954e9befd47adff7b8d, type: 3}
       propertyPath: m_LocalPosition.y
@@ -4797,7 +4797,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.5, y: 3.8554142, z: 2.5}
+  m_Size: {x: 2, y: 3.8554142, z: 2}
   m_Center: {x: -0.46565187, y: 1.9262799, z: -0.07516432}
 --- !u!54 &822877284
 Rigidbody:
@@ -8481,7 +8481,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 489889d61c0cab44a834ac85bb9bed99, type: 3}
       propertyPath: m_RootOrder
-      value: 81
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 489889d61c0cab44a834ac85bb9bed99, type: 3}
       propertyPath: m_LocalScale.x
@@ -12541,7 +12541,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: e6918555d683c65478f67644e2b26769, type: 3}
       propertyPath: m_RootOrder
-      value: 88
+      value: 83
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: e6918555d683c65478f67644e2b26769, type: 3}
       propertyPath: m_LocalScale.x
@@ -13247,6 +13247,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &2114803606
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2114803604}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2, y: 5.1614194, z: 2}
+  m_Center: {x: -0.03231085, y: 2.5784252, z: 0.28956765}
 --- !u!1 &2132580405
 GameObject:
   m_ObjectHideFlags: 0
@@ -13821,7 +13834,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6365416628910331127
 RectTransform:
   m_ObjectHideFlags: 0

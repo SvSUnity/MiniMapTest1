@@ -65,7 +65,7 @@ public class CraftManual : MonoBehaviour
 
     Inventory myinven;
 
-
+    Vector2 pos;
 
 
 
@@ -160,36 +160,59 @@ public class CraftManual : MonoBehaviour
 
         // 터치시
         //&& EventSystem.current.IsPointerOverGameObject(0) == false
-        if (Input.touchCount > 0 )
+        if (Input.touchCount > 0)
         {
-           // int craftFingerID = GetCraftTouchIndex();
-           for(int i = 0; i<Input.touchCount; i++)
+            // int craftFingerID = GetCraftTouchIndex();
+
+            if ((Input.GetTouch(Input.touchCount - 1).phase == TouchPhase.Began || Input.GetTouch(Input.touchCount - 1).phase == TouchPhase.Moved))
             {
-                if ((Input.GetTouch(i).phase == TouchPhase.Began ||Input.GetTouch(i).phase == TouchPhase.Moved))
+                if (popup.activeSelf)
                 {
-                    if (popup.activeSelf)
-                    {
-                        popup.SetActive(false);
-                    }
-                    //ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                    Vector2 pos = Input.GetTouch(i).position;
-                    ray = Camera.main.ScreenPointToRay(Input.touches[i].position); // 카메라의 시점으로 마우스 포인터를 바라보는 방향  
-
-
-                    //foreach(Rect area in dontTouchArea)
-                    //{
-                    //    if(!area.Contains(pos))
-                    //        PreviewPositionUpdate();
-                    //}
-                    if (!dontTouchArea[0].Contains(pos) && !dontTouchArea[1].Contains(pos) && !dontTouchArea[2].Contains(pos) && !dontTouchArea[3].Contains(pos))
-                    {
-                        PreviewPositionUpdate();
-                        Debug.Log("PositionUpdate");
-                    }
-                    else
-                        return;
+                    popup.SetActive(false);
                 }
+                //ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                 pos = Input.GetTouch(Input.touchCount - 1).position;
+                 ray = Camera.main.ScreenPointToRay(Input.touches[Input.touchCount - 1].position); // 카메라의 시점으로 마우스 포인터를 바라보는 방향  
+
+
+                //foreach(Rect area in dontTouchArea)
+                //{
+                //    if(!area.Contains(pos))
+                //        PreviewPositionUpdate();
+                //}
+                if (!dontTouchArea[0].Contains(pos) && !dontTouchArea[1].Contains(pos) && !dontTouchArea[2].Contains(pos) && !dontTouchArea[3].Contains(pos))
+                {
+                   
+                    PreviewPositionUpdate();
+                    Debug.Log("PositionUpdate");
+                }
+
+                else
+                {
+                    if ((Input.GetTouch(Input.touchCount - 2).phase == TouchPhase.Began || Input.GetTouch(Input.touchCount - 2).phase == TouchPhase.Moved))
+                    {
+                        if (popup.activeSelf)
+                        {
+                            popup.SetActive(false);
+                        }
+                        pos = Input.GetTouch(Input.touchCount - 2).position;
+                        ray = Camera.main.ScreenPointToRay(Input.touches[Input.touchCount - 2].position);
+
+                        if (!dontTouchArea[0].Contains(pos) && !dontTouchArea[1].Contains(pos) && !dontTouchArea[2].Contains(pos) && !dontTouchArea[3].Contains(pos))
+                        {                           
+                            PreviewPositionUpdate();
+                        }
+                    }
+
+
+                }
+
             }
+            
+
+
+
+
 
 
 
