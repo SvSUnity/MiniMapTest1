@@ -294,8 +294,7 @@ public class StageManager : MonoBehaviour
             // 스테이지 총 몬스터 객수 제한
             if (Enemys.Length < 10 && day == false)
             {
-                for (int j = Enemys.Length; j < 10; j++)
-                {
+                
                     //루트 생성위치는 필요하지 않다.그래서 1 번째 인덱스부터 돌리자
                     for (int i = 1; i < EnemySpawnPoints.Length; i++)
                     {
@@ -303,8 +302,7 @@ public class StageManager : MonoBehaviour
                         // 네트워크 플레이어를 Scene 에 귀속하여 생성
                         PhotonNetwork.InstantiateSceneObject("Enemy", EnemySpawnPoints[i].localPosition, EnemySpawnPoints[i].localRotation, 0, null);
                     }
-                }
-
+                
 
             }
         }
@@ -316,84 +314,7 @@ public class StageManager : MonoBehaviour
 
 
 
-    //IEnumerator CreateTree()
-    //{
-    //게임중 일정 시간마다 계속 호출됨 
-    //while (!gameEnd)
-    //{
-    //    //리스폰 타임0.5초
-    //    yield return new WaitForSeconds(0.5f);
-
-    //    // 스테이지 총 몬스터 객수 제한을 위하여 찾자~
-    //    propTrees = GameObject.FindGameObjectsWithTag("PropTree");
-
-    //    // 스테이지 총 몬스터 객수 제한
-    //    if (propTrees.Length < 100)
-    //    {
-    //        //루트 생성위치는 필요하지 않다.그래서 1 번째 인덱스부터 돌리자
-    //        for (int i = propTrees.Length; i < 100; i++)
-    //        {
-    //           // randomX = Random.Range(-(worldMap.transform.localScale.x / 2), (worldMap.transform.localScale.x / 2));
-    //           // 큐브가 아니라 플랜으로 하면 /2가 아니라 *5 처리 하면 사이즈가 맞음.
-
-    //            randomX = Random.Range(-(worldMap.transform.localScale.x *5), (worldMap.transform.localScale.x *5));
-    //            randomZ = Random.Range(-(worldMap.transform.localScale.z *5), (worldMap.transform.localScale.z *5));
-    //            randomPoint = new Vector3(randomX, 0.5f, randomZ);
-
-    //            // (포톤 추가)
-    //            // 네트워크 플레이어를 Scene 에 귀속하여 생성
-    //            PhotonNetwork.InstantiateSceneObject("PropTree", randomPoint, Quaternion.identity, 0, null);
-    //        }
-    //    }
-
-
-
-
-    //    propGrass1 = GameObject.FindGameObjectsWithTag("Grass1");            
-    //    if (propGrass1.Length < 30)
-    //    {                
-    //        for (int i = propGrass1.Length; i < 30; i++)
-    //        {
-    //            randomX = Random.Range(-(worldMap.transform.localScale.x * 5), (worldMap.transform.localScale.x * 5));
-    //            randomZ = Random.Range(-(worldMap.transform.localScale.z * 5), (worldMap.transform.localScale.z * 5));
-    //            randomPoint = new Vector3(randomX, 0.5f, randomZ);
-
-    //            // 네트워크 플레이어를 Scene 에 귀속하여 생성
-    //            PhotonNetwork.InstantiateSceneObject("Grass1", randomPoint, Quaternion.identity, 0, null);
-    //        }
-    //    }
-
-    //    propGrass2 = GameObject.FindGameObjectsWithTag("Grass2");
-    //    if (propGrass2.Length < 30)
-    //    {
-    //        for (int i = propGrass2.Length; i < 30; i++)
-    //        {
-    //            randomX = Random.Range(-(worldMap.transform.localScale.x * 5), (worldMap.transform.localScale.x * 5));
-    //            randomZ = Random.Range(-(worldMap.transform.localScale.z * 5), (worldMap.transform.localScale.z * 5));
-    //            randomPoint = new Vector3(randomX, 0.5f, randomZ);
-
-    //            // 네트워크 플레이어를 Scene 에 귀속하여 생성
-    //            PhotonNetwork.InstantiateSceneObject("Grass2", randomPoint, Quaternion.identity, 0, null);
-    //        }
-    //    }
-
-    //    propGrass3 = GameObject.FindGameObjectsWithTag("Grass3");
-    //    if (propGrass3.Length < 30)
-    //    {
-    //        for (int i = propGrass3.Length; i < 30; i++)
-    //        {
-    //            randomX = Random.Range(-(worldMap.transform.localScale.x * 5), (worldMap.transform.localScale.x * 5));
-    //            randomZ = Random.Range(-(worldMap.transform.localScale.z * 5), (worldMap.transform.localScale.z * 5));
-    //            randomPoint = new Vector3(randomX, 0.5f, randomZ);
-
-    //            // 네트워크 플레이어를 Scene 에 귀속하여 생성
-    //            PhotonNetwork.InstantiateSceneObject("Grass3", randomPoint, Quaternion.identity, 0, null);
-    //        }
-    //    }
-
-
-    //}
-    //}
+    
 
 
 
