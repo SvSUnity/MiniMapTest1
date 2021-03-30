@@ -99,9 +99,8 @@ public class PlayerMoveCtrl : MonoBehaviour
         currRot = PlayerBody.rotation;
         playerInfo.isAlive = true;//기본적으로 살아있는상태
         //액션버튼
-
-
         actionBtn = GameObject.FindGameObjectWithTag("actionBtn");
+
         //테스트용 버튼텍스트
         //이곳에서 NULL 발생합니다.
 
@@ -210,7 +209,6 @@ public class PlayerMoveCtrl : MonoBehaviour
         {
             myTr.position = Vector3.Lerp(myTr.position, currPos, Time.deltaTime * 3.0f);
             PlayerBody.rotation = Quaternion.Slerp(PlayerBody.rotation, currRot, Time.deltaTime * 3.0f);
-
             hp = currHP;            
         }
 
@@ -400,9 +398,13 @@ public class PlayerMoveCtrl : MonoBehaviour
         {
             playerInfo.isAlive = false;
             movSpeed = 0;
+            controller.enabled = false;
             anim.SetTrigger("Die");
+
             yield return new WaitForSeconds(5.0f);
+            controller.enabled = true;
             anim.SetTrigger("Heal");
+
             yield return new WaitForSeconds(2.0f);
 
 
@@ -420,8 +422,10 @@ public class PlayerMoveCtrl : MonoBehaviour
         {
             playerInfo.isAlive = false;
             anim.SetTrigger("Die");
+
             yield return new WaitForSeconds(5.0f);
             anim.SetTrigger("Heal");
+
             yield return new WaitForSeconds(2.0f);
             playerInfo.isAlive = true;
             deadCount = 0;

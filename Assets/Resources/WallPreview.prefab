@@ -76,9 +76,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item:
-  - {fileID: 11400000, guid: 4419053bf33adc14489cc12414d09ead, type: 2}
   - {fileID: 11400000, guid: 5761345f8e68e5940bc36438ba7dc240, type: 2}
-  itemCount: 0000000001000000
+  itemCount: 01000000
 --- !u!1001 &2519754044804754057
 PrefabInstance:
   m_ObjectHideFlags: 0
