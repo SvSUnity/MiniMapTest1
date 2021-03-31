@@ -50,7 +50,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4202696456301575857}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.796, z: 0.6}
+  m_LocalPosition: {x: 0, y: 0.8, z: 0.6}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 3554677979028979067}
@@ -67,7 +67,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1
+  m_Radius: 1.2
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1229092808447661165
 MonoBehaviour:
@@ -341,7 +341,7 @@ MonoBehaviour:
   findDist: 20
   traceDist: 15
   attackDist: 3
-  hungryTimeSet: 5
+  hungryTimeSet: 120
   nonHungryTimeSet: 5
   isHit: 0
   hungry: 0
