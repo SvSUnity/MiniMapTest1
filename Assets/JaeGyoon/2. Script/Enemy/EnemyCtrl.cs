@@ -864,6 +864,9 @@ public class EnemyCtrl : MonoBehaviour
         //4.5 초후 오브젝트 삭제
         yield return new WaitForSeconds(0.1f);
         //Destroy(gameObject);
+
+        GameObject enemyblood1 = Instantiate(enemyDestroyEffect, myTr.transform.position, Quaternion.identity) as GameObject;
+
         PhotonNetwork.Destroy(gameObject);
 
         ///// 중요 내용 /////
@@ -878,7 +881,7 @@ public class EnemyCtrl : MonoBehaviour
         //Debug.Log("OnDestroy");
 
 
-        GameObject enemyblood1 = Instantiate(enemyDestroyEffect, myTr.transform.position, Quaternion.identity) as GameObject;
+        
 
 
 
