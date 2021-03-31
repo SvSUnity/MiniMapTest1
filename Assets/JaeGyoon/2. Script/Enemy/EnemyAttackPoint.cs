@@ -29,7 +29,7 @@ public class EnemyAttackPoint : MonoBehaviour
     IEnumerator ResetColl()
     {
         co.enabled = false;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.25f);
         co.enabled = true;
     }
 }

@@ -27,7 +27,7 @@ public class StageManager : MonoBehaviour
     // 스테이지 Enemy들을 위한 레퍼런스
     private GameObject[] Enemys;
 
-
+    
 
 
     public GameObject worldMap;
@@ -73,6 +73,12 @@ public class StageManager : MonoBehaviour
     bool test = false;
     RadarMap radamap;
     SelectObjectRay selectObject;
+
+
+    private GameObject[] players;
+
+    private int deathCount = 0;
+
 
     void Awake()
     {
@@ -441,6 +447,37 @@ public class StageManager : MonoBehaviour
         //pv.RPC("DayTemp", PhotonTargets.AllBuffered);
 
         DayTemp();
+
+
+
+
+
+        if (PlayerList.Count == PhotonNetwork.room.PlayerCount)
+        {
+            deathCount = 0;
+
+            foreach (GameObject pp in PlayerList)
+            {
+                if ( pp.GetComponent<PlayerMoveCtrl>().playerInfo.isAlive == false )
+                {
+                    deathCount++;
+                }
+            }
+
+            if ( deathCount == PlayerList.Count)
+            {
+                Debug.Log("모든 플레이어 사망");
+            }
+
+        }
+
+
+      
+
+
+       
+
+
 
     }
 

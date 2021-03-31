@@ -537,8 +537,9 @@ public class CraftManual : MonoBehaviour
 
             if (buildPreview.tag == "RockWall")
             {
-                PhotonNetwork.Instantiate("RockWall", buildPreview.transform.position, Quaternion.identity, 0, null);
-                               
+                Vector3 RatioBuild = new Vector3((int)buildPreview.transform.position.x, (int)buildPreview.transform.position.y, (int)buildPreview.transform.position.z);
+                PhotonNetwork.Instantiate("RockWall", RatioBuild, Quaternion.Euler(0, previewRotation, 0), 0, null);
+
             }
 
             if (buildPreview.tag == "TopPre")
