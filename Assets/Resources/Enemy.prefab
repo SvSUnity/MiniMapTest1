@@ -83,6 +83,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   power: 2
   co: {fileID: 7713578440420766849}
+  enemyAttackEffect: {fileID: 516157054090479559, guid: 1aad81d86d3bf534e8e0950746cd6ad2,
+    type: 3}
 --- !u!1 &4972597000702684577
 GameObject:
   m_ObjectHideFlags: 0
@@ -346,6 +348,8 @@ MonoBehaviour:
   sleep: 0
   nonHungry: 0
   isHitTime: 0
+  enemyDestroyEffect: {fileID: 516157054090479559, guid: cbdda55c672ed03438d1c90cd4f788ba,
+    type: 3}
 --- !u!114 &-3622462107800769425
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -359,9 +363,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   life: 100
-  enemyBloodEffect: {fileID: 516157054090479559, guid: 1aad81d86d3bf534e8e0950746cd6ad2,
+  enemyBloodEffect: {fileID: 516157054090479559, guid: d7dbcf4bba8aecd49a505f6ccb5325ad,
     type: 3}
-  enemyBloodDecal: {fileID: 516157054090479557, guid: 1aad81d86d3bf534e8e0950746cd6ad2,
+  enemyBloodDecal: {fileID: 516157054090479557, guid: d7dbcf4bba8aecd49a505f6ccb5325ad,
     type: 3}
   enemy: {fileID: 6996781392318445610}
   pv: {fileID: 0}

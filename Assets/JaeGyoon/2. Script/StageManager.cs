@@ -295,14 +295,19 @@ public class StageManager : MonoBehaviour
             if (Enemys.Length < 10 && day == false)
             {
                 
-                    //루트 생성위치는 필요하지 않다.그래서 1 번째 인덱스부터 돌리자
-                    for (int i = 1; i < EnemySpawnPoints.Length; i++)
+                //루트 생성위치는 필요하지 않다.그래서 1 번째 인덱스부터 돌리자
+                for (int i = 1; i < EnemySpawnPoints.Length; i++)
+                {
+                    Enemys = GameObject.FindGameObjectsWithTag("Enemy");
+                    // (포톤 추가)
+                    // 네트워크 플레이어를 Scene 에 귀속하여 생성
+                    if (Enemys.Length < 10 && day == false)
                     {
-                        // (포톤 추가)
-                        // 네트워크 플레이어를 Scene 에 귀속하여 생성
                         PhotonNetwork.InstantiateSceneObject("Enemy", EnemySpawnPoints[i].localPosition, EnemySpawnPoints[i].localRotation, 0, null);
                     }
-                
+                    //PhotonNetwork.InstantiateSceneObject("Enemy", EnemySpawnPoints[i].localPosition, EnemySpawnPoints[i].localRotation, 0, null);
+                }
+
 
             }
         }
@@ -314,7 +319,7 @@ public class StageManager : MonoBehaviour
 
 
 
-    
+
 
 
 

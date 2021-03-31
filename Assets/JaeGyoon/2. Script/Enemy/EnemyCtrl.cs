@@ -139,6 +139,11 @@ public class EnemyCtrl : MonoBehaviour
     [SerializeField] float isHitTime;
 
 
+    public GameObject enemyDestroyEffect;
+
+
+
+
     // 포톤 추가///////////////////////////////////////////////////////////////////////
 
     //참조할 컴포넌트를 할당할 레퍼런스 (미리 할당하는게 좋음)
@@ -160,6 +165,12 @@ public class EnemyCtrl : MonoBehaviour
     bool isTargetChange = false;
 
     PlayerMoveCtrl playerState;
+
+
+
+
+
+
 
     private void Awake()
     {
@@ -865,6 +876,11 @@ public class EnemyCtrl : MonoBehaviour
     void OnDestroy() // 디스트로이 될때 동작하는 함수
     {
         //Debug.Log("OnDestroy");
+
+
+        GameObject enemyblood1 = Instantiate(enemyDestroyEffect, myTr.transform.position, Quaternion.identity) as GameObject;
+
+
 
         StopAllCoroutines(); // 모든 코루틴을 정지.
     }

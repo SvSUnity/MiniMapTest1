@@ -216,9 +216,19 @@ public class EnemyLife : MonoBehaviour
     IEnumerator CreateBloodEffects(Vector3 pos)
     {
         //blood effect 생성
-        GameObject enemyblood1 = Instantiate(enemyBloodEffect, pos, Quaternion.identity) as GameObject;
+        //GameObject enemyblood1 = Instantiate(enemyBloodEffect, pos, Quaternion.identity) as GameObject;
         //만약 블러드 이펙트에 오브젝트 삭제 컴포넌트가 없을시...
         //Destroy(enemyblood1, 1.5f);
+
+
+
+
+
+
+
+
+
+
 
         //만약 혈흔 프리팹에 차일드 오브젝트를(혈흔) up 방향으로 미리 올려놨다면...
         //혈흔데칼의 생성되는 위치는 바닥에서 조금 올린 위치로 만들어야 바닥에 묻히지 않는다
