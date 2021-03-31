@@ -385,7 +385,12 @@ public class EnemyCtrl : MonoBehaviour
             else if (dist <= attackDist) // Attack 사거리에 들어왔는지 ?? 공격받았을때 말고는 실행
             {
                 //if (playerState.playerInfo.isAlive)
-                    enemyMode = MODE_STATE.ATTACK; //몬스터의 상태를 공격으로 설정
+
+                //현재 타겟이 로밍포지션이면 공격못하게함
+                if(traceTarget == roamingTarget)
+                    enemyMode = MODE_STATE.MOVE; //몬스터의 상태를 공격으로 설정
+                else
+                    enemyMode = MODE_STATE.ATTACK; 
                 //else
                 //{
                 //    enemyMode = MODE_STATE.MOVE;
@@ -758,11 +763,11 @@ public class EnemyCtrl : MonoBehaviour
             // 플레이어가 팀보다 우선순위가 높게 셋팅 (게임마다 틀리다 즉 자기 맘)
             if (dist1 <= dist2)
             {
-                //PlayerMoveCtrl p = playerTarget.GetComponent<PlayerMoveCtrl>();
-                //if (p.playerInfo.isAlive)
-                traceTarget = playerTarget;
-                //else
-                //    traceTarget = roamingTarget;
+                PlayerMoveCtrl p = playerTarget.GetComponent<PlayerMoveCtrl>();
+                if (p.playerInfo.isAlive)
+                    traceTarget = playerTarget;
+                else
+                    traceTarget = roamingTarget;
                 isTargetChange = true;
             }
             else
