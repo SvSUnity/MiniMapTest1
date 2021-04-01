@@ -410,14 +410,14 @@ public class PlayerMoveCtrl : MonoBehaviour
 
             playerInfo.isAlive = true;
             hp = maxLife;
-            
+
             movSpeed = 5;
 
             deadCount = 0;
 
             Debug.Log("mine hp:" + hp);
         }
-       
+
         else
         {
             playerInfo.isAlive = false;

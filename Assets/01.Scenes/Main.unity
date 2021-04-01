@@ -514,7 +514,7 @@ GameObject:
   - component: {fileID: 68127893}
   - component: {fileID: 68127895}
   - component: {fileID: 68127894}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: GameObject (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1280,7 +1280,7 @@ MonoBehaviour:
   Turret: {fileID: 0}
   worldMap: {fileID: 2013147986}
   day: 0
-  halfDay: 20
+  halfDay: 60
   currentTime: 0
   dayIMG: {fileID: 649293945}
   nightIMG: {fileID: 1603821607}
@@ -1493,7 +1493,7 @@ GameObject:
   - component: {fileID: 206528524}
   - component: {fileID: 206528526}
   - component: {fileID: 206528525}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: GameObject (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3933,7 +3933,7 @@ GameObject:
   - component: {fileID: 692617723}
   - component: {fileID: 692617725}
   - component: {fileID: 692617724}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: GameObject (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4119,7 +4119,7 @@ GameObject:
   - component: {fileID: 732177232}
   - component: {fileID: 732177234}
   - component: {fileID: 732177233}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: GameObject (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4407,7 +4407,7 @@ GameObject:
   - component: {fileID: 782411922}
   - component: {fileID: 782411924}
   - component: {fileID: 782411923}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: GameObject (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8291,7 +8291,7 @@ GameObject:
   - component: {fileID: 1223639097}
   - component: {fileID: 1223639099}
   - component: {fileID: 1223639098}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: GameObject (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8921,7 +8921,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1414496726}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: RoamingPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9168,7 +9168,7 @@ GameObject:
   - component: {fileID: 1441567995}
   - component: {fileID: 1441567997}
   - component: {fileID: 1441567996}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: GameObject (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13369,7 +13369,7 @@ GameObject:
   - component: {fileID: 2080798384}
   - component: {fileID: 2080798386}
   - component: {fileID: 2080798385}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: GameObject (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13676,7 +13676,7 @@ GameObject:
   - component: {fileID: 2132580406}
   - component: {fileID: 2132580408}
   - component: {fileID: 2132580407}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}

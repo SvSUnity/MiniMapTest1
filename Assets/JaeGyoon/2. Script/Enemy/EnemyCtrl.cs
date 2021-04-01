@@ -95,6 +95,8 @@ public class EnemyCtrl : MonoBehaviour
     //로밍 타겟
     private Transform roamingTarget; // 결국 이동할 로밍 위치
 
+    public bool isRoamingCheck = true;//로밍체크 가능여부
+
     [HideInInspector]
     public bool isDie; // 나중에 하이드 처리
 
@@ -384,42 +386,50 @@ public class EnemyCtrl : MonoBehaviour
             }
             else if (dist <= attackDist) // Attack 사거리에 들어왔는지 ?? 공격받았을때 말고는 실행
             {
-                //if (playerState.playerInfo.isAlive)
-
-                //현재 타겟이 로밍포지션이면 공격못하게함
-                if(traceTarget == roamingTarget)
-                    enemyMode = MODE_STATE.MOVE; //몬스터의 상태를 공격으로 설정
+                //대상이 살아있으면 공격
+                if (playerState.playerInfo.isAlive)
+                    enemyMode = MODE_STATE.ATTACK;
+                //죽어있으면 로밍
                 else
-                    enemyMode = MODE_STATE.ATTACK; 
-                //else
-                //{
-                //    enemyMode = MODE_STATE.MOVE;
-                //}
+                {
+                    enemyMode = MODE_STATE.MOVE;
+                }
             }
             else if (traceAttack)
             /* 몬스터를 추적중이라면... 트레이스 애니메이션이 2가지인 이유는 서프라이즈 애니메이션때 거리가 벌어져 추적이 끝나면 다시 또 놀라기 때문에 몇초동안 
             무조건 적으로 타겟을 쫓아가는 로직을 만든다. */
             {
-                //if (playerState.playerInfo.isAlive)
-                    enemyMode = MODE_STATE.TRACE; //몬스터의 상태를 추적으로 설정
-                //else
-                //{
-                //    enemyMode = MODE_STATE.MOVE;
-                //}
+                //대상이 살아있으면 추적
+                if (playerState.playerInfo.isAlive)
+                    enemyMode = MODE_STATE.TRACE;
+                //죽어있으면 로밍
+                else
+                {
+                    enemyMode = MODE_STATE.MOVE;
+                }
 
             }
             else if (dist <= traceDist) // Trace 사거리에 들어왔는지 ??
             {
-                //if (playerState.playerInfo.isAlive)
-                    enemyMode = MODE_STATE.TRACE; //몬스터의 상태를 추적으로 설정
-                //else
-                //{
-                //    enemyMode = MODE_STATE.MOVE;
-                //}
+                //대상이 살아있으면 추적
+                if (playerState.playerInfo.isAlive)
+                    enemyMode = MODE_STATE.TRACE;
+                //죽어있으면 로밍
+                else
+                {
+                    enemyMode = MODE_STATE.MOVE;
+                }
             }
             else if (dist <= findDist) // Find 사거리에 들어왔는지 ??
             {
-                enemyMode = MODE_STATE.SURPRISE; //몬스터의 상태를 놀람으로 설정 
+                //대상이 살아있으면 놀람애니메이션
+                if (playerState.playerInfo.isAlive)
+                    enemyMode = MODE_STATE.SURPRISE;
+                //죽어있으면 로밍
+                else
+                {
+                    enemyMode = MODE_STATE.MOVE;
+                }
             }
             else if (hungry) //  배고플 때 (주인공 찾는다)
             {
@@ -764,10 +774,9 @@ public class EnemyCtrl : MonoBehaviour
             if (dist1 <= dist2)
             {
                 PlayerMoveCtrl p = playerTarget.GetComponent<PlayerMoveCtrl>();
-                if (p.playerInfo.isAlive)
+                //if (p.playerInfo.isAlive)
                     traceTarget = playerTarget;
-                else
-                    traceTarget = roamingTarget;
+
                 isTargetChange = true;
             }
             else
@@ -777,15 +786,13 @@ public class EnemyCtrl : MonoBehaviour
                 if (otherTarget != null)
                 {
                     PlayerMoveCtrl o = otherTarget.GetComponent<PlayerMoveCtrl>();
-                    if (o.playerInfo.isAlive)
+                    //if (o.playerInfo.isAlive)
                         traceTarget = otherTarget;
-                    else
-                        traceTarget = roamingTarget;
+
                 }
-                else if (p.playerInfo.isAlive)
-                    traceTarget = playerTarget;
+                //else if (p.playerInfo.isAlive)
                 else
-                    traceTarget = roamingTarget;
+                    traceTarget = playerTarget;
                 isTargetChange = true;
 
             }
@@ -797,13 +804,31 @@ public class EnemyCtrl : MonoBehaviour
 
     public void RoamingCheckStart()
     {
-        StartCoroutine(this.RoamingCheck(roamingRandcheckPos));
+        if(isRoamingCheck)
+        {
+            isRoamingCheck = false;
+            StartCoroutine(this.RoamingCheck(roamingRandcheckPos));
+        }
+
+    }
+
+    public void CanRoamingCheckStart()
+    {
+        if(!isRoamingCheck)
+        {
+            StartCoroutine(this.CanRomaingCheck());
+        }
+    }
+
+    IEnumerator CanRomaingCheck()
+    {
+        yield return new WaitForSeconds(0.5f);
+        isRoamingCheck = true;
     }
 
 
     IEnumerator RoamingCheck(int pos)
     {
-
         roamingRandcheckPos = UnityEngine.Random.Range(1, roamingCheckPoints.Length);
 
         //같은 자리 안가게....
@@ -819,6 +844,8 @@ public class EnemyCtrl : MonoBehaviour
         //로밍 타겟 셋팅
         roamingTarget = roamingCheckPoints[roamingRandcheckPos];
 
+
+        //연속적으로 로밍타겟을변경하지않도록 설정
         // Debug.Log("Checking1");
     }
 

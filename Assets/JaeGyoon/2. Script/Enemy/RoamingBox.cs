@@ -4,21 +4,7 @@ using UnityEngine;
 
 public class RoamingBox : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-
     private void OnTriggerEnter(Collider coll)
-
     {
         if ( coll.gameObject.tag =="Enemy")
         {
@@ -26,8 +12,22 @@ public class RoamingBox : MonoBehaviour
         }
     }
 
-    
+    private void OnTriggerStay(Collider coll)
+    {
+        if (coll.gameObject.tag == "Enemy")
+        {
+            coll.gameObject.GetComponent<EnemyCtrl>().RoamingCheckStart();
+        }
+    }
 
 
+    //로밍박스 범위를 벗어나야 다시 로밍체크가 가능하도록 설정
+    private void OnTriggerExit(Collider coll)
+    {
+        if (coll.gameObject.tag == "Enemy")
+        {
+            coll.gameObject.GetComponent<EnemyCtrl>().isRoamingCheck = true;
+        }
+    }
 
 }
