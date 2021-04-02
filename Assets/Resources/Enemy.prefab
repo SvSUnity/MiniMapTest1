@@ -344,7 +344,7 @@ MonoBehaviour:
   findDist: 30
   traceDist: 15
   attackDist: 3
-  hungryTimeSet: 5
+  hungryTimeSet: 0
   nonHungryTimeSet: 150
   isHit: 0
   hungry: 0

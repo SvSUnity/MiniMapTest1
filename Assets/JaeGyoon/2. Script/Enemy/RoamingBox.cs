@@ -26,7 +26,7 @@ public class RoamingBox : MonoBehaviour
     {
         if (coll.gameObject.tag == "Enemy")
         {
-            coll.gameObject.GetComponent<EnemyCtrl>().isRoamingCheck = true;
+            coll.gameObject.GetComponent<EnemyCtrl>().CanRoamingCheckStart();
         }
     }
 

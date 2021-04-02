@@ -127,9 +127,9 @@ public class EnemyCtrl : MonoBehaviour
     [Tooltip("몬스터 공격 거리")]
     [Range(2f, 500f)] [SerializeField] float attackDist = 2.5f;
     [Tooltip("몬스터 로밍 시간")]
-    [Range(5f, 50000f)] [SerializeField] float hungryTimeSet = 5f;
+    [Range(0f, 3600f)] [SerializeField] float hungryTimeSet = 5f;
     [Tooltip("몬스터 로밍 대기시간")]
-    [Range(0f, 50000f)] [SerializeField] float nonHungryTimeSet = 5f;
+    [Range(0f, 3600f)] [SerializeField] float nonHungryTimeSet = 5f;
 
     [Header("Test")]
     [SerializeField] bool isHit;
