@@ -1280,7 +1280,7 @@ MonoBehaviour:
   Turret: {fileID: 0}
   worldMap: {fileID: 2013147986}
   day: 0
-  halfDay: 60
+  halfDay: 10
   currentTime: 0
   dayIMG: {fileID: 649293945}
   nightIMG: {fileID: 1603821607}

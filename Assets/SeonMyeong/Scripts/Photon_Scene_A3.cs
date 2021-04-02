@@ -67,6 +67,7 @@ public class Photon_Scene_A3 : MonoBehaviour
 
         print("Server : "+SC.ToString());
 
+        SoundManager.Instance.PlayBGM((int)BGM.LOBBY);
     }/**void    Awake()**/
 
     void    Start()
@@ -837,7 +838,9 @@ public class Photon_Scene_A3 : MonoBehaviour
 
         if(PhotonNetwork.inRoom)
         {   print("LeaveRoom");
-            PhotonNetwork.LeaveRoom();}
+            PhotonNetwork.LeaveRoom();
+            SoundManager.Instance.PlayBGM((int)BGM.LOGIN);
+        }
 
         CancelInvoke();
         StopAllCoroutines();

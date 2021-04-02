@@ -22,7 +22,7 @@ public class LoginManager : MonoBehaviour
     {
         LoginUrl = "http://gusdka3.dothome.co.kr/Login.php"; 
         CreateUrl = "http://gusdka3.dothome.co.kr/CreateAccount.php";
-        SoundManager.Instance.PlayBGM(0);
+        SoundManager.Instance.PlayBGM((int)BGM.LOGIN);
     }
 
     public void LoginBtn()

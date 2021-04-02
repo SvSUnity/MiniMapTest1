@@ -118,7 +118,7 @@ public class StageManager : MonoBehaviour
 
 
         day = true;
-
+        SoundManager.Instance.PlayBGM((int)BGM.DAY);
 
 
     }
@@ -396,8 +396,22 @@ public class StageManager : MonoBehaviour
         if (currentTime >= halfDay)
         {
             day = !day;
-            currentTime = 0;
 
+
+
+            //낮
+            if(day)
+            {
+                SoundManager.Instance.PlayBGM((int)BGM.DAY);
+            }
+            //밤
+            else if(!day)
+            {
+                SoundManager.Instance.PlayBGM((int)BGM.NIGHT);
+            }
+
+            currentTime = 0;
+            
 
             if (day == true)
             {
