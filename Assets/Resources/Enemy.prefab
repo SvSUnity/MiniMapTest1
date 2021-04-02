@@ -333,17 +333,19 @@ MonoBehaviour:
     die: {fileID: 7400000, guid: 1e98bfdd81797334bb100fa9d6ca66a3, type: 3}
   myTr: {fileID: 0}
   traceTarget: {fileID: 0}
-  roamingTarget: {fileID: 0}
+  hungryTime: 0
+  nonHungryTime: 0
+  isRoamingCheck: 1
   isDie: 0
   enemyMode: 1
   enemyKind: 1
   hp: 100
   speed: 6
-  findDist: 20
+  findDist: 30
   traceDist: 15
   attackDist: 3
   hungryTimeSet: 5
-  nonHungryTimeSet: 5
+  nonHungryTimeSet: 150
   isHit: 0
   hungry: 0
   sleep: 0

@@ -73,8 +73,8 @@ public class EnemyCtrl : MonoBehaviour
     private bool traceAttack;
 
     // 로밍을위한 시간 변수
-    private float hungryTime; // 헝그리 타임동안 로밍을 하고
-    private float nonHungryTime; // 논헝그리 타임일때 잠을 잔다? 같은 로직을 완성할수 있음. ( 쫌더 보완이 필요 )
+    public float hungryTime; // 헝그리 타임동안 로밍을 하고
+    public float nonHungryTime; // 논헝그리 타임일때 잠을 잔다? 같은 로직을 완성할수 있음. ( 쫌더 보완이 필요 )
 
     //추적 대상 거리체크 변수 
     float dist1; // 나와 플레이어의 거리
@@ -218,8 +218,8 @@ public class EnemyCtrl : MonoBehaviour
         currPos = myTr.position;
         currRot = myTr.rotation;
 
-                   
 
+        hungry = false;
     }
 
 
@@ -292,7 +292,7 @@ public class EnemyCtrl : MonoBehaviour
 
                 // 변수 순서가 중요하다.
                 hungry = true;  // 헝그리를 트루값으로 바꿔 로밍을 끝내고
-                nonHungryTime = Time.time + nonHungryTimeSet + UnityEngine.Random.Range(10f, 15f); // 논헝그리타임에 여태 흐른 시간 + 논타이밍 시간 + 랜덤 추가 시간을 준다.
+                nonHungryTime = Time.time + nonHungryTimeSet + UnityEngine.Random.Range(0f, 0f); // 논헝그리타임에 여태 흐른 시간 + 논타이밍 시간 + 랜덤 추가 시간을 준다.
                 nonHungry = true; // 논헝그리를 트루값으로 바꿔서 다음 로직을 타게 함.
 
             }
@@ -305,7 +305,7 @@ public class EnemyCtrl : MonoBehaviour
             {
                 // 변수 순서가 중요하다.
                 nonHungry = false; // 논헝그리 종료
-                hungryTime = Time.time + hungryTimeSet + UnityEngine.Random.Range(10f, 15f); // 헝그리 시간에 다시 값을 준다. ( 이러면 다시 타임값이 흐른 만큼 )
+                hungryTime = Time.time + hungryTimeSet + UnityEngine.Random.Range(0f, 0f); // 헝그리 시간에 다시 값을 준다. ( 이러면 다시 타임값이 흐른 만큼 )
                 hungry = false;
             }
 
@@ -709,7 +709,7 @@ public class EnemyCtrl : MonoBehaviour
 
     IEnumerator TraceObject()
     {
-        yield return new WaitForSeconds(2.5f); // 2.5초 대기
+        yield return new WaitForSeconds(2.5f); // 2.5초 대기F
         traceAttack = true; // 추적 상태로 바꿈.
 
         yield return new WaitForSeconds(5.5f); // 5.5초 대기 이때동안은 계속 추적 상태
