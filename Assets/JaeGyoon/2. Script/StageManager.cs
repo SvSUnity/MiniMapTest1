@@ -571,9 +571,9 @@ public class StageManager : MonoBehaviour
         PhotonNetwork.LeaveRoom();
 
 
-        A0 = SceneManager.LoadSceneAsync(1);
+        A0 = SceneManager.LoadSceneAsync(3);
         A0.allowSceneActivation = true;
-        Debug.Log(1);
+        SoundManager.Instance.PlayBGM((int)BGM.LOGIN);
 
     }
 

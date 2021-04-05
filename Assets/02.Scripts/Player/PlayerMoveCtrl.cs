@@ -118,6 +118,7 @@ public class PlayerMoveCtrl : MonoBehaviour
         if (!pv.isMine)
         {
             this.tag = "TeamPlayer";
+            this.gameObject.GetComponent<AudioSource>().mute = true;
         }
         else
         {
