@@ -81,6 +81,8 @@ public class StageManager : MonoBehaviour
 
 
     public GameObject result;
+
+    public Text SurvivalDay;
     public AsyncOperation A0;
 
     void Awake()
@@ -374,75 +376,80 @@ public class StageManager : MonoBehaviour
 
     void Update()
     {
-        if (test == true)
+        if (!gameEnd)
+
         {
-            if (PhotonNetwork.connected && PhotonNetwork.isMasterClient)
+
+
+            if (test == true)
             {
-                // 몬스터 스폰 코루틴 호출
-                //StartCoroutine(this.CreateEnemy());
+                if (PhotonNetwork.connected && PhotonNetwork.isMasterClient)
+                {
+                    // 몬스터 스폰 코루틴 호출
+                    //StartCoroutine(this.CreateEnemy());
 
-                ////StartCoroutine(this.CreateTree());
+                    ////StartCoroutine(this.CreateTree());
 
-                //StartCoroutine(this.CreateItem());
+                    //StartCoroutine(this.CreateItem());
 
-                test = false;
+                    test = false;
+                }
+
             }
 
-        }
 
 
-
-        //플레이어 캐릭터가 현재 방에접속된 플레이어숫자와 일치해야 시간이증가하기시작
-        //모든플레이어가 동시에 시간이 증가하도록 하기위해 추가
-        if (PlayerList.Count == PhotonNetwork.room.PlayerCount)
-            currentTime += Time.deltaTime;
-        if (currentTime >= halfDay)
-        {
-            day = !day;
-
-
-
-            //낮
-            if(day)
+            //플레이어 캐릭터가 현재 방에접속된 플레이어숫자와 일치해야 시간이증가하기시작
+            //모든플레이어가 동시에 시간이 증가하도록 하기위해 추가
+            if (PlayerList.Count == PhotonNetwork.room.PlayerCount)
+                currentTime += Time.deltaTime;
+            if (currentTime >= halfDay)
             {
-                SoundManager.Instance.PlayBGM((int)BGM.DAY);
-            }
-            //밤
-            else if(!day)
-            {
-                SoundManager.Instance.PlayBGM((int)BGM.NIGHT);
-            }
-
-            currentTime = 0;
-            
-
-            if (day == true)
-            {
-
-                suvDay++;
-
-                dayTxt.text = suvDay.ToString() + " Day";
-                dayIMG.fillAmount = 1;
-                nightIMG.fillAmount = 1;
+                day = !day;
 
 
 
+                //낮
+                if (day)
+                {
+                    SoundManager.Instance.PlayBGM((int)BGM.DAY);
+                }
+                //밤
+                else if (!day)
+                {
+                    SoundManager.Instance.PlayBGM((int)BGM.NIGHT);
+                }
 
-                Enemys = GameObject.FindGameObjectsWithTag("Enemy");
+                currentTime = 0;
 
-                if (Enemys.Length > 0)
+
+                if (day == true)
                 {
 
-                    foreach (GameObject _Enemy in Enemys)
-                    {
-                        _Enemy.GetComponent<EnemyCtrl>().EnemyDie();
+                    suvDay++;
 
+                    dayTxt.text = suvDay.ToString() + " Day";
+                    dayIMG.fillAmount = 1;
+                    nightIMG.fillAmount = 1;
+
+
+
+
+                    Enemys = GameObject.FindGameObjectsWithTag("Enemy");
+
+                    if (Enemys.Length > 0)
+                    {
+
+                        foreach (GameObject _Enemy in Enemys)
+                        {
+                            _Enemy.GetComponent<EnemyCtrl>().EnemyDie();
+
+                        }
                     }
                 }
+
             }
-
         }
-
 
         //if ( day == true)
         //{
@@ -469,30 +476,48 @@ public class StageManager : MonoBehaviour
 
 
 
-        if (PlayerList.Count == PhotonNetwork.room.PlayerCount)
-        {
-            deathCount = 0;
+        //if (PlayerList.Count == PhotonNetwork.room.PlayerCount)
+        //{
+        //    deathCount = 0;
 
-            foreach (GameObject pp in PlayerList)
-            {
-                if ( pp.GetComponent<PlayerMoveCtrl>().playerInfo.isAlive == false )
-                {
-                    deathCount++;
-                }
-            }
+        //    foreach (GameObject pp in PlayerList)
+        //    {
+        //        if ( pp.GetComponent<PlayerMoveCtrl>().playerInfo.isAlive == false )
+        //        {
+        //            deathCount++;
+        //        }
+        //    }
 
-            if (deathCount == PlayerList.Count)
-            {
-                Debug.Log("모든 플레이어 사망");
+        //    if (deathCount == PlayerList.Count)
+        //    {
+        //        Debug.Log("모든 플레이어 사망");
 
-                result.SetActive(true);
+        //        SurvivalDay.text = suvDay.ToString() + " 일 까지 생존";
 
                 
 
 
-            }
+        //        result.SetActive(true);
 
-        }
+        //        Enemys = GameObject.FindGameObjectsWithTag("Enemy");
+
+        //        if (Enemys.Length > 0)
+        //        {
+
+        //            foreach (GameObject _Enemy in Enemys)
+        //            {
+        //                _Enemy.GetComponent<EnemyCtrl>().EnemyDie();
+
+        //            }
+        //        }
+
+        //        gameEnd = true;
+
+
+
+        //    }
+
+        //}
 
 
 
@@ -565,6 +590,7 @@ public class StageManager : MonoBehaviour
     public void Exit()
     {
 
+        
         CancelInvoke();
         StopAllCoroutines();
 
