@@ -19,13 +19,6 @@ public class PreviewObject : MonoBehaviour
 
     GameObject previewUI;
 
-    void Awake()
-    {
-
-    }
-
-
-
     // Update is called once per frame
     void Update()
     {

@@ -431,7 +431,10 @@ MonoBehaviour:
   TargetTr: {fileID: 4688896320028735270}
   bullet: {fileID: 1139561341065012155, guid: da80fdea090e2404bb27402f7fd776b6, type: 3}
   firePos: {fileID: 872214552383240601}
-  fireSfx: {fileID: 0}
+  fireSfx: {fileID: 8300000, guid: ee81033553fa9a64fbd71e07ec7f4a6d, type: 3}
+  buildSfxList:
+  - {fileID: 8300000, guid: eb5d443b5822a2a4daa36b1db53401ce, type: 3}
+  - {fileID: 8300000, guid: 1dbf380620c33fd4da6b713e70223cd8, type: 3}
   rayDot: {fileID: 0}
   pv: {fileID: 0}
   playerId: -1

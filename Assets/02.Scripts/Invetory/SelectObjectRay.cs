@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-
+[RequireComponent(typeof(AudioSource))]
 public class SelectObjectRay : MonoBehaviour
 {
     Ray ray;
@@ -12,6 +12,7 @@ public class SelectObjectRay : MonoBehaviour
     int Pid;
     List<Rect> dontTouchArea = new List<Rect>();//터치불가능영역, UI영역
     PlayerMoveCtrl player;
+    public AudioClip selectSfx;
 
     void Awake()
     {
@@ -48,6 +49,7 @@ public class SelectObjectRay : MonoBehaviour
                         player.btnSet(hitInfo.collider.gameObject);
                         selectEffect.SetActive(true);
                         selectEffect.transform.position = new Vector3(hitInfo.transform.position.x, 0.1f, hitInfo.transform.position.z);
+                        SoundManager.Instance.PlayEffect(selectSfx, this.gameObject);
                     }
                     else if (hitInfo.collider.tag == "Ground")
                     { 
@@ -81,6 +83,7 @@ public class SelectObjectRay : MonoBehaviour
                                 player.btnSet(hitInfo.collider.gameObject);
                                 selectEffect.SetActive(true);
                                 selectEffect.transform.position = new Vector3(hitInfo.transform.position.x, 0.1f, hitInfo.transform.position.z);
+                                SoundManager.Instance.PlayEffect(selectSfx, this.gameObject);
                             }
                             else if (hitInfo.collider.tag == "Ground")
                             {

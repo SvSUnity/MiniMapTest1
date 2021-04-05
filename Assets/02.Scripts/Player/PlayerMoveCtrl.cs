@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+
+
 enum PLAYERSOUND
 {
     MOVE
 }
-
+[RequireComponent(typeof(AudioSource))]
 //플레이어정보
 public class PlayerInfo
 {

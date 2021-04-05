@@ -39,6 +39,7 @@ public class csTurret : MonoBehaviour
     
 
     public AudioClip fireSfx; //총탄의 발사 사운드 
+    public AudioClip[] buildSfxList;//건설사운드 건설중, 건설완료
 
 
     Ray ray; //Ray 정보 저장 구조체 
@@ -86,14 +87,12 @@ public class csTurret : MonoBehaviour
         // bullet = (GameObject)Resources.Load("Base/Bullet"); // 타입을 지정해주지 않으면 중복된 이름 중 프로젝트 영역에 있는 파일 가장 위가 선택되므로 하지 말것.
         // test = Resources.Load("Base/Bullet", typeof(Texture)) as Texture; // 형 변환을 이런 방법으로도 가능하다.
 
-        fireSfx = Resources.Load<AudioClip>("Base/bazooka"); // Load<파일타입> 형식도 되는듯?
-
         // 테스트 후 해당 변수들을 프라이빗으로 바꾸자
 
         myTr = transform.Find("turret_1").Find("Base").Find("Head");
 
         source = GetComponent<AudioSource>();
-
+        source.playOnAwake = false;
         
 
 
@@ -136,15 +135,9 @@ public class csTurret : MonoBehaviour
 
 
 
-        
-
-
-
-
-
-
-
-
+        //아바타에선 소리가 안나도록
+        if (!pv.isMine)
+            source.mute = true;
 
     }
 
@@ -152,9 +145,13 @@ public class csTurret : MonoBehaviour
     IEnumerator Start()
     {
         turret.SetActive(false);
-
+        source.loop = true;
+        SoundManager.Instance.PlayEffect(buildSfxList[0], this.gameObject);
         // 5초뒤 건설 완료
         yield return new WaitForSeconds(5.0f);
+        source.Stop();
+        source.loop = false;
+        SoundManager.Instance.PlayEffect(buildSfxList[1], this.gameObject);
 
         this.gameObject.tag = "Build";
 
@@ -405,7 +402,7 @@ public class csTurret : MonoBehaviour
 
                     //(포톤 추가)원격 네트워크 플레이어의 자신의 아바타 플레이어에는 RPC로 원격으로 FireStart 함수를 호출 
                     pv.RPC("ShotStart", PhotonTargets.Others, null);
-
+                    SoundManager.Instance.PlayEffect(fireSfx, this.gameObject);
                     //(포톤 추가)모든 네트웍 유저에게 RPC 데이타를 전송하여 RPC 함수를 호출, 로컬 플레이어는 로컬 Fire 함수를 바로 호출 
                     //pv.RPC("ShotStart", PhotonTargets.All, null);
 
