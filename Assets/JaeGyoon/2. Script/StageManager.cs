@@ -80,6 +80,9 @@ public class StageManager : MonoBehaviour
     private int deathCount = 0;
 
 
+    public GameObject result;
+    public AsyncOperation A0;
+
     void Awake()
     {
         if (StageManager.instance == null)
@@ -120,7 +123,7 @@ public class StageManager : MonoBehaviour
         day = true;
         SoundManager.Instance.PlayBGM((int)BGM.DAY);
 
-
+        
     }
 
 
@@ -478,18 +481,20 @@ public class StageManager : MonoBehaviour
                 }
             }
 
-            if ( deathCount == PlayerList.Count)
+            if (deathCount == PlayerList.Count)
             {
                 Debug.Log("모든 플레이어 사망");
+
+                result.SetActive(true);
+
+                
+
+
             }
 
         }
 
 
-      
-
-
-       
 
 
 
@@ -554,4 +559,23 @@ public class StageManager : MonoBehaviour
     {
         PhotonNetwork.LeaveRoom();
     }
+
+
+    
+    public void Exit()
+    {
+
+        CancelInvoke();
+        StopAllCoroutines();
+
+        PhotonNetwork.LeaveRoom();
+
+
+        A0 = SceneManager.LoadSceneAsync(1);
+        A0.allowSceneActivation = true;
+        Debug.Log(1);
+
+    }
+
+
 }
