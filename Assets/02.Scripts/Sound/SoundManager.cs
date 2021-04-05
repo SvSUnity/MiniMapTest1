@@ -20,7 +20,8 @@ public class SoundManager : MonoBehaviour
     AudioSource audio;
 
     //사운드바
-    public Slider sl;
+    public Slider BgmSl;
+    public Slider EffectSl;
 
     //뮤트버튼
     public Toggle tg;
@@ -50,6 +51,7 @@ public class SoundManager : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
     }
 
+
     void Start()
     {
         SoundBtn.SetActive(true);
@@ -58,7 +60,7 @@ public class SoundManager : MonoBehaviour
     public void AudioSet()
     {
         //AudioSource의 볼륨 셋팅 
-        audio.volume = sl.value;
+        audio.volume = BgmSl.value;
         //AudioSource의 Mute 셋팅 
         audio.mute = tg.isOn;
     }
@@ -102,5 +104,29 @@ public class SoundManager : MonoBehaviour
     {
         Sound.SetActive(false);
         SoundBtn.SetActive(true);
+    }
+
+    public void PlayEffect(AudioClip sfx, GameObject go)
+    {
+
+        AudioSource _source;
+        //뮤트상태면 재생X
+        if (tg.isOn)
+            return;
+
+        //오디오 소스를 가진 오브젝트에서만 실행되도록 구성
+        if (go.GetComponent<AudioSource>() != null)
+            _source = go.GetComponent<AudioSource>();
+        else
+            return;
+        //효과음반복재생목적
+        if (_source.isPlaying)
+            return;
+
+        _source.clip = sfx;
+        _source.volume = EffectSl.value;
+
+        _source.Play();
+
     }
 }

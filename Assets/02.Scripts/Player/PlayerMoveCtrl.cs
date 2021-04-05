@@ -3,7 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-//미니맵 각도계산에 참조하기위한 플레이어의 x,z
+enum PLAYERSOUND
+{
+    MOVE
+}
+
+//플레이어정보
 public class PlayerInfo
 {
 
@@ -30,7 +35,7 @@ public class PlayerInfo
             return _isAlive;
         }
         set
-        {
+        {   
             _isAlive = value;
         }
     }
@@ -41,7 +46,7 @@ public class PlayerMoveCtrl : MonoBehaviour
 {
     GameObject actionBtn;
     Text btnText;
-
+    public AudioClip[] playerSound;
     // CharacterController 컴포넌트를 위한 레퍼런스
     CharacterController controller;
     Transform myTr;
@@ -130,6 +135,7 @@ public class PlayerMoveCtrl : MonoBehaviour
 
     void Update()
     {
+
         if (Inventory.inventoryActivated)
             return;
         //사용자 자신이 조작할때만 움직임, 다른유저의 조작에 간섭X
@@ -141,14 +147,19 @@ public class PlayerMoveCtrl : MonoBehaviour
 
             
 
+            if(playerInfo.isAlive)
+            {
+                SetMoveDriection(h, v);
+                pv.RPC("SetMoveDriection", PhotonTargets.Others, h, v);
+            }
 
-            SetMoveDriection(h, v);
-            pv.RPC("SetMoveDriection", PhotonTargets.Others, h, v);
 
+            //조작을하고있을때만 미니맵마커회전
             if ((Mathf.Abs(playerInfo.playerVector.x) + Mathf.Abs(playerInfo.playerVector.z)) > 0)
             {
                 float ang = Mathf.Atan2(playerInfo.playerVector.z, playerInfo.playerVector.x) * Mathf.Rad2Deg *-1f;
                 PlayerBody.rotation = Quaternion.Euler(0, ang + 135f, 0);
+                
             }
 
             if (controller.isGrounded)
@@ -285,10 +296,12 @@ public class PlayerMoveCtrl : MonoBehaviour
         if (h != 0 || v  != 0)
         {
             anim.SetBool("Move", true);
+            playEffect((int)PLAYERSOUND.MOVE);
         }
         else
         {
             anim.SetBool("Move", false);
+            
         }
 
 
@@ -379,12 +392,6 @@ public class PlayerMoveCtrl : MonoBehaviour
             }
 
         }
-
-
-
-        
-
-
     }
 
 
@@ -432,16 +439,17 @@ public class PlayerMoveCtrl : MonoBehaviour
             Debug.Log("bug hp:" + hp);
         }
 
-
-
     }
 
-
-
-
-
-
-
+    public void playEffect(int num)
+    {
+        switch((PLAYERSOUND)num)
+        {
+            case PLAYERSOUND.MOVE:
+                SoundManager.Instance.PlayEffect(playerSound[(int)PLAYERSOUND.MOVE], this.gameObject);
+                break;
+        }
+    }
 }
 
 
