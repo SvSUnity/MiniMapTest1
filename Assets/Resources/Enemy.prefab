@@ -341,7 +341,7 @@ MonoBehaviour:
   enemyKind: 1
   hp: 100
   speed: 6
-  findDist: 30
+  findDist: 20
   traceDist: 15
   attackDist: 3
   hungryTimeSet: 0

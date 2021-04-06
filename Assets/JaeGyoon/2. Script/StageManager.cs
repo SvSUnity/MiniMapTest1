@@ -82,6 +82,9 @@ public class StageManager : MonoBehaviour
 
 
     public GameObject result;
+    public GameObject result2;
+
+    public int winDay;
 
     public Text SurvivalDay;
     public AsyncOperation A0;
@@ -447,6 +450,15 @@ public class StageManager : MonoBehaviour
 
                         }
                     }
+
+                    if ( suvDay >= winDay)
+                    {
+                        result2.SetActive(true);
+
+                        gameEnd = true;
+                    }
+
+
                 }
 
             }
