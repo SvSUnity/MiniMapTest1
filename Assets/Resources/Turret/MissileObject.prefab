@@ -123,7 +123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e94ab2fdd5274541b6ec79f6a165b0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  missileSpeed: 20
+  missileSpeed: 30
   missileRange: 20
-  missileDMG: 10
+  missileDMG: 40
   playerId: -1

@@ -19,7 +19,7 @@ public class csTurret : MonoBehaviour
 
     public Transform TargetTr; // 회전의 중심축 값을 저장하는 변수
 
-    private bool shot; // 발사 변수
+    bool shot; // 발사 변수
 
     private float enemyLookTime; // 적을 바라보는 회전 속도
 
@@ -48,9 +48,9 @@ public class csTurret : MonoBehaviour
 
     bool check; //Ray 센서를 위한 변수
 
-   // public LineRenderer rayLine; //레이저 발사를 위한 컴포넌트
+   
 
-    public Transform rayDot; //레이저 도트 타겟을 위한 변수
+   
 
     GameObject turret;
 
@@ -68,13 +68,10 @@ public class csTurret : MonoBehaviour
     //로컬  플레이어 연결 레퍼런스
     public PlayerCtrl localPlayer;
 
-    // 로비체크용 변수
-    public bool loby;
+    
     //////////////////////////////////////////////////////////
 
-
-
-    public MeshRenderer lifeBar;
+        
 
 
     private void Awake()
@@ -328,14 +325,8 @@ public class csTurret : MonoBehaviour
 
 
         //위에서 미리 생성한 ray를 인자로 전달, out(메서드 안에서 메서드 밖으로 데이타를 전달 할때 사용)hit, ray 거리
-        if (Physics.Raycast(ray, out hitInfo, 20.0f))
+        if (Physics.Raycast(ray, out hitInfo, 30.0f))
         {
-            Vector3 posValue = firePos.InverseTransformPoint(hitInfo.point); // hitInfo.point 는 월드좌표이다 따라서 로컬 좌표로 변환
-            //타겟 거리체크 레이저 생성
-            //rayLine.SetPosition(0, posValue);
-            //타겟에 레이저 Dot 생성 
-            //rayDot.localPosition = posValue;
-
             if (shot && hitInfo.collider.tag == "Enemy" && pv.isMine) // 포톤으로 && pv.isMine 추가.
             {
                 //발사를 위한 변수 true
@@ -356,7 +347,7 @@ public class csTurret : MonoBehaviour
 
 
 
-        if (pv.isMine || loby)
+        if (pv.isMine)
         {
 
             if (!shot)
@@ -380,7 +371,7 @@ public class csTurret : MonoBehaviour
                         enemyLookRotation = Quaternion.LookRotation(EnemyTarget.position - myTr.position); // - 해줘야 바라봄  
 
 
-                        myTr.rotation = Quaternion.Lerp(TargetTr.rotation, enemyLookRotation, Time.deltaTime * 2.0f);
+                        myTr.rotation = Quaternion.Lerp(TargetTr.rotation, enemyLookRotation, Time.deltaTime * 15.0f);
                         enemyLookTime = Time.time + 0.01f;
                     }
                 }
@@ -411,7 +402,7 @@ public class csTurret : MonoBehaviour
 
 
 
-                    bulletSpeed = Time.time + 0.3f;
+                    bulletSpeed = Time.time + 1.365f;
 
 
 

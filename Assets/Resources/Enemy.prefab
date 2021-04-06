@@ -423,6 +423,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Egglet
       objectReference: {fileID: 0}
+    - target: {fileID: 7610133508913661007, guid: 4cc22bc9bbfb9074782265ec91ae0660,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 7610133508914092141, guid: 4cc22bc9bbfb9074782265ec91ae0660,
         type: 3}
       propertyPath: m_LocalPosition.x
