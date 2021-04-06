@@ -316,6 +316,8 @@ public class csTurret : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        int layerMask = (1 << LayerMask.NameToLayer("Enemy"));
+
 
         ray.origin = firePos.position; // 레이의 시작점은 파이어포스의 위치.
 
@@ -325,7 +327,7 @@ public class csTurret : MonoBehaviour
 
 
         //위에서 미리 생성한 ray를 인자로 전달, out(메서드 안에서 메서드 밖으로 데이타를 전달 할때 사용)hit, ray 거리
-        if (Physics.Raycast(ray, out hitInfo, 30.0f))
+        if (Physics.Raycast(ray, out hitInfo, 30.0f, layerMask))
         {
             if (shot && hitInfo.collider.tag == "Enemy" && pv.isMine) // 포톤으로 && pv.isMine 추가.
             {

@@ -412,13 +412,13 @@ public class PlayerMoveCtrl : MonoBehaviour
             anim.SetTrigger("Die");
 
             yield return new WaitForSeconds(5.0f);
-            controller.enabled = true;
+
             anim.SetTrigger("Heal");
 
             yield return new WaitForSeconds(2.0f);
 
-
             playerInfo.isAlive = true;
+            controller.enabled = true;
             hp = maxLife;
 
             movSpeed = 5;
