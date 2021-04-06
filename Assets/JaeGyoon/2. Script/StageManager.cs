@@ -476,48 +476,48 @@ public class StageManager : MonoBehaviour
 
 
 
-        //if (PlayerList.Count == PhotonNetwork.room.PlayerCount)
-        //{
-        //    deathCount = 0;
+        if (PlayerList.Count == PhotonNetwork.room.PlayerCount)
+        {
+            deathCount = 0;
 
-        //    foreach (GameObject pp in PlayerList)
-        //    {
-        //        if ( pp.GetComponent<PlayerMoveCtrl>().playerInfo.isAlive == false )
-        //        {
-        //            deathCount++;
-        //        }
-        //    }
+            foreach (GameObject pp in PlayerList)
+            {
+                if (pp.GetComponent<PlayerMoveCtrl>().playerInfo.isAlive == false)
+                {
+                    deathCount++;
+                }
+            }
 
-        //    if (deathCount == PlayerList.Count)
-        //    {
-        //        Debug.Log("모든 플레이어 사망");
+            if (deathCount == PlayerList.Count)
+            {
+                Debug.Log("모든 플레이어 사망");
 
-        //        SurvivalDay.text = suvDay.ToString() + " 일 까지 생존";
-
-                
-
-
-        //        result.SetActive(true);
-
-        //        Enemys = GameObject.FindGameObjectsWithTag("Enemy");
-
-        //        if (Enemys.Length > 0)
-        //        {
-
-        //            foreach (GameObject _Enemy in Enemys)
-        //            {
-        //                _Enemy.GetComponent<EnemyCtrl>().EnemyDie();
-
-        //            }
-        //        }
-
-        //        gameEnd = true;
+                SurvivalDay.text = suvDay.ToString() + " 일 까지 생존";
 
 
 
-        //    }
 
-        //}
+                result.SetActive(true);
+
+                Enemys = GameObject.FindGameObjectsWithTag("Enemy");
+
+                if (Enemys.Length > 0)
+                {
+
+                    foreach (GameObject _Enemy in Enemys)
+                    {
+                        _Enemy.GetComponent<EnemyCtrl>().EnemyDie();
+
+                    }
+                }
+
+                gameEnd = true;
+
+
+
+            }
+
+        }
 
 
 
