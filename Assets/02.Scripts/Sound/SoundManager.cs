@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 enum BGM
 {
-    LOGIN,LOBBY,DAY,NIGHT
+    LOGIN,LOBBY,DAY,NIGHT,GAMEOVER
 }
 
 [RequireComponent(typeof(AudioSource))]
@@ -67,30 +67,33 @@ public class SoundManager : MonoBehaviour
 
     public void PlayBGM(int stage)
     {
-        switch((BGM)stage)
+        //기존재생중이던 BGM정지
+        audio.Stop();
+
+        //오디오클립설정
+        switch ((BGM)stage)
         {
+
             case BGM.LOGIN:
                 audio.clip = bgmList[(int)BGM.LOGIN];
-                AudioSet();
-                audio.Play();
                 break;
             case BGM.LOBBY:
-                audio.clip = bgmList[(int)BGM.LOBBY];
-                AudioSet();
-                audio.Play();
+                audio.clip = bgmList[(int)BGM.LOBBY];;
                 break;
             case BGM.DAY:
                 audio.clip = bgmList[(int)BGM.DAY];
-                AudioSet();
-                audio.Play();
                 break;
             case BGM.NIGHT:
                 audio.clip = bgmList[(int)BGM.NIGHT];
-                AudioSet();
-                audio.Play();
+                break;
+            case BGM.GAMEOVER:
+                audio.clip = bgmList[(int)BGM.GAMEOVER];
                 break;
 
         }
+        //소리세팅후 BGM재생
+        AudioSet();
+        audio.Play();
 
 
     }

@@ -23,6 +23,7 @@ public class StageManager : MonoBehaviour
 
     //게임 끝
     private bool gameEnd;
+    private bool endBgmOn = false;
 
     // 스테이지 Enemy들을 위한 레퍼런스
     private GameObject[] Enemys;
@@ -494,6 +495,7 @@ public class StageManager : MonoBehaviour
 
                 SurvivalDay.text = suvDay.ToString() + " 일 까지 생존";
 
+                
 
 
 
@@ -512,6 +514,11 @@ public class StageManager : MonoBehaviour
                 }
 
                 gameEnd = true;
+                if(gameEnd && !endBgmOn)
+                {
+                    endBgmOn = true;
+                    SoundManager.Instance.PlayBGM((int)BGM.GAMEOVER);
+                }
 
 
 
