@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 
 enum PLAYERSOUND
 {
-    MOVE
+    MOVE,DIE
 }
 [RequireComponent(typeof(AudioSource))]
 //플레이어정보
@@ -410,6 +410,7 @@ public class PlayerMoveCtrl : MonoBehaviour
             movSpeed = 0;
             controller.enabled = false;
             anim.SetTrigger("Die");
+            playEffect((int)PLAYERSOUND.DIE);
 
             yield return new WaitForSeconds(5.0f);
 
@@ -444,12 +445,15 @@ public class PlayerMoveCtrl : MonoBehaviour
 
     }
 
-    public void playEffect(int num)
+    void playEffect(int num)
     {
         switch((PLAYERSOUND)num)
         {
             case PLAYERSOUND.MOVE:
                 SoundManager.Instance.PlayEffect(playerSound[(int)PLAYERSOUND.MOVE], this.gameObject);
+                break;
+            case PLAYERSOUND.DIE:
+                SoundManager.Instance.PlayEffect(playerSound[(int)PLAYERSOUND.DIE], this.gameObject);
                 break;
         }
     }

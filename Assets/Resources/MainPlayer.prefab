@@ -71,6 +71,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerSound:
   - {fileID: 8300000, guid: f65c4ff197551410b9f70b804410c961, type: 3}
+  - {fileID: 8300000, guid: d8db50f09faae0a4eaa14be066e0cae0, type: 3}
   gravity: 20
   movSpeed: 5
   rotSpeed: 120
