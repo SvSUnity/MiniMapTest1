@@ -868,9 +868,7 @@ public class EnemyCtrl : MonoBehaviour
     IEnumerator Die()
     {
         
-        //밤에죽는것만 효과음재생 낮되서 자동으로 삭제될땐 재생X
-        if(!StageManager.instance.day && !StageManager.instance.gameEnd)
-            SoundManager.Instance.PlayEffect(dieSound, this.gameObject);
+
         isDie = true; // 죽었는지를 확인하는 변수를 true 처리
         //죽는 애니메이션 시작
         childAnim.CrossFade(anim.die.name, 0.3f);
@@ -893,14 +891,17 @@ public class EnemyCtrl : MonoBehaviour
             coll.enabled = false;
         }
 
-       // PhotonNetwork.Destroy(gameObject);
+        // PhotonNetwork.Destroy(gameObject);
 
-
+        if (!StageManager.instance.day && !StageManager.instance.gameEnd)
+            SoundManager.Instance.PlayEffect(dieSound, this.gameObject);
         //4.5 초후 오브젝트 삭제
         yield return new WaitForSeconds(0.1f);
         //Destroy(gameObject);
 
         GameObject enemyblood1 = Instantiate(enemyDestroyEffect, myTr.transform.position, Quaternion.identity) as GameObject;
+        //밤에죽는것만 효과음재생 낮되서 자동으로 삭제될땐 재생X
+
 
         PhotonNetwork.Destroy(gameObject);
 

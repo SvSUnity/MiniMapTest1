@@ -477,6 +477,7 @@ public class StageManager : MonoBehaviour
 
             if (deathCount == PlayerList.Count)
             {
+                gameEnd = true;
                 Debug.Log("모든 플레이어 사망");
 
                 SurvivalDay.text = suvDay.ToString() + " 일 까지 생존";
@@ -499,7 +500,7 @@ public class StageManager : MonoBehaviour
                     }
                 }
 
-                gameEnd = true;
+
                 if(gameEnd && !endBgmOn)
                 {
                     endBgmOn = true;
