@@ -23,7 +23,7 @@ public class StageManager : MonoBehaviour
 
 
     //게임 끝
-    private bool gameEnd;
+    public bool gameEnd;
     private bool endBgmOn = false;
 
     // 스테이지 Enemy들을 위한 레퍼런스

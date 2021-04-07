@@ -867,9 +867,10 @@ public class EnemyCtrl : MonoBehaviour
 
     IEnumerator Die()
     {
-
-
-        SoundManager.Instance.PlayEffect(dieSound, this.gameObject);
+        
+        //밤에죽는것만 효과음재생 낮되서 자동으로 삭제될땐 재생X
+        if(!StageManager.instance.day && !StageManager.instance.gameEnd)
+            SoundManager.Instance.PlayEffect(dieSound, this.gameObject);
         isDie = true; // 죽었는지를 확인하는 변수를 true 처리
         //죽는 애니메이션 시작
         childAnim.CrossFade(anim.die.name, 0.3f);

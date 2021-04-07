@@ -58,7 +58,7 @@ public class PlayerMoveCtrl : MonoBehaviour
     public float gravity = 20.0f;
 
     // 케릭터 이동속도
-    public float movSpeed = 5.0f;
+    public float moveSpeed = 5.0f;
     // 케릭터 회전속도
     public float rotSpeed = 120.0f;
     //케릭터 점프 속도
@@ -150,12 +150,9 @@ public class PlayerMoveCtrl : MonoBehaviour
 
             
 
-            if(playerInfo.isAlive)
-            {
-                SetMoveDriection(h, v);
-                pv.RPC("SetMoveDriection", PhotonTargets.Others, h, v);
-            }
 
+            SetMoveDriection(h, v);
+            pv.RPC("SetMoveDriection", PhotonTargets.Others, h, v);
 
             //조작을하고있을때만 미니맵마커회전
             if ((Mathf.Abs(playerInfo.playerVector.x) + Mathf.Abs(playerInfo.playerVector.z)) > 0)
@@ -196,9 +193,15 @@ public class PlayerMoveCtrl : MonoBehaviour
             Quaternion rot = Quaternion.Euler(0, 45f, 0f);//실제 맵은 쿼터뷰로 45도각도로 기울어져있으므로 방향을 45도돌려서계산
 
             moveDirection.y -= gravity * Time.deltaTime;// 디바이스마다 일정 속도로 케릭에 중력 적용
-            // CharacterController의 Move 함수에 방향과 크기의 벡터값을 적용(디바이스마다 일정)
-            controller.Move(rot * moveDirection * Time.deltaTime);
 
+
+            //게임이 진행중인동안에만 조작가능
+            if (!StageManager.instance.gameEnd)
+            {
+                controller.Move(rot * moveDirection * Time.deltaTime);// CharacterController의 Move 함수에 방향과 크기의 벡터값을 적용(디바이스마다 일정)
+            }
+            else
+                this.gameObject.GetComponent<AudioSource>().mute = true;
 
             if (hp <= 0)
             {
@@ -293,7 +296,7 @@ public class PlayerMoveCtrl : MonoBehaviour
     [PunRPC]
     void SetMoveDriection(float h, float v)
     {
-        moveDirection = new Vector3(h * movSpeed, 0, v * movSpeed);
+        moveDirection = new Vector3(h * moveSpeed, 0, v * moveSpeed);
         playerInfo.playerVector = moveDirection.normalized;
 
         if (h != 0 || v  != 0)
@@ -407,7 +410,7 @@ public class PlayerMoveCtrl : MonoBehaviour
         if ( pv.isMine)
         {
             playerInfo.isAlive = false;
-            movSpeed = 0;
+            moveSpeed = 0;
             controller.enabled = false;
             anim.SetTrigger("Die");
             PlayEffect((int)PLAYERSOUND.DIE);
@@ -422,7 +425,7 @@ public class PlayerMoveCtrl : MonoBehaviour
             controller.enabled = true;
             hp = maxLife;
 
-            movSpeed = 5;
+            moveSpeed = 5;
 
             deadCount = 0;
 
