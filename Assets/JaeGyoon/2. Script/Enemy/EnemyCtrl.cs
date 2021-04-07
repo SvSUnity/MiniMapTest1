@@ -6,8 +6,8 @@ using UnityEngine;
 using UnityEngine.AI;
 
 
-[System.Serializable]
 
+[System.Serializable]
 
 public class Anim // 이렇게 외부 변수로 클래스를 정의하면 다른 스크립트에서도 아래 목록을 가진 이 클래스를 사용할 수 있음.
 {
@@ -62,6 +62,8 @@ public class EnemyCtrl : MonoBehaviour
     //애니메이션 셀렉트(랜덤한 연출 )
     private float randAnimTime;
     private int randAnim;
+
+    public AudioClip dieSound;
 
 
     //자신과 타겟 Transform 참조 변수
@@ -867,7 +869,7 @@ public class EnemyCtrl : MonoBehaviour
     {
 
 
-
+        SoundManager.Instance.PlayEffect(dieSound, this.gameObject);
         isDie = true; // 죽었는지를 확인하는 변수를 true 처리
         //죽는 애니메이션 시작
         childAnim.CrossFade(anim.die.name, 0.3f);
@@ -918,6 +920,7 @@ public class EnemyCtrl : MonoBehaviour
 
 
         StopAllCoroutines(); // 모든 코루틴을 정지.
+
     }
 
 

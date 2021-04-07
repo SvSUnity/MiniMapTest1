@@ -331,6 +331,7 @@ MonoBehaviour:
     eat: {fileID: 7400000, guid: 959f892cba145dd4e88e1c419644eaed, type: 3}
     sleep: {fileID: 7400000, guid: 1e98bfdd81797334bb100fa9d6ca66a3, type: 3}
     die: {fileID: 7400000, guid: 1e98bfdd81797334bb100fa9d6ca66a3, type: 3}
+  dieSound: {fileID: 8300000, guid: 621df7cf89df00b4684bdce7ff280611, type: 3}
   myTr: {fileID: 0}
   traceTarget: {fileID: 0}
   hungryTime: 0

@@ -299,7 +299,7 @@ public class PlayerMoveCtrl : MonoBehaviour
         if (h != 0 || v  != 0)
         {
             anim.SetBool("Move", true);
-            playEffect((int)PLAYERSOUND.MOVE);
+            PlayEffect((int)PLAYERSOUND.MOVE);
         }
         else
         {
@@ -384,8 +384,8 @@ public class PlayerMoveCtrl : MonoBehaviour
             if ( other.tag == "EnemyWeapon")
             {
                 int monsterDMG = other.gameObject.GetComponent<EnemyAttackPoint>().power;
-
-                hp -= monsterDMG;                
+                
+                hp -= monsterDMG;
             }
 
 
@@ -410,7 +410,7 @@ public class PlayerMoveCtrl : MonoBehaviour
             movSpeed = 0;
             controller.enabled = false;
             anim.SetTrigger("Die");
-            playEffect((int)PLAYERSOUND.DIE);
+            PlayEffect((int)PLAYERSOUND.DIE);
 
             yield return new WaitForSeconds(5.0f);
 
@@ -445,7 +445,7 @@ public class PlayerMoveCtrl : MonoBehaviour
 
     }
 
-    void playEffect(int num)
+    void PlayEffect(int num)
     {
         switch((PLAYERSOUND)num)
         {
@@ -456,6 +456,13 @@ public class PlayerMoveCtrl : MonoBehaviour
                 SoundManager.Instance.PlayEffect(playerSound[(int)PLAYERSOUND.DIE], this.gameObject);
                 break;
         }
+    }
+
+    //플레이어 체력회복용로직
+    public void HpReset()
+    {
+
+        hp = maxLife;
     }
 }
 
