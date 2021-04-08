@@ -533,6 +533,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 83d646b9ca7f869448479692f4d1232a, type: 3}
   - {fileID: 8300000, guid: 09cbc0a7e0931fa458afec1b33e35a2f, type: 3}
   - {fileID: 8300000, guid: 7007dc9c5c6444970bdc37bd2b81721e, type: 3}
+  - {fileID: 8300000, guid: f175c8d5cb86d43c1bb29f65862edd4c, type: 3}
   BgmSl: {fileID: 703556993}
   EffectSl: {fileID: 531255449}
   tg: {fileID: 71484276}

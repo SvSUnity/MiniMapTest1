@@ -428,7 +428,7 @@ public class StageManager : MonoBehaviour
                     if ( suvDay >= winDay)
                     {
                         result2.SetActive(true);
-
+                        SoundManager.Instance.PlayBGM((int)BGM.WIN);
                         gameEnd = true;
                     }
 

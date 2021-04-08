@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 enum BGM
 {
-    LOGIN,LOBBY,DAY,NIGHT,GAMEOVER
+    LOGIN,LOBBY,DAY,NIGHT,GAMEOVER,WIN
 }
 
 [RequireComponent(typeof(AudioSource))]
@@ -88,6 +88,9 @@ public class SoundManager : MonoBehaviour
                 break;
             case BGM.GAMEOVER:
                 audio.clip = bgmList[(int)BGM.GAMEOVER];
+                break;
+            case BGM.WIN:
+                audio.clip = bgmList[(int)BGM.WIN];
                 break;
 
         }
