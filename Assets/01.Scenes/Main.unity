@@ -1487,6 +1487,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Turret: {fileID: 0}
   recoverySfx: {fileID: 8300000, guid: a2ae90e42daaf4723a539c25867d37fd, type: 3}
+  gameEnd: 0
   worldMap: {fileID: 2013147986}
   day: 0
   halfDay: 10
