@@ -108,13 +108,6 @@ public class PlayerMoveCtrl : MonoBehaviour
         //액션버튼
         actionBtn = GameObject.FindGameObjectWithTag("actionBtn");
 
-        //테스트용 버튼텍스트
-        //이곳에서 NULL 발생합니다.
-
-
-
-
-        //btnText = actionBtn.transform.Find("Text").GetComponent<Text>();
 
         inven = GameObject.FindGameObjectWithTag("Inventory").GetComponent<Inventory>();
         if (!pv.isMine)
@@ -127,8 +120,6 @@ public class PlayerMoveCtrl : MonoBehaviour
             Camera.main.GetComponent<smoothFollowCam>().target = this.transform;
         }
 
-
-        //lifeBar = GameObject.Find("HpBar").GetComponent<Image>();
 
         hp = maxLife;
 
@@ -359,8 +350,6 @@ public class PlayerMoveCtrl : MonoBehaviour
                 PhotonNetwork.Destroy(go);
                 btn.onClick.RemoveAllListeners();
                 actionBtn.GetComponent<Image>().sprite = imgList[0];
-                //SelectObjectRay so = GameObject.FindGameObjectWithTag("selectObject").GetComponent<SelectObjectRay>();
-                //so.SelectObjectDestroy();//오브젝트가 파괴됬음을 알림
             }
             else
                 Debug.Log("인벤토리 꽉참");

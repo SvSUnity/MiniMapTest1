@@ -13,7 +13,16 @@ public class SoundManager : MonoBehaviour
 {
     //싱글톤
     private static SoundManager _instance = null;
+    public static SoundManager Instance
+    {
+        get
+        {
+            if (_instance == null)
+                Debug.LogError("SoundMananager == null");
+            return _instance;
+        }
 
+    }
     //배경음리스트
     public AudioClip[] bgmList;
 
@@ -33,16 +42,7 @@ public class SoundManager : MonoBehaviour
     public GameObject SoundBtn;
 
     
-    public static SoundManager Instance
-    {
-        get
-        {
-            if(_instance == null)
-                Debug.LogError("SoundMananager == null");
-            return _instance;
-        }
 
-    }
 
     void Awake()
     {

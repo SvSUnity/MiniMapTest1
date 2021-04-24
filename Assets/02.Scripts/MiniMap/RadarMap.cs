@@ -57,10 +57,7 @@ public class RadarMap : MonoBehaviour
 
     public static void RegisterMapObject(GameObject o,int playerId)
     {
-        //Image image = Instantiate(i);
         Image image = null;
-        
-        /**NULL 발생 부분입니다.**/
         image = MinimapIconManager.instance.GetMinimapIcon(o.tag);
            
         mapObject.Add(new MapObject() { owner = o, icon = image , id = playerId});
@@ -68,13 +65,11 @@ public class RadarMap : MonoBehaviour
 
     public static void RemoveMapObject(GameObject o)
     {
-        //List<MapObject> newList = new List<MapObject>();
         for(int i = 0; i< mapObject.Count;i++)
         {
             
             if (mapObject[i].owner == o && mapObject[i].icon !=null)
             {
-                //Destroy(mapObject[i].icon.gameObject);
 
                 if (GameObject.FindGameObjectWithTag("MinimapManager") != null)
                 {
@@ -85,13 +80,8 @@ public class RadarMap : MonoBehaviour
                 else
                     return;
 
-                //continue;
             }
-            //else
-            //    newList.Add(mapObject[i]);
         }
-        //mapObject.RemoveRange(0, mapObject.Count);
-        //mapObject.AddRange(newList);
     }
     
     void DrawMapDots()
@@ -109,8 +99,8 @@ public class RadarMap : MonoBehaviour
 
           
             //미니맵 아이콘x,y
-            mapPos.x = dist2Object * Mathf.Cos(deltay * Mathf.Deg2Rad);
-            mapPos.z = dist2Object * Mathf.Sin(deltay * Mathf.Deg2Rad);
+            mapPos.x = dist2Object * Mathf.Cos(deltay * Mathf.Deg2Rad); 
+            mapPos.z = dist2Object * Mathf.Sin(deltay * Mathf.Deg2Rad); 
 
             m.icon.transform.SetParent(this.transform);
             m.icon.transform.position = new Vector3(mapPos.x, mapPos.z, 0) + this.transform.position;
