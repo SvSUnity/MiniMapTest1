@@ -27,7 +27,8 @@ public class LoginManager : MonoBehaviour
 
     public void LoginBtn()
     {
-        StartCoroutine(LoginCo());
+        SceneManager.LoadScene("Scene_A0");
+        //StartCoroutine(LoginCo());
     }
 
     IEnumerator LoginCo()
