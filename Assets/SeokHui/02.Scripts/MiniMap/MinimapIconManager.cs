@@ -37,7 +37,6 @@ public class MinimapIconManager : MonoBehaviour
             minimapIcon.transform.SetParent(transform);
             minimapIcon.gameObject.SetActive(false);
             enemyIcons.Add(minimapIcon);
-
         }
     }
 
@@ -49,7 +48,6 @@ public class MinimapIconManager : MonoBehaviour
             minimapIcon.transform.SetParent(transform);
             minimapIcon.gameObject.SetActive(false);
             playerIcons.Add(minimapIcon);
-
         }
     }
     void CreateTeamIcon(int teamCnt)
@@ -60,7 +58,6 @@ public class MinimapIconManager : MonoBehaviour
             minimapIcon.transform.SetParent(transform);
             minimapIcon.gameObject.SetActive(false);
             teamIcons.Add(minimapIcon);
-
         }
     }
 
@@ -125,10 +122,7 @@ public class MinimapIconManager : MonoBehaviour
                 }
                 break;
         }
-
         reqObject.gameObject.SetActive(true);
-
-
         return reqObject;
     }
 

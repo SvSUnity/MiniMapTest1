@@ -15,8 +15,6 @@ public class MapObject
         {
             return _icon;
         }
-        
-      
         set
         {
             _icon = value;
@@ -59,7 +57,6 @@ public class RadarMap : MonoBehaviour
     {
         Image image = null;
         image = MinimapIconManager.instance.GetMinimapIcon(o.tag);
-           
         mapObject.Add(new MapObject() { owner = o, icon = image , id = playerId});
     }
 
@@ -90,21 +87,18 @@ public class RadarMap : MonoBehaviour
         {
             //플레이어 위치를 중심으로 대상오브젝트의 상대적위치
             Vector3 mapPos = (m.owner.transform.position - playerPos.position);
-
             //실제 오브젝트 사이의 거리 * 맵스케일
             float dist2Object = Vector3.Distance(playerPos.position, m.owner.transform.position) * mapScale;
-
             //대상오브젝트의 절대각도
             float deltay = Mathf.Atan2(mapPos.z, mapPos.x) * Mathf.Rad2Deg+45; //+ playerPos.eulerAngles.y; 이거주석안하면 미니맵이 회전함
-
-          
             //미니맵 아이콘x,y
             mapPos.x = dist2Object * Mathf.Cos(deltay * Mathf.Deg2Rad); 
             mapPos.z = dist2Object * Mathf.Sin(deltay * Mathf.Deg2Rad); 
-
+            //미니맵 아이콘 위치 크기 세팅
             m.icon.transform.SetParent(this.transform);
             m.icon.transform.position = new Vector3(mapPos.x, mapPos.z, 0) + this.transform.position;
             m.icon.transform.localScale = new Vector3(rect.rect.width*0.01f, rect.rect.width * 0.01f, rect.rect.width * 0.01f);
+
             if (m.owner.layer == LayerMask.NameToLayer("Player"))
             {
                 player = m.owner.GetComponent<PlayerMoveCtrl>();//내캐릭터의 플레이어스크립트가져옴
@@ -113,27 +107,14 @@ public class RadarMap : MonoBehaviour
                     float ang = Mathf.Atan2(player.playerInfo.playerVector.z, player.playerInfo.playerVector.x) * Mathf.Rad2Deg;
                     m.icon.transform.rotation = Quaternion.Euler(0, 0, ang);
                 }
-
             }
             else if(m.owner.layer == LayerMask.NameToLayer("Enemy"))
             {
                 EnemyCtrl enemyDestination = m.owner.GetComponent<EnemyCtrl>();
                 Vector3 v = enemyDestination.targetInfo.target - m.owner.transform.position;
-
-                //Debug.Log(enemyDestination.destination);
                 float ang = Mathf.Atan2(v.z, v.x) * Mathf.Rad2Deg;
                 m.icon.transform.rotation = Quaternion.Euler(0, 0, ang+45f);
             }
-            //else if (m.owner.tag == "TeamPlayer")
-            //{
-            //    player = m.owner.GetComponent<PlayerMoveCtrl>();//아군캐릭터의 플레이어 스크립트 가져옴
-            //    if ((Mathf.Abs(player.playerInfo.plyaerVector.x) + Mathf.Abs(player.playerInfo.plyaerVector.z)) > 0)
-            //    {
-            //          float ang = Mathf.Atan2(player.playerInfo.plyaerVector.z, player.playerInfo.plyaerVector.x) * Mathf.Rad2Deg;
-            //          m.icon.transform.rotation = Quaternion.Euler(0, 0, ang);
-            //    }
-            //}
-               
         }
     }
     
@@ -149,24 +130,11 @@ public class RadarMap : MonoBehaviour
             DrawMapDots();
     }
     
-
-    [ContextMenu("ShowList")]
-    void ShowList()
-    {
-        foreach(MapObject m in mapObject)
-        {
-            Debug.Log(m.owner);
-        }
-    }
-
-
     public void SetPlayerPos(GameObject go)
     {
         //포톤서버에서 캐릭터 생성시 포지션가져옴
         playerPos = go.transform;
     }
-
-
     void OnDestroy()
     {
         mapObject.Clear();
